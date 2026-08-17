@@ -4,7 +4,13 @@
 
 A free, fast, text-based browser game about surviving a career in tech. Dark industry humor included: TC, RSUs, LeetCode, layoffs, on-call, and the memo with the word "journey" in it.
 
-**Status:** Full game + viral engine — **139 scenarios** across 15 career years and three macro-paths (Big Tech / startup employee / founder). Every year is a *scenario pool* (39 hubs + 100 alternate variants) and each run deals a different hand, so no two careers play the same. Includes the Year 6 **Tech Winter** layoff event on every path, 7 rewarded-ad mock choices, 7 RNG events, net-worth-tiered endings, and a complete share loop: run-seeded share links, personalized Open Graph cards (`/api/og`), and a challenge banner for invited friends. See [PLAN.md](./PLAN.md) for the build plan and roadmap.
+**Status:** Full game + viral engine — **200 scenarios** across 15 career years and three macro-paths (Big Tech / startup employee / founder). Every year is a *scenario pool* (39 hubs + 161 alternate variants) and each run deals a different hand, so no two careers play the same. Includes:
+
+- **61 risk/gamble choices** with the odds of every outcome shown up front — the player reads the probabilities and decides (company sales, IPO timing, salary bluffs, whale demos, coups).
+- **22 achievements with prizes** unlocked mid-run — exits, IPO bells, fat bonuses, winter survival, millionaire milestones, lucky rolls — each granting a cash or burnout reward, displayed as toasts and collected on the final scorecard.
+- The Year 6 **Tech Winter** layoff event on every path, 7 rewarded-ad mock choices, 7 RNG events, net-worth-tiered endings, and a complete share loop: run-seeded share links, personalized Open Graph cards (`/api/og`), and a challenge banner for invited friends.
+
+See [PLAN.md](./PLAN.md) for the build plan and roadmap.
 
 ## Quick start
 
@@ -35,3 +41,5 @@ Content is organized into **pools**: each career-year story beat has a *hub* sce
 - **New variant** (most common): add a `Scenario` to the right `lib/scenarios/yearNN.ts` with `slot` set to an existing hub id, and point its choices' `next` at next-year hub ids. It's instantly in rotation.
 - **New hub/branch**: add a scenario without `slot` and point an existing choice's `next` at it.
 - A choice outcome with no `next` ends the run (`ending: "retired"` by default). Set `requiresAd: true` + `adFallback` to make a choice a rewarded-ad path.
+- **Risky choice**: give a choice `gamble: [...]` instead of `outcome` — 2-3 weighted outcomes, each with a `chance` (sums to 1) and a short `label`; the UI shows the odds before the player commits.
+- **Achievement**: tag any outcome with `achievement: "<id>"` from `ACHIEVEMENTS` in `lib/gameLogic.ts` (or add a new one there). Title-based ones (founder, exec, exit, IPO...) and stat milestones unlock automatically.

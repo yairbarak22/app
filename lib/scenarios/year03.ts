@@ -341,4 +341,178 @@ export const YEAR_03: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y3-counter-poker",
+    year: 3,
+    age: 24,
+    slot: "y3-bigtech-efficiency",
+    headline: "The Ultimatum Cycle",
+    text:
+      "Reorg season, and your promo is 'deferred pending headcount clarity' for the second cycle. A director in a sister org whispers that squeaky wheels are getting retained AND promoted right now — leadership fears attrition more than precedent. You could make an ultimatum. During a reorg. Bold move, Cotton.",
+    choices: [
+      {
+        id: "heads-down-safe",
+        label: "Keep your head down — reorgs eat the loud first",
+        outcome: {
+          text:
+            "You stay quiet, ship steadily, and let the reorg pass over you like weather. The promo arrives a cycle late with no drama attached. Boring, effective, alive: the reorg survivor's triad.",
+          effect: { netWorth: 40_000, burnout: 10 },
+          next: "y4-bigtech-handcuffs",
+        },
+      },
+      {
+        id: "promo-ultimatum",
+        label: "Deliver the ultimatum — promo this cycle or I walk",
+        gamble: [
+          {
+            chance: 0.6,
+            label: "It works — promo plus a retention grant",
+            text:
+              "Forty-eight hours after your carefully-worded 'career conversation,' the deferred promo un-defers itself and a retention grant appears like an apology. Fear of attrition: the most reliable budget line in tech.",
+            effect: { netWorth: 70_000, burnout: 10, title: "Senior SWE @ Big Tech" },
+            achievement: "big-bonus",
+            next: "y4-bigtech-handcuffs",
+          },
+          {
+            chance: 0.4,
+            label: "Called — your name moves UP the layoff list",
+            text:
+              "Your ultimatum reaches a VP who's cutting 15% and grateful for volunteers. 'We'll accept your timeline' means you're out in the reorg wave with standard severance and a lesson about reading rooms during winters.",
+            effect: { netWorth: 15_000, burnout: 20, title: "SWE II (Ultimatum Backfired)" },
+            next: "y4-open-market",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y3-hackathon-allin",
+    year: 3,
+    age: 24,
+    slot: "y3-bigtech-efficiency",
+    headline: "The $50K Hackathon",
+    text:
+      "The annual company hackathon ups the stakes: $50K cash to the winning team, plus a promo fast-track. Two hundred teams enter. Your idea is genuinely good; your competition includes an intern team that's been 'exploring LLMs' suspiciously professionally. One week. All in, or ship the roadmap?",
+    choices: [
+      {
+        id: "skip-hackathon",
+        label: "Skip it — the roadmap doesn't ship itself",
+        outcome: {
+          text:
+            "You ship the quarter while the office fills with energy drinks and hubris. The winning demo is impressive; your shipped feature is real. Both statements will appear in different people's promo packets.",
+          effect: { netWorth: 45_000, burnout: 5 },
+          next: "y4-bigtech-handcuffs",
+        },
+      },
+      {
+        id: "allin-hackathon",
+        label: "Go all in — one week, one demo, $50K",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "You win — $50K and a promo fast-track",
+            text:
+              "Your demo makes the CTO laugh and then makes him quiet, which is the good sequence. The $50K clears, the fast-track engages, and the intern team asks to join YOUR project. Best week of your career so far.",
+            effect: { netWorth: 65_000, burnout: 15, title: "SWE II (Hackathon Champion)" },
+            achievement: "big-bonus",
+            next: "y4-bigtech-handcuffs",
+          },
+          {
+            chance: 0.7,
+            label: "The intern LLM team wins — you get a t-shirt",
+            text:
+              "The interns' agent demo does something genuinely unholy and takes the crown. You place top ten, earn a t-shirt sized XXL-only, and lose a week of roadmap. The demo you built quietly becomes a real feature next year — uncredited, naturally.",
+            effect: { netWorth: 40_000, burnout: 15 },
+            next: "y4-bigtech-handcuffs",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y3-hold-or-sell",
+    year: 3,
+    age: 24,
+    slot: "y3-startup-seriesa",
+    headline: "Diamond Hands, Startup Edition",
+    text:
+      "The Series A brings a small secondary window: you can sell a slice of your vested equity at the new price, once, this month. The VCs project the next round at 2-3x 'based on pipeline.' VCs also projected your competitor's round, which didn't happen. One-time window. Choose your hands.",
+    choices: [
+      {
+        id: "sell-a-slice",
+        label: "Sell a modest slice — first real money wins",
+        outcome: {
+          text:
+            "You sell 8% of your stake and experience the novel sensation of a bank account with a comma. The rest rides. Diversification at 24: your future self starts a gratitude journal.",
+          effect: { netWorth: 50_000, burnout: 5 },
+          next: "y4-startup-scale",
+        },
+      },
+      {
+        id: "hold-everything",
+        label: "Hold everything — the next round reprices it all",
+        gamble: [
+          {
+            chance: 0.35,
+            label: "Next round doubles — your stake balloons",
+            text:
+              "Fourteen months later the B closes at 2.4x and your unsold stake is worth a small house in a mid-size city. The 'pipeline' was real this once. You become insufferable about conviction for exactly one fundraising cycle.",
+            effect: { netWorth: 90_000, burnout: 10 },
+            next: "y4-startup-scale",
+          },
+          {
+            chance: 0.65,
+            label: "Flat round — window closed, paper stays paper",
+            text:
+              "The next round lands flat 'in this environment,' and the secondary window never reopens. Your equity remains a strongly-held opinion. The slice you didn't sell would have been a car. You bike to work now, for exercise, you tell everyone.",
+            effect: { netWorth: 10_000, burnout: 15 },
+            next: "y4-startup-scale",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y3-liftout-gamble",
+    year: 3,
+    age: 24,
+    slot: "y3-startup-seriesa",
+    headline: "The Lift-Out",
+    text:
+      "A rival startup's CEO makes an unusual offer over an expensive dinner: not just you — your whole three-person pod, hired as a unit, with you as the lead. A 'lift-out,' he calls it, like you're a kidney. The catch: you have to recruit your own teammates out, quietly, before your founder hears.",
+    choices: [
+      {
+        id: "decline-liftout",
+        label: "Decline — you don't strip-mine your own team",
+        outcome: {
+          text:
+            "You pass on the dinner's proposition and sleep clean. The rival CEO respects it, weirdly, and tells people you're 'loyal to a fault' — a review that follows you around and opens more doors than it closes.",
+          effect: { netWorth: 12_000, burnout: 10 },
+          next: "y4-startup-scale",
+        },
+      },
+      {
+        id: "attempt-liftout",
+        label: "Run the lift-out — team package, you as lead",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Clean extraction — all three hired, you lead",
+            text:
+              "Three resignations land on the founder's desk in one morning, choreographed like a heist. The rival honors everything: team intact, you leading, comp corrected across the board. Your old founder subtweets for a month. Your new team ships like they've been together for years — because they have.",
+            effect: { netWorth: 55_000, burnout: 10, title: "Team Lead (Lift-Out)" },
+            next: "y4-startup-scale",
+          },
+          {
+            chance: 0.5,
+            label: "The plan leaks — you're radioactive at both companies",
+            text:
+              "One teammate tells his girlfriend, who knows the founder's sister. The confrontation is public, the rival CEO 'pauses the conversation' to avoid drama, and you spend a year as 'the one who tried to poach the pod.' Survivable. Educational. Loud.",
+            effect: { netWorth: 5_000, burnout: 20 },
+            next: "y4-startup-scale",
+          },
+        ],
+      },
+    ],
+  },
 ];

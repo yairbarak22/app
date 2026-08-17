@@ -291,4 +291,133 @@ export const YEAR_15: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y15-double-or-nothing",
+    year: 15,
+    age: 36,
+    slot: "y15-laststandup",
+    headline: "Double or Nothing",
+    text:
+      "On your last week in the industry, the best founder you've ever met pitches you her company — and the allocation she's offering needs a $400K check, a quarter of your liquid pile. It's the single best risk/reward you've seen in fifteen years. It's also your retirement money, asking to go one more round.",
+    choices: [
+      {
+        id: "keep-it-boring",
+        label: "Decline — the pile's job now is staying a pile",
+        outcome: {
+          text:
+            "You pass on the best deal you've ever seen, because the money already won its game. She raises without you in a week (of course), and you retire with a clean pile and one great 'the one that got away' story to tell on porches.",
+          effect: { burnout: -30, title: "Retired (Disciplined)" },
+          ending: "retired",
+        },
+      },
+      {
+        id: "one-last-check",
+        label: "Write the $400K — one final bet on the way out",
+        gamble: [
+          {
+            chance: 0.25,
+            label: "She's generational — the check triples your exit",
+            text:
+              "Three years into your retirement, her company becomes the one everyone pretends they saw coming. Your final check returns 3x while you're literally gardening. The last bet of your career turns out to be the best one — placed on the way out the door, like a mic drop with interest.",
+            effect: { netWorth: 800_000, burnout: -20, title: "Retired (The Last Bet Legend)" },
+            ending: "retired",
+          },
+          {
+            chance: 0.75,
+            label: "It fizzles — an expensive goodbye present",
+            text:
+              "The best risk/reward you ever saw performs like most of them do: bravely, then not. The $400K becomes a cap-table epitaph and a lesson you already knew. The pile is smaller; the retirement survives it; the story costs exactly what it's worth at dinners.",
+            effect: { netWorth: -400_000, burnout: -15, title: "Retired (It Was Worth a Shot)" },
+            ending: "retired",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y15-hold-the-rocket",
+    year: 15,
+    age: 36,
+    slot: "y15-laststandup",
+    headline: "One More Earnings Call",
+    text:
+      "Your single biggest position — the old employer's stock you never fully sold — reports earnings the week you plan to cash out and retire. Sell now: clean exit at a known number. Hold through the print: one final spin of a wheel you've watched spin for fifteen years. The wheel does not know it's your last spin. Wheels never do.",
+    choices: [
+      {
+        id: "sell-before-print",
+        label: "Sell before earnings — retire on a known number",
+        outcome: {
+          text:
+            "You liquidate at Tuesday's price and turn off the ticker forever. Whatever Thursday's print does, it does to someone else's spreadsheet. Retirement begins with a number you chose, not one you survived.",
+          effect: { netWorth: 100_000, burnout: -25, title: "Retired (Clean Exit)" },
+          ending: "retired",
+        },
+      },
+      {
+        id: "hold-through-print",
+        label: "Hold through the print — one last spin",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Blowout quarter — you time the exact top",
+            text:
+              "The print is a blowout, the stock gaps up 30%, and you sell into the euphoria like a legend timing their own farewell. Fifteen years of watching the wheel, and the final spin lands on your number. Retire immediately. Tell everyone. Forever.",
+            effect: { netWorth: 400_000, burnout: -20, title: "Retired (Timed the Top)" },
+            ending: "retired",
+          },
+          {
+            chance: 0.5,
+            label: "Guidance cut — the farewell haircut",
+            text:
+              "The quarter's fine; the guidance isn't. The stock gives back a year of gains in an afternoon, and your retirement number takes a haircut on its way out the door. Still enough — it was always going to be enough — but the wheel's goodbye was a lesson, not a gift.",
+            effect: { netWorth: -200_000, burnout: -10, title: "Retired (Almost Timed It)" },
+            ending: "retired",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y15-legacy-bet",
+    year: 15,
+    age: 36,
+    slot: "y15-laststandup",
+    headline: "The Chairman's Gamble",
+    text:
+      "Your final industry decision: two operators you trust want to build 'the company you always talked about' — with your money, your playbook, and your name as founding chairman. You'd never work a day; you'd risk a real check. It's retirement with a lottery ticket stapled to it, or a lottery ticket with retirement stapled to it. Depends who's asking.",
+    choices: [
+      {
+        id: "patron-small",
+        label: "Small checks only — retire as a patron, not a partner",
+        outcome: {
+          text:
+            "You write them a modest angel check, decline the chairman seat, and head for the porch. The company gets built a little slower without your name on it. Your retirement gets built exactly on schedule, with it.",
+          effect: { netWorth: -50_000, burnout: -25, title: "Retired (Patron)" },
+          ending: "retired",
+        },
+      },
+      {
+        id: "fund-and-chair",
+        label: "Fund it properly — founding chairman, hands off",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "It becomes a unicorn — without you sweating once",
+            text:
+              "The operators execute your old playbook better than you ever did — annoyingly, gloriously better. Five years into your retirement, the company you funded from a porch crosses a billion in value, and 'founding chairman' becomes the easiest money of your entire career. The last laugh, compounding.",
+            effect: { netWorth: 600_000, burnout: -15, title: "Chairman (Lucky Last Act)" },
+            ending: "retired",
+          },
+          {
+            chance: 0.7,
+            label: "It fizzles pleasantly — the dream cost a check",
+            text:
+              "The company runs four good years and lands softly in a modest acquihire — everyone employed, nobody rich. Your check bought two operators their shot and you a quiet pride with a price tag. The dream got funded. That was always the point. The porch remains excellent.",
+            effect: { netWorth: -150_000, burnout: -20, title: "Retired (Funded the Dream)" },
+            ending: "retired",
+          },
+        ],
+      },
+    ],
+  },
 ];

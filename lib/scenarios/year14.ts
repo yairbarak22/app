@@ -334,4 +334,133 @@ export const YEAR_14: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y14-package-bet",
+    year: 14,
+    age: 35,
+    slot: "y14-legacy",
+    headline: "The Voluntary Exit Bet",
+    text:
+      "A restructuring opens one last voluntary package: a year's pay to walk. Your plan B is consulting — your name should fill a client book fast, says everyone who isn't personally betting a year's salary on it. The package window closes Friday. The consulting market's opinion arrives only after you've jumped.",
+    choices: [
+      {
+        id: "stay-employed",
+        label: "Decline the package — the paycheck is a fine hammock",
+        outcome: {
+          text:
+            "You let the window close and keep the badge, banking another year of maximum-earnings comfort. The consulting dream keeps its spot on the someday shelf, next to the novel and the pizza oven.",
+          effect: { netWorth: 100_000, burnout: 10 },
+          next: "y15-laststandup",
+        },
+      },
+      {
+        id: "take-package-consult",
+        label: "Take the package — bet the year's pay on your own name",
+        gamble: [
+          {
+            chance: 0.6,
+            label: "Book fills in a month — severance becomes pure profit",
+            text:
+              "Your name works harder than you did: three anchor clients sign inside five weeks, at rates that make the old salary look quaint. The package money never gets touched — it just sits there, a year's pay earned for leaving. The someday shelf empties beautifully.",
+            effect: { netWorth: 180_000, burnout: -10, title: "Consultant (In Demand)" },
+            next: "y15-laststandup",
+          },
+          {
+            chance: 0.4,
+            label: "Slow start — six months of polite maybes",
+            text:
+              "The market likes your name and books 'exploratory calls' with it for two full quarters before anyone signs. The package money does its actual job — bridging — and the book eventually fills, later and leaner than the dream. Betting on yourself: right call, rough spread.",
+            effect: { netWorth: 20_000, burnout: 10, title: "Consultant (Eventually)" },
+            next: "y15-laststandup",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y14-price-the-pop",
+    year: 14,
+    age: 35,
+    slot: "y14-finalact",
+    headline: "Pricing Night",
+    text:
+      "The book is covered and pricing night arrives. The bankers recommend the 'orderly' price — leave money on the table, buy a first-day pop, make everyone's chart pretty. Pricing aggressive keeps that money for the company and the sellers (you) — unless the stock breaks issue and 'broken IPO' leads every story forever.",
+    choices: [
+      {
+        id: "bankers-price",
+        label: "Take the bankers' price — buy the pop, sell the story",
+        outcome: {
+          text:
+            "You price orderly, pop 40% at the open, and watch CNBC call it 'a blockbuster debut' — of money that was yours this morning. The chart is gorgeous. The table money is gone. The trade was fame for float, and fame trades rich.",
+          effect: { netWorth: 1_500_000, burnout: 10, title: "Founder & CEO (Public)" },
+          next: "y15-laststandup",
+        },
+      },
+      {
+        id: "price-aggressive",
+        label: "Price aggressive — keep the table money",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "It sticks — maximum proceeds, no discount",
+            text:
+              "The aggressive price holds through the open and closes up a modest, dignified 6%. No fireworks, no headlines — just hundreds of millions that stayed with the company and the people who built it instead of the pop-chasers. The bankers sulk beautifully.",
+            effect: { netWorth: 2_500_000, burnout: 15, title: "Founder & CEO (Public)" },
+            next: "y15-laststandup",
+          },
+          {
+            chance: 0.5,
+            label: "Breaks issue — 'broken IPO' leads every story",
+            text:
+              "The stock slips under the offer price by lunch, and 'broken IPO' becomes the phrase glued to your ticker for two quarters. The proceeds were real and enormous; the narrative tax is also real, paid in every earnings-call preamble until the numbers drown it out.",
+            effect: { netWorth: 900_000, burnout: 25, title: "Founder & CEO (Public)" },
+            next: "y15-laststandup",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y14-lockup-ride",
+    year: 14,
+    age: 35,
+    slot: "y14-finalact",
+    headline: "The Lockup Question",
+    text:
+      "You're public, paper-rich, and locked up for 180 days while the stock does whatever it wants with your net worth. A bank offers a hedging collar — cap your upside, floor your downside, sleep like a CFO. Riding it naked means the full rocket or the full crater, live-streamed to your banking app.",
+    choices: [
+      {
+        id: "collar-it",
+        label: "Take the collar — floor the downside, sleep at night",
+        outcome: {
+          text:
+            "You cap the dream to kill the nightmare, locking a range that guarantees wealthy-forever regardless of what the ticker does at 3 AM. The stock finishes inside the collar anyway, which the bank calls 'a well-priced structure' and you call 'six months of naps.'",
+          effect: { netWorth: 1_000_000, burnout: 5 },
+          next: "y15-laststandup",
+        },
+      },
+      {
+        id: "ride-naked",
+        label: "Ride the lockup naked — full exposure, full faith",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "Stock doubles by lockup — the full rocket",
+            text:
+              "Two beat-and-raise quarters inside the lockup send the stock up 2x by the day you can finally sell. Your unhedged conviction pays in full, publicly, with the whole cap table watching. The banking app's push notifications become a genre of joy.",
+            effect: { netWorth: 2_200_000, burnout: 10 },
+            next: "y15-laststandup",
+          },
+          {
+            chance: 0.55,
+            label: "Earnings miss — halved before you can sell",
+            text:
+              "Quarter two misses by a hair, the stock halves with the sector, and your lockup expires into the crater. Still wealthy — the numbers were always life-changing — but the collar you declined becomes the ghost at every future dinner party, clinking its chains politely.",
+            effect: { netWorth: 500_000, burnout: 20 },
+            next: "y15-laststandup",
+          },
+        ],
+      },
+    ],
+  },
 ];

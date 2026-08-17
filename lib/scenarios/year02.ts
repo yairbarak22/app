@@ -324,4 +324,176 @@ export const YEAR_02: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y2-weekend-rewrite",
+    year: 2,
+    age: 23,
+    slot: "y2-bigtech-oncall",
+    headline: "The Weekend Rewrite Bet",
+    text:
+      "In a moment of caffeinated hubris, you tell your manager the flaky payments service 'could be rewritten in a weekend.' The room goes quiet. He says: 'Prove it. Monday demo, or we do the safe six-month plan.' You have said the thing. Now the thing has you.",
+    choices: [
+      {
+        id: "safe-six-months",
+        label: "Walk it back — propose the careful quarter-long fix",
+        outcome: {
+          text:
+            "You un-say the brave thing and write a sensible migration doc instead. The fix ships in a quarter, boringly and correctly. Your manager appreciates the maturity. Your ego files the weekend under 'unfinished business.'",
+          effect: { netWorth: 45_000, burnout: 10 },
+          next: "y3-bigtech-efficiency",
+        },
+      },
+      {
+        id: "bet-the-weekend",
+        label: "Bet the weekend — ship the rewrite by Monday standup",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "It works — Monday demo makes you a legend",
+            text:
+              "Forty hours, nine pizzas, one existential crisis at 3 AM Sunday — and Monday's demo handles triple the load with half the errors. The VP forwards the demo video org-wide. 'The weekend rewrite' enters company folklore with your name attached.",
+            effect: { netWorth: 60_000, burnout: 20, title: "SWE II (Weekend Legend)" },
+            next: "y3-bigtech-efficiency",
+          },
+          {
+            chance: 0.45,
+            label: "It breaks prod Monday morning",
+            text:
+              "The rewrite demos beautifully — then meets real traffic and folds like a lawn chair. Checkout hiccups for 20 minutes while you revert with shaking hands. The postmortem is kind; the lesson is permanent: production is undefeated.",
+            effect: { netWorth: 30_000, burnout: 25 },
+            next: "y3-bigtech-efficiency",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y2-cfp-lottery",
+    year: 2,
+    age: 23,
+    slot: "y2-bigtech-oncall",
+    headline: "The CFP Lottery",
+    text:
+      "The biggest conference in your stack opens its call for proposals, and your draft about taming the legacy pager beast is... actually good? Acceptance rate: brutal. Upside: your name on a stage at 23. Your manager says 'go for it' in the tone of someone who has seen many CFPs die.",
+    choices: [
+      {
+        id: "skip-the-cfp",
+        label: "Skip it — conference fame can wait, the roadmap can't",
+        outcome: {
+          text:
+            "You close the CFP tab and ship the quarter instead. The conference happens without you; the roadmap doesn't. There's always next year, says everyone, annually, forever.",
+          effect: { netWorth: 43_000, burnout: 0 },
+          next: "y3-bigtech-efficiency",
+        },
+      },
+      {
+        id: "submit-the-talk",
+        label: "Submit the talk and prep like it's already accepted",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Accepted — a stage at 23 and instant visibility",
+            text:
+              "The acceptance email arrives during standup and you play it extremely cool for four seconds. The talk lands, the hallway track adopts you, and two staff engineers from other companies start reviewing your PRs for fun. Visibility: unlocked years early.",
+            effect: { netWorth: 50_000, burnout: 10, title: "SWE II (Conference Speaker)" },
+            next: "y3-bigtech-efficiency",
+          },
+          {
+            chance: 0.6,
+            label: "Rejected — but the prep becomes an internal hit",
+            text:
+              "The form rejection stings for a day. Then you give the talk internally anyway, and it becomes required onboarding viewing. The conference lost; the company won; the deck lives forever in the wiki.",
+            effect: { netWorth: 42_000, burnout: 5 },
+            next: "y3-bigtech-efficiency",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y2-early-buyin",
+    year: 2,
+    age: 23,
+    slot: "y2-startup-ramen",
+    headline: "The Early Buy-In",
+    text:
+      "The founder, needing bridge cash, offers the team a rare deal: buy additional shares now at the seed price, before the next round 'definitely reprices everything.' Your savings account holds exactly one emergency fund. The math is either a generational entry point or lighting your rent money on fire.",
+    choices: [
+      {
+        id: "keep-the-cushion",
+        label: "Pass — an emergency fund is not investment capital",
+        outcome: {
+          text:
+            "You keep the cushion and sleep like someone with a cushion. The equity math haunts you mildly at the next funding announcement, but rent-money certainty compounds too — in cortisol saved.",
+          effect: { netWorth: 20_000, burnout: 5 },
+          next: "y3-startup-seriesa",
+        },
+      },
+      {
+        id: "buy-more-equity",
+        label: "Wire the savings — double down on your own company",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Next round doubles the price — your stake balloons",
+            text:
+              "The Series A closes at 2.3x the seed price four months later, and your kitchen-table wire becomes the best trade you've ever made. You are now emotionally incapable of shutting up about 'conviction.'",
+            effect: { netWorth: 35_000, burnout: 10 },
+            next: "y3-startup-seriesa",
+          },
+          {
+            chance: 0.6,
+            label: "Round delays — savings locked in illiquid paper",
+            text:
+              "The 'definitely coming' round takes its time, as rounds do. Your savings now live in a cap table instead of a bank, and your emergency fund is a strongly-worded promise. The shares might still pay someday. Your landlord prefers currency.",
+            effect: { netWorth: -15_000, burnout: 15 },
+            next: "y3-startup-seriesa",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y2-client-poker",
+    year: 2,
+    age: 23,
+    slot: "y2-startup-ramen",
+    headline: "The Client Poker Game",
+    text:
+      "Your biggest client — 60% of revenue — demands an exclusivity discount: half price, or they 'reevaluate the relationship.' The founder is traveling and unreachable (Burning Man adjacent). The client's procurement guy is bluffing. Probably. He does this. Probably.",
+    choices: [
+      {
+        id: "sign-the-discount",
+        label: "Sign the discount — 60% of revenue doesn't get dared",
+        outcome: {
+          text:
+            "You take the haircut and keep the whale. Margins wince; payroll doesn't. The founder returns, dusty and enlightened, and calls it 'the right call under uncertainty,' which is founder for 'I'm glad it wasn't me.'",
+          effect: { netWorth: 15_000, burnout: 10 },
+          next: "y3-startup-seriesa",
+        },
+      },
+      {
+        id: "call-the-bluff",
+        label: "Hold price — call procurement's bluff",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "They fold — contract renews at full price",
+            text:
+              "Three days of terrifying silence, then a meeting invite titled 'Renewal — moving forward.' Procurement guy acts like the discount conversation never happened. You learn the great secret of enterprise sales: everyone is bluffing, always, about everything.",
+            effect: { netWorth: 30_000, burnout: 10 },
+            next: "y3-startup-seriesa",
+          },
+          {
+            chance: 0.45,
+            label: "They walk — 60% of revenue exits the building",
+            text:
+              "The bluff was real. The whale churns with one polite email, and the startup drops into scramble mode: three emergency deals closed at discounts worse than the one you refused. The lesson costs more than the discount would have. Poker has stakes.",
+            effect: { netWorth: -5_000, burnout: 20 },
+            next: "y3-startup-seriesa",
+          },
+        ],
+      },
+    ],
+  },
 ];

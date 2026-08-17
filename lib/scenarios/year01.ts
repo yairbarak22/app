@@ -210,4 +210,143 @@ export const YEAR_01: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y1-stealth-lottery",
+    year: 1,
+    age: 22,
+    slot: "y1-graduation",
+    headline: "The Stealth Startup Lottery",
+    text:
+      "Your favorite TA from junior year calls: she's employee #0 at a stealth startup with 'a founder you'd recognize' and wants you as employee #1. She can't say what it does. The equity is enormous. The information is zero. Meanwhile, a signed Big Tech offer sits in your inbox, being extremely legible.",
+    choices: [
+      {
+        id: "take-legible-offer",
+        label: "Take the Big Tech offer — you can read every line of it",
+        outcome: {
+          text:
+            "You choose the known quantity and start collecting RSUs like a sensible adult. The stealth startup deletes its landing page eight months later. Or was that a pivot? You'll never know, and that's fine.",
+          effect: { netWorth: 45_000, burnout: 10, title: "Junior SWE @ Big Tech" },
+          next: "y2-bigtech-oncall",
+        },
+      },
+      {
+        id: "buy-the-ticket",
+        label: "Join the stealth startup — buy the lottery ticket",
+        gamble: [
+          {
+            chance: 0.15,
+            label: "It's the real thing — founder is famous, funding is huge",
+            text:
+              "The stealth veil drops: the founder sold his last company for nine figures, and the seed round was oversubscribed before you signed. You're employee #1 at the hottest company nobody's heard of yet, with equity that makes your friends' RSUs look like arcade tokens.",
+            effect: { netWorth: 70_000, burnout: 10, title: "Employee #1 (Golden Ticket)" },
+            next: "y2-startup-ramen",
+          },
+          {
+            chance: 0.85,
+            label: "It's three guys and a pitch deck",
+            text:
+              "The 'founder you'd recognize' is recognizable mainly from LinkedIn engagement bait. The product is a Figma file. You're broke by spring — but you shipped an MVP solo, and that story is weirdly gold in every interview after.",
+            effect: { netWorth: 2_000, burnout: 15, title: "Founding Engineer" },
+            next: "y2-startup-ramen",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y1-negotiation-gamble",
+    year: 1,
+    age: 22,
+    slot: "y1-graduation",
+    headline: "Negotiate or Fold",
+    text:
+      "The recruiter's 'final' offer is $15K under what the salary sites say your role pays. Every negotiation guide says counter. Every anxiety neuron says they'll pull the offer and you'll die broke. The recruiter is waiting. Statistically, companies almost never rescind. Almost.",
+    choices: [
+      {
+        id: "sign-as-is",
+        label: "Sign as offered — a sure thing is a sure thing",
+        outcome: {
+          text:
+            "You sign in four minutes and sleep beautifully. You'll never know what the counter would have gotten you, which is its own kind of peace — the cheap kind, but real.",
+          effect: { netWorth: 40_000, burnout: 5, title: "Junior SWE @ Big Tech" },
+          next: "y2-bigtech-oncall",
+        },
+      },
+      {
+        id: "counter-hard",
+        label: "Counter $20K over with comps attached",
+        gamble: [
+          {
+            chance: 0.7,
+            label: "They come up — better base plus a signing bonus",
+            text:
+              "Twenty-four sweaty hours later: 'Great news — we got approval.' A better base, a signing bonus, and the life-changing discovery that the first number was never the real number. You will negotiate everything forever now.",
+            effect: { netWorth: 58_000, burnout: 10, title: "Junior SWE @ Big Tech" },
+            next: "y2-bigtech-oncall",
+          },
+          {
+            chance: 0.3,
+            label: "Offer rescinded — 'we've decided to move forward with other candidates'",
+            text:
+              "You drew the one hiring manager on Earth who takes counters personally. The offer evaporates in a two-line email. The startup that's been courting you gets a very motivated yes by Friday — and honestly, their equity might age better than your dignity did this week.",
+            effect: { netWorth: 5_000, burnout: 20, title: "Founding Engineer" },
+            next: "y2-startup-ramen",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y1-thanksgiving-referral",
+    year: 1,
+    age: 22,
+    slot: "y1-graduation",
+    headline: "The Thanksgiving Referral",
+    text:
+      "Your uncle — who calls every laptop a 'MacBook' regardless of brand — announces at Thanksgiving that his golf buddy is 'basically running' a trillion-dollar tech company and can 'walk your resume right in.' The family stares at you expectantly over the stuffing. The referral is either a golden ticket or a bit.",
+    choices: [
+      {
+        id: "apply-cold",
+        label: "Thank him warmly, apply through the portal like everyone",
+        outcome: {
+          text:
+            "You grind the standard loop: recruiter screen, five rounds, one take-home. The offer lands on your own merits, which matters to exactly you. Your uncle takes full credit at Christmas anyway. Let him.",
+          effect: { netWorth: 40_000, burnout: 15, title: "Junior SWE @ Big Tech" },
+          next: "y2-bigtech-oncall",
+        },
+      },
+      {
+        id: "use-the-uncle",
+        label: "Take the uncle referral — what's the worst that happens",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Golf buddy is real — you skip half the loop",
+            text:
+              "Shockingly, the golf buddy is a real director who really answers real emails. Your resume skips the pile, the loop shrinks to three rounds, and you start two months before your cohort. Nepotism-adjacent? Sure. Effective? Extremely.",
+            effect: { netWorth: 50_000, burnout: 5, title: "Junior SWE @ Big Tech" },
+            next: "y2-bigtech-oncall",
+          },
+          {
+            chance: 0.5,
+            label: "Golf buddy retired in 2019 — months lost waiting",
+            text:
+              "The 'referral' turns out to be a forwarded email to a retiree's dead inbox. You waited three months on it before applying cold like you should have in September. The offer still comes — later, leaner, and with an unbeatable story about managing family expectations.",
+            effect: { netWorth: 20_000, burnout: 15, title: "Junior SWE @ Big Tech" },
+            next: "y2-bigtech-oncall",
+          },
+        ],
+      },
+      {
+        id: "startup-instead",
+        label: "Skip the whole circus — join the startup that already said yes",
+        outcome: {
+          text:
+            "While the family debates referral etiquette, you sign with the seed-stage startup that made an offer without a single whiteboard puzzle. Your uncle tells everyone you work 'in crypto.' Close enough.",
+          effect: { netWorth: 8_000, burnout: 10, title: "Founding Engineer" },
+          next: "y2-startup-ramen",
+        },
+      },
+    ],
+  },
 ];

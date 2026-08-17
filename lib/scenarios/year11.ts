@@ -334,4 +334,176 @@ export const YEAR_11: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y11-vintage-bet",
+    year: 11,
+    age: 32,
+    slot: "y11-goldenyears",
+    headline: "Fund II",
+    text:
+      "The friends' fund is raising Fund II, and this time they want you as a real LP — a check with two commas, locked for a decade. Fund I is marked up nicely (on paper, like everything). Venture vintages are wine: some years are legendary, some are vinegar, and you only find out in ten years.",
+    choices: [
+      {
+        id: "index-instead",
+        label: "Index it — liquid, boring, sufficient",
+        outcome: {
+          text:
+            "You wire the money to the market instead, where it compounds visibly and sells in an afternoon if life demands it. The fund raise closes without you. The friendship survives, which was the real position all along.",
+          effect: { netWorth: 140_000, burnout: 5 },
+          next: "y12-fumoney",
+        },
+      },
+      {
+        id: "lp-two-commas",
+        label: "Write the two-comma LP check — bet the vintage",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "Vintage of the decade — carry and glory",
+            text:
+              "Fund II catches two breakouts in its first eighteen months, and the paper marks turn into actual distributions unusually early. Your LP check becomes the best-performing line in your portfolio, and the friends now introduce you as 'our smartest money.'",
+            effect: { netWorth: 250_000, burnout: 0 },
+            next: "y12-fumoney",
+          },
+          {
+            chance: 0.55,
+            label: "Locked for a decade — the J-curve is a lifestyle",
+            text:
+              "The vintage lands mid: no disasters, no breakouts, just a decade-long J-curve you now attend quarterly meetings about. The money isn't gone; it's just... elsewhere, aging. Wine metaphors stop being charming around year six.",
+            effect: { netWorth: -80_000, burnout: 5 },
+            next: "y12-fumoney",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y11-derisking-question",
+    year: 11,
+    age: 32,
+    slot: "y11-goldenyears",
+    headline: "The All-Time-High Question",
+    text:
+      "The market is at an all-time high, your portfolio is 90% equities, and your retirement date is close enough to have a weather forecast. Every advisor says derisk into bonds. Every chart says the melt-up has room. One more year of full exposure is either the victory lap or the cautionary tale's first chapter.",
+    choices: [
+      {
+        id: "derisk-now",
+        label: "Derisk into bonds — the finish line doesn't need drama",
+        outcome: {
+          text:
+            "You rotate to the boring allocation and accept the boring returns, purchasing the specific luxury of not caring what the market does. The forecast for your retirement date: calm, with a chance of hobbies.",
+          effect: { netWorth: 90_000, burnout: -5 },
+          next: "y12-fumoney",
+        },
+      },
+      {
+        id: "ride-one-more-year",
+        label: "Stay fully invested — one more year of exposure",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "Melt-up continues — the last year is the best year",
+            text:
+              "The market does its irrational final act and your untouched portfolio grows a whole extra retirement inside twelve months. The advisors were right about the risk and wrong about the year. You derisk at the top, insufferably.",
+            effect: { netWorth: 200_000, burnout: 5 },
+            next: "y12-fumoney",
+          },
+          {
+            chance: 0.45,
+            label: "Correction — a year's gains evaporate in a quarter",
+            text:
+              "The melt-up melts down 20% in six ugly weeks, taking a year of gains and your smugness with it. The plan survives — plans built on real numbers do — but the retirement forecast adds a working year, and the advisors' 'we discussed this' is a season of weather all its own.",
+            effect: { netWorth: -100_000, burnout: 10 },
+            next: "y12-fumoney",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y11-early-window",
+    year: 11,
+    age: 32,
+    slot: "y11-empire",
+    headline: "The Early Window",
+    text:
+      "The bankers call with urgency in their vowels: an IPO window is open NOW — eighteen months earlier than your plan. Rushing means going public with rougher numbers into a friendlier market. Waiting means better numbers into whatever market exists later, if any. Windows, the bankers remind you hourly, close.",
+    choices: [
+      {
+        id: "wait-and-build",
+        label: "Wait — go public on your schedule, not the market's",
+        outcome: {
+          text:
+            "You let the window pass and spend the saved adrenaline on two more quarters of clean growth. The next window will find a stronger company — and if it doesn't come, profitable companies write their own windows eventually.",
+          effect: { netWorth: 50_000, burnout: 15 },
+          next: "y12-warpath",
+        },
+      },
+      {
+        id: "rush-the-window",
+        label: "Rush it — public now, into the friendly market",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Window holds — public early, priced kindly",
+            text:
+              "The sprint to the S-1 takes a year off your life and adds a ticker to your name. The friendly market prices your rough edges kindly, the pop holds, and your early liquidity buys the calm that late perfection never could. The vowels were right.",
+            effect: { netWorth: 400_000, burnout: 20, title: "Founder & CEO (Public)" },
+            next: "y12-postexit",
+          },
+          {
+            chance: 0.6,
+            label: "Window slams — S-1 pulled, wounds public",
+            text:
+              "Six weeks into the sprint, the market turns and the bankers' vowels change key: 'postpone.' The pulled S-1 leaves your financials public, your rivals informed, and your team winded. The window closed on your fingers. They heal. Slowly.",
+            effect: { netWorth: 30_000, burnout: 25 },
+            next: "y12-warpath",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y11-price-war",
+    year: 11,
+    age: 32,
+    slot: "y11-empire",
+    headline: "The Price War",
+    text:
+      "Your best-funded rival cuts prices 50% overnight — a war-chest play designed to bleed you out before their next raise. Matching means margin carnage for both armies. Holding means betting that customers pay for value while your sales team forwards you screenshots of lost deals hourly.",
+    choices: [
+      {
+        id: "hold-price",
+        label: "Hold price — sell value while they sell desperation",
+        outcome: {
+          text:
+            "You hold the line and lose the tourists — the customers who were only ever renting. The ones who stay are the ones who'd have stayed anyway, now more loyal for watching you refuse to panic. Margins intact, market share dented, dignity expensive.",
+          effect: { netWorth: 40_000, burnout: 15 },
+          next: "y12-warpath",
+        },
+      },
+      {
+        id: "match-and-outlast",
+        label: "Match the cut — outlast them to the bottom",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "They run dry first — you inherit the market",
+            text:
+              "Your leaner burn outlasts their war chest by two quarters: their next raise craters, their customers migrate to the identical-priced alternative that isn't dying — you. Prices float back up over a year, now set by the only army left standing.",
+            effect: { netWorth: 90_000, burnout: 20 },
+            next: "y12-warpath",
+          },
+          {
+            chance: 0.5,
+            label: "Mutual carnage — both armies bleed for nothing",
+            text:
+              "They had more chest than the rumors said. Eighteen months of matched cuts leave both companies gasping, the category's pricing permanently broken, and a truce nobody announces. The only winner is the customer, which the press release calls 'a win for customers.'",
+            effect: { netWorth: -70_000, burnout: 25 },
+            next: "y12-warpath",
+          },
+        ],
+      },
+    ],
+  },
 ];

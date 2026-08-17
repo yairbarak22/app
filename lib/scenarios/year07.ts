@@ -280,6 +280,7 @@ export const YEAR_07: Scenario[] = [
           text:
             "You hold the fort with one hand and interview with the other. Big Tech takes you back at Staff level — turns out 'kept a startup alive through the winter with duct tape' is the best packet material ever written.",
           effect: { netWorth: 65_000, burnout: 5, title: "Staff SWE @ Big Tech" },
+          achievement: "big-bonus",
           next: "y8-goldencage",
         },
       },
@@ -498,6 +499,178 @@ export const YEAR_07: Scenario[] = [
           effect: { netWorth: -20_000, burnout: 20 },
           next: "y8-seriesa",
         },
+      },
+    ],
+  },
+  {
+    id: "y7-seed-ai-jump",
+    year: 7,
+    age: 28,
+    slot: "y7-ai-goldrush",
+    headline: "The Seed-Stage Siren",
+    text:
+      "A two-month-old AI startup — three researchers and a demo that made you say 'oh no' out loud — offers you founding engineer: half your current salary, 2% equity, and a seat on what might be the wave of the decade. Your Big Tech comp is excellent and feels, suddenly, like a very comfortable way to miss everything.",
+    choices: [
+      {
+        id: "stay-ai-adjacent",
+        label: "Stay at Big Tech — ride the wave from a yacht, not a surfboard",
+        outcome: {
+          text:
+            "You keep the comp and work the AI beat from inside the fortress: big models, big GPUs, big paychecks. The seed startup's journey will be someone else's memoir. Yours has a 401(k) match.",
+          effect: { netWorth: 85_000, burnout: 10 },
+          next: "y8-goldencage",
+        },
+      },
+      {
+        id: "join-the-seed",
+        label: "Take the surfboard — founding engineer at the seed startup",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "Breakout — Series A at 10x in nine months",
+            text:
+              "The demo that made you say 'oh no' makes the market say it louder: a preempted Series A at 10x the seed price, your 2% suddenly worth a real house. You're early at the breakout company of the cycle, with the war stories accruing daily.",
+            effect: { netWorth: 120_000, burnout: 20, title: "Founding Eng (Breakout)" },
+            next: "y8-goldencage",
+          },
+          {
+            chance: 0.7,
+            label: "GPU bills eat the seed round",
+            text:
+              "The models are hungry and the seed round is finite: compute burns 70% of the raise before product-market fit shows up. The startup sells its research team quietly and returns the rest. Half salary for a year, one incredible education, zero regrets you'll admit to.",
+            effect: { netWorth: 15_000, burnout: 20 },
+            next: "y8-goldencage",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y7-hub-city-bet",
+    year: 7,
+    age: 28,
+    slot: "y7-comeback",
+    headline: "The Hub Rumor",
+    text:
+      "A credible leak says a trillion-dollar company is opening a major engineering hub in a cheap, sunny city — hiring thousands, with early joiners getting seniority gravity for years. Moving there BEFORE the announcement means betting a cross-country move on a rumor. Real estate there is still cheap. So is talk.",
+    choices: [
+      {
+        id: "stay-remote-safe",
+        label: "Stay put — rumors don't pay moving costs",
+        outcome: {
+          text:
+            "You keep the remote setup and the known life. The hub rumor resolves eventually — they always do, one way or the other — and either way, your couch stays where you like it.",
+          effect: { netWorth: 35_000, burnout: 5 },
+          next: "y8-goldencage",
+        },
+      },
+      {
+        id: "move-on-the-rumor",
+        label: "Move early — be local before the gold rush",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Hub opens — early-mover advantage compounds",
+            text:
+              "The announcement drops eight months after your boxes did, and suddenly you're the rare 'local hire with tenure in the ecosystem.' You join the hub's founding class with a promotion attached, and your cheap house appreciates like it heard the news too.",
+            effect: { netWorth: 65_000, burnout: 10, title: "Senior SWE (Hub Founding Class)" },
+            next: "y8-goldencage",
+          },
+          {
+            chance: 0.5,
+            label: "Hub canceled — new city, old job hunt",
+            text:
+              "'Strategic re-evaluation of our real estate footprint.' The hub dies in a press release, and you're job hunting from a city chosen by a rumor. The sun is real, at least. The gold rush was a weather report.",
+            effect: { netWorth: 15_000, burnout: 15 },
+            next: "y8-goldencage",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y7-turnaround-swap",
+    year: 7,
+    age: 28,
+    slot: "y7-survivor",
+    headline: "The Turnaround Wager",
+    text:
+      "The CEO, rebuilding from the winter wreckage, offers the survivors a deal: cut your salary 40% for a year in exchange for 4x the equity — a bet that the turnaround you're personally building will actually work. It's the most honest comp conversation you've ever had. It's also poker with your own rent.",
+    choices: [
+      {
+        id: "keep-salary",
+        label: "Keep the salary — you've bet enough on this company",
+        outcome: {
+          text:
+            "You decline the swap and keep the paycheck; your labor is already the biggest position you hold here. The turnaround proceeds either way — with your effort, not your rent money.",
+          effect: { netWorth: 45_000, burnout: 15 },
+          next: "y8-acquisition",
+        },
+      },
+      {
+        id: "swap-for-equity",
+        label: "Take the swap — 40% pay cut for 4x equity",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "Turnaround works — the equity 5x's",
+            text:
+              "The lean year works: revenue stabilizes, a recovery round reprices everything upward, and your 4x grant lands on a 5x valuation. The salary you gave up comes back as a multiple. The CEO frames the offer letter. So do you.",
+            effect: { netWorth: 90_000, burnout: 15 },
+            next: "y8-acquisition",
+          },
+          {
+            chance: 0.55,
+            label: "Slow bleed continues — cheap year, expensive lesson",
+            text:
+              "The turnaround turns slowly, then not much at all. You worked a brutal year at 60% pay for equity that stays decorative. The CEO's gratitude is genuine and non-transferable. Rent poker: the house won this hand.",
+            effect: { netWorth: -15_000, burnout: 20 },
+            next: "y8-acquisition",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y7-launch-or-drip",
+    year: 7,
+    age: 28,
+    slot: "y7-founder-grind",
+    headline: "One Launch to Rule Them All",
+    text:
+      "Your entire annual marketing budget fits in one hand — and your head of growth wants to spend it all on a single coordinated launch: press embargo, conference keynote slot, influencer seeding, one perfect Tuesday. The alternative is the drip: small, steady, survivable. The launch either detonates or fizzles. Tuesdays don't negotiate.",
+    choices: [
+      {
+        id: "drip-marketing",
+        label: "Drip it — twelve months of small, steady bets",
+        outcome: {
+          text:
+            "You spread the budget across the year like a sensible farmer, and the funnel grows the boring way: measurably. No fireworks, no craters. The growth chart looks like a staircase built by someone patient.",
+          effect: { netWorth: 30_000, burnout: 10 },
+          next: "y8-seriesa",
+        },
+      },
+      {
+        id: "bet-the-launch",
+        label: "One perfect Tuesday — bet the budget on the big launch",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "It detonates — the launch goes genuinely viral",
+            text:
+              "The embargo holds, the keynote lands, and by Tuesday night your signup queue has a queue. A month of traffic arrives in a day, and — the real prize — it sticks. 'Where were you during the launch' becomes company lore.",
+            effect: { netWorth: 75_000, burnout: 10 },
+            next: "y8-seriesa",
+          },
+          {
+            chance: 0.5,
+            label: "Crickets — the internet was busy that day",
+            text:
+              "A bigger company announces a bigger thing four hours before your embargo lifts, and your perfect Tuesday dies in its shadow. The budget is spent, the press pieces run on page nine, and the funnel shrugs. Timing: rented, never owned.",
+            effect: { netWorth: -20_000, burnout: 20 },
+            next: "y8-seriesa",
+          },
+        ],
       },
     ],
   },

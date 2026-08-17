@@ -41,6 +41,7 @@ export const YEAR_10: Scenario[] = [
           text:
             "You let the retention conversation 'marinate' for exactly one week, then accept a package that makes your comp band a rumor. Same job, same desk, forty percent more money. Leverage is a beautiful thing when you finally have it.",
           effect: { netWorth: 140_000, burnout: 10 },
+          achievement: "big-bonus",
           next: "y11-goldenyears",
         },
       },
@@ -331,6 +332,179 @@ export const YEAR_10: Scenario[] = [
           effect: { netWorth: 30_000, burnout: 5 },
           next: "y11-empire",
         },
+      },
+    ],
+  },
+  {
+    id: "y10-exchange-cto-call",
+    year: 10,
+    age: 31,
+    slot: "y10-poach",
+    headline: "The Exchange Job",
+    text:
+      "An old contact from the crypto-contract days resurfaces with an offer that reads like a typo: CTO of a fast-growing exchange, comp triple your current, equity 'material.' The company is either the next great fintech or a subpoena factory with a gym. His pitch, verbatim: 'We're totally not like the other ones.'",
+    choices: [
+      {
+        id: "decline-exchange",
+        label: "Decline — 'totally not like the other ones' is what the other ones said",
+        outcome: {
+          text:
+            "You pass with a warm note and keep your compliance-boring career intact. Eighteen months later the exchange is either thriving or a Netflix documentary — you check occasionally, from a safe distance, with popcorn either way.",
+          effect: { netWorth: 120_000, burnout: 10 },
+          next: "y11-goldenyears",
+        },
+      },
+      {
+        id: "take-exchange-cto",
+        label: "Take the CTO seat — triple comp, eyes open",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "It's legit — absurd comp, real company",
+            text:
+              "You audit everything before signing and — miracle — it holds. The exchange is boring in the best way: licensed, audited, profitable. You bank triple comp as CTO of the rare crypto company whose lawyers are bored. 'Not like the other ones' was, this once, true.",
+            effect: { netWorth: 300_000, burnout: 20, title: "CTO (The Legit Exchange)" },
+            next: "y11-empire",
+          },
+          {
+            chance: 0.7,
+            label: "It implodes — you exit clean but singed",
+            text:
+              "Eleven months in, the 'market-making subsidiary' turns out to be a nesting doll of conflicts, and you resign the week before the news does. Your documentation habit keeps you legally pristine and professionally smoky. The comp was real. So was the documentary.",
+            effect: { netWorth: 40_000, burnout: 30, title: "Ex-CTO (Clean Hands)" },
+            next: "y11-goldenyears",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y10-resignation-bluff",
+    year: 10,
+    age: 31,
+    slot: "y10-poach",
+    headline: "The Resignation Gambit",
+    text:
+      "You have a real outside offer — good, not great — and a theory: your current employer's counteroffer budget is legendary this year, but it only unlocks for people actually walking out the door. Resigning to trigger the counter is the highest-stakes version of comp negotiation: you have to mean it enough to be believed.",
+    choices: [
+      {
+        id: "take-outside-offer",
+        label: "Just take the outside offer — real beats theoretical",
+        outcome: {
+          text:
+            "You skip the theater and sign the real thing: new company, clean slate, good money. The legendary counter budget remains a legend. Your former teammates test the theory themselves within the quarter, with mixed results you hear about at happy hours.",
+          effect: { netWorth: 150_000, burnout: 15, title: "Distinguished Eng (New Logo)" },
+          next: "y11-goldenyears",
+        },
+      },
+      {
+        id: "resign-for-counter",
+        label: "Resign and mean it — trigger the legendary counter",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "The counter is massive — stay for 40% more",
+            text:
+              "Your resignation reaches the SVP before lunch; the counter reaches you before dinner: 40% comp bump, a scope upgrade, and a 'we should have done this a year ago.' You un-resign gracefully. The legend was real, and it required a hostage.",
+            effect: { netWorth: 220_000, burnout: 10 },
+            achievement: "big-bonus",
+            next: "y11-goldenyears",
+          },
+          {
+            chance: 0.45,
+            label: "'We understand' — the door swings one way",
+            text:
+              "The counter never comes — just a calendar invite titled 'Transition Planning.' You leave for the good-not-great offer you'd half-hoped to decline, learning the gambit's fine print: some doors are exits the moment you touch them.",
+            effect: { netWorth: 80_000, burnout: 20, title: "Distinguished Eng (Committed Now)" },
+            next: "y11-goldenyears",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y10-moonshot-feature",
+    year: 10,
+    age: 31,
+    slot: "y10-founder-crossroads",
+    headline: "The Category Bet",
+    text:
+      "Your head of product presents the moonshot: an eighteen-month feature so ambitious it would redefine the category — or quietly consume a fifth of the company's runway proving competitors right about focusing. The demo mockup gives the board chills. Mockups are free. Eighteen months are not.",
+    choices: [
+      {
+        id: "incremental-roadmap",
+        label: "Ship the incremental roadmap — compounding beats chills",
+        outcome: {
+          text:
+            "You bank the mockup for someday and ship the boring quarters instead. Revenue compounds, customers renew, and the category stays un-redefined but well-served. Someday keeps its place in the drawer, glowing faintly.",
+          effect: { netWorth: 30_000, burnout: 10 },
+          next: "y11-empire",
+        },
+      },
+      {
+        id: "greenlight-moonshot",
+        label: "Green-light the moonshot — redefine the category or bust",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "It defines the category — competitors copy YOU now",
+            text:
+              "Eighteen months later, the moonshot ships and the category reorganizes itself around your vocabulary. Competitors' roadmaps become tribute acts; analysts coin a term for what you built. The board's chills, it turns out, were prophecy.",
+            effect: { netWorth: 90_000, burnout: 15, title: "CEO (Category King)" },
+            next: "y11-empire",
+          },
+          {
+            chance: 0.55,
+            label: "Eighteen months, quiet launch, quieter uptake",
+            text:
+              "The moonshot ships late, lands soft, and teaches the expensive lesson mockups never do: chills aren't demand. A fifth of the runway becomes a case study, and the incremental roadmap resumes, chastened and behind schedule.",
+            effect: { netWorth: -30_000, burnout: 25 },
+            next: "y11-empire",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y10-debt-acquisition",
+    year: 10,
+    age: 31,
+    slot: "y10-founder-crossroads",
+    headline: "Leverage, Literally",
+    text:
+      "Your struggling competitor will sell for a price you can only reach with venture debt — covenants, warrants, and a monthly payment that assumes nothing ever goes wrong. Buying them consolidates the market overnight. The debt sits on YOUR balance sheet, patient and toothy, either way.",
+    choices: [
+      {
+        id: "grow-organic",
+        label: "Pass on the debt — grow over their body organically",
+        outcome: {
+          text:
+            "You skip the leveraged feast and keep winning the slow way: deal by deal, hire by hire. The competitor fades on its own schedule; your balance sheet stays clean enough to survive any weather. Debt-free consolidation: just patience with a P&L.",
+          effect: { netWorth: 35_000, burnout: 10 },
+          next: "y11-empire",
+        },
+      },
+      {
+        id: "buy-with-debt",
+        label: "Take the venture debt — consolidate the market now",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Consolidation pays — the combined company prints",
+            text:
+              "The merger math works: their customers stay, their best engineers stay, and the combined pricing power services the debt with room to spare. Two years later the loan is history and the market is yours. Leverage, used once, precisely, like a scalpel.",
+            effect: { netWorth: 80_000, burnout: 15, title: "CEO (Consolidator)" },
+            next: "y11-empire",
+          },
+          {
+            chance: 0.5,
+            label: "Covenant chokes — the debt runs the company now",
+            text:
+              "Integration costs run 40% over, one covenant trips, and suddenly the lender's consent is required for hiring decisions. You spend a year managing the loan instead of the company, and sell a division to breathe. The scalpel, mishandled, is just a knife.",
+            effect: { netWorth: -60_000, burnout: 25 },
+            next: "y11-empire",
+          },
+        ],
       },
     ],
   },

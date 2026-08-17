@@ -341,4 +341,177 @@ export const YEAR_13: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y13-preipo-exec-gig",
+    year: 13,
+    age: 34,
+    slot: "y13-lastcycle",
+    headline: "The Pre-IPO Parachute",
+    text:
+      "A pre-IPO decacorn wants you as VP of Engineering — comp structured almost entirely in equity that's worth a fortune if they go public within two years and worth a story if they don't. Their S-1 is 'drafted.' Their CFO says 'imminent' the way weathermen say 'chance of rain.'",
+    choices: [
+      {
+        id: "stay-put-safe",
+        label: "Stay where you are — 'imminent' is not a comp plan",
+        outcome: {
+          text:
+            "You pass on the parachute and keep the cash comp you can spend this decade. The decacorn's IPO happens when it happens — to other people, with their risk tolerance, on their timeline. Yours is fine. Genuinely.",
+          effect: { netWorth: 90_000, burnout: 5 },
+          next: "y14-legacy",
+        },
+      },
+      {
+        id: "take-equity-gig",
+        label: "Take the VP seat — bet two years on 'imminent'",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "IPO inside the window — the equity prints",
+            text:
+              "Eighteen months in, the drafted S-1 undrafts itself and the decacorn goes out strong. Your equity-heavy package converts into the largest single number of your career, and 'VP at their IPO' becomes the first line strangers know about you.",
+            effect: { netWorth: 350_000, burnout: 15, title: "VP Eng (IPO Class)" },
+            achievement: "big-bonus",
+            next: "y14-finalact",
+          },
+          {
+            chance: 0.5,
+            label: "Postponed indefinitely — two years of paper",
+            text:
+              "'Imminent' survives four board meetings, two market wobbles, and one CFO transition before dying quietly in a Reuters paragraph. You ran a great org for two years at a salary your old job called 'a base.' The equity waits. It's good at that.",
+            effect: { netWorth: 40_000, burnout: 20 },
+            next: "y14-legacy",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y13-patent-troll",
+    year: 13,
+    age: 34,
+    slot: "y13-lastcycle",
+    headline: "The Troll Under the Bridge",
+    text:
+      "A patent troll sues you personally-adjacent: your open-source library, they claim, infringes a 2004 patent on 'transmitting data via a network in an organized fashion.' Settling costs $40K and your name on their trophy wall. Fighting costs more, takes years, and is — per your lawyer — 'winnable, which is different from won.'",
+    choices: [
+      {
+        id: "settle-quietly",
+        label: "Settle — $40K makes it disappear today",
+        outcome: {
+          text:
+            "You wire the ransom and sign the NDA, funding the troll's next dozen letters with gritted teeth. It's the rational move; everyone says so, in the tone people use for rational moves they're glad they didn't have to make.",
+          effect: { netWorth: -40_000, burnout: 10 },
+          next: "y14-legacy",
+        },
+      },
+      {
+        id: "fight-the-troll",
+        label: "Fight — invalidate the patent, fund the precedent",
+        gamble: [
+          {
+            chance: 0.65,
+            label: "Troll crushed — patent invalidated, fees awarded",
+            text:
+              "Your lawyers find prior art from 1998 (a fax standard, deliciously), the patent dies on review, and the court awards fees. The maintainer community treats you like a folk hero; the troll's trophy wall loses a dozen future names. Some fights are donations to the commons.",
+            effect: { netWorth: 60_000, burnout: 15 },
+            next: "y14-legacy",
+          },
+          {
+            chance: 0.35,
+            label: "Two years of depositions — winning, slowly, expensively",
+            text:
+              "The case grinds through motions like tectonic plates. You win eventually — technically, exhaustedly — having spent triple the settlement in fees and a hundred hours explaining APIs to a court reporter. The precedent helps strangers. The invoice helps no one.",
+            effect: { netWorth: -90_000, burnout: 25 },
+            next: "y14-legacy",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y13-shaky-window",
+    year: 13,
+    age: 34,
+    slot: "y13-endgame-founder",
+    headline: "Filing Into the Wind",
+    text:
+      "The board meeting has one agenda item: file the S-1 now, into a market the bankers describe as 'constructive but selective' (translation: coin flip), or wait for spring and risk the window sealing entirely. Your CFO has both decks ready. She always has both decks ready.",
+    choices: [
+      {
+        id: "wait-for-spring",
+        label: "Wait for spring — file into strength or not at all",
+        outcome: {
+          text:
+            "You hold the filing and spend the winter making the numbers unarguable. Spring arrives with a better market and a stronger story — the patient founder's small, real edge over the market's moods.",
+          effect: { netWorth: 80_000, burnout: 15 },
+          next: "y14-finalact",
+        },
+      },
+      {
+        id: "file-into-wind",
+        label: "File now — 'constructive but selective' favors the bold",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Window holds — priced well, out clean",
+            text:
+              "The selective market selects you: the roadshow overbooks, pricing lands at the top of the range, and you're public before the window even wobbles. The bold-favoring coin lands heads, and your CFO frames the 'constructive but selective' email as a trophy.",
+            effect: { netWorth: 300_000, burnout: 20 },
+            next: "y14-finalact",
+          },
+          {
+            chance: 0.5,
+            label: "Pulled after the roadshow — public wounds, private company",
+            text:
+              "Eleven cities into the roadshow, the market rolls over and the book goes soft. You pull the deal with your financials already public and your competitors already reading. The company is fine. 'Fine' takes a year to feel true again.",
+            effect: { netWorth: 20_000, burnout: 30 },
+            next: "y14-finalact",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y13-guidance-gamble",
+    year: 13,
+    age: 34,
+    slot: "y13-endgame-founder",
+    headline: "The Guidance Game",
+    text:
+      "Pre-IPO analyst day. Aggressive forward guidance juices the valuation now and hands you a public promise to keep, quarterly, forever. Conservative guidance prices you lower and lets you beat-and-raise like a metronome. Your CRO swears the pipeline supports aggressive. Your CRO also swears at golf.",
+    choices: [
+      {
+        id: "guide-conservative",
+        label: "Guide conservative — under-promise, over-deliver, repeat",
+        outcome: {
+          text:
+            "You set the bar where you can clear it with a backpack on, and begin the beat-and-raise cadence that public markets marry for life. The valuation starts lower and trends only one way. Metronomes get premium multiples.",
+          effect: { netWorth: 70_000, burnout: 10 },
+          next: "y14-finalact",
+        },
+      },
+      {
+        id: "guide-aggressive",
+        label: "Guide aggressive — the pipeline says fly",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "Beat and raise — the valuation rips",
+            text:
+              "The pipeline was real: you beat the aggressive number in the first two quarters and the stock reprices like it owes you an apology. 'Management credibility' becomes your multiple's middle name. The CRO gets a boat. You get everything else.",
+            effect: { netWorth: 250_000, burnout: 15 },
+            next: "y14-finalact",
+          },
+          {
+            chance: 0.45,
+            label: "Miss by 4% — the credibility tax arrives",
+            text:
+              "One whale deal slips one quarter, and the aggressive guidance misses by a rounding error the market treats like a confession. The stock drops 30% in an afternoon; the next four quarters are spent buying back trust at retail prices. Guidance is a promise. Markets keep receipts.",
+            effect: { netWorth: -60_000, burnout: 25 },
+            next: "y14-finalact",
+          },
+        ],
+      },
+    ],
+  },
 ];

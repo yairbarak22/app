@@ -32,6 +32,7 @@ export const YEAR_06: Scenario[] = [
           text:
             "One frantic week of coffee chats, a director who owes you from the Great Migration™, and a spreadsheet quietly edited at 11 PM. Your name comes off the list. You keep your badge, your vest schedule, and a survivor's twitch whenever a calendar invite says 'quick sync.'",
           effect: { netWorth: 50_000, burnout: 10 },
+          achievement: "winter-proof",
           next: "y7-ai-goldrush",
         },
         adFallback: {
@@ -69,6 +70,7 @@ export const YEAR_06: Scenario[] = [
           text:
             "You produce a document so thorough it should have a DOI number: shipped work, saved incidents, peer testimony. The PIP dies in review, your manager transfers mysteriously, and everyone learns you are expensive to fabricate a case against.",
           effect: { netWorth: 45_000, burnout: 20 },
+          achievement: "winter-proof",
           next: "y7-ai-goldrush",
         },
       },
@@ -172,6 +174,7 @@ export const YEAR_06: Scenario[] = [
           text:
             "Your skip-skip-level — who once starred your incident writeup — signs a one-line exception: 'retain, remote.' You keep the job, the city, and a debt of gratitude payable at some future, unspecified, definitely-coming moment.",
           effect: { netWorth: 55_000, burnout: 5, title: "Staff SWE (Remote Exception)" },
+          achievement: "winter-proof",
           next: "y7-ai-goldrush",
         },
         adFallback: {
@@ -211,6 +214,7 @@ export const YEAR_06: Scenario[] = [
           text:
             "Your old manager picks up on the second ring. 'I was literally about to call you.' Two weeks later you're badged into Big Tech with a Senior title and a hiring-freeze exception with your name on it. The group chat calls it a war-time airlift.",
           effect: { netWorth: 55_000, burnout: 10, title: "Senior SWE @ Big Tech" },
+          achievement: "winter-proof",
           next: "y7-ai-goldrush",
         },
         adFallback: {
@@ -227,6 +231,7 @@ export const YEAR_06: Scenario[] = [
           text:
             "You walk into the CTO's office with a competing offer (real) and a poker face (fake). You walk out with a retention package and the job of holding the engineering org together with your bare hands. The grant vests monthly. So does the stress.",
           effect: { netWorth: 40_000, burnout: 25 },
+          achievement: "big-bonus",
           next: "y7-survivor",
         },
       },
@@ -524,6 +529,269 @@ export const YEAR_06: Scenario[] = [
           effect: { netWorth: -10_000, burnout: 25 },
           next: "y7-founder-grind",
         },
+      },
+    ],
+  },
+  {
+    id: "y6-winter-transfer-lottery",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-bigtech",
+    headline: "The Transfer Window",
+    text:
+      "Layoffs land in two weeks, and the org rumor mill has produced a map: your org is 'red,' the infrastructure org is 'green.' A last-minute internal transfer might save you — but transfers mid-freeze need three approvals, and half-finished transfers have a horror genre of their own: cut from both orgs' books at once.",
+    choices: [
+      {
+        id: "stand-your-ground",
+        label: "Stay put — survive on your record, not the map",
+        outcome: {
+          text:
+            "You skip the transfer roulette and let your work speak. The wave takes a third of the org and leaves you standing — winded, employed, and owner of three more services by Friday. The map was half right, like maps.",
+          effect: { netWorth: 30_000, burnout: 20 },
+          achievement: "winter-proof",
+          next: "y7-ai-goldrush",
+        },
+      },
+      {
+        id: "sprint-the-transfer",
+        label: "Sprint the transfer — three approvals in two weeks",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Approved in time — safe in the green org",
+            text:
+              "You speedrun the paperwork like it's a heist: recruiter, both directors, one VP signature obtained at a coffee machine. The transfer clears four days before the wave. Your old org shrinks by a third; your new badge works fine. Timing is a skill and you just demonstrated it.",
+            effect: { netWorth: 50_000, burnout: 10, title: "Staff SWE (Infra Org)" },
+            achievement: "winter-proof",
+            next: "y7-ai-goldrush",
+          },
+          {
+            chance: 0.5,
+            label: "Frozen mid-process — cut from both books",
+            text:
+              "The third approval sits in a VP's inbox when the freeze drops. You exist in neither org's headcount, which HR resolves the efficient way. The severance letter can't decide which org to mourn you from. Transfer horror genre: new entry.",
+            effect: { netWorth: 10_000, burnout: 25, title: "Laid Off (Lost in Transfer)" },
+            next: "y7-comeback",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y6-winter-jump-bet",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-bigtech",
+    headline: "The Winter-Proof Startup",
+    text:
+      "Mid-freeze, a startup claiming to be 'winter-proof' — government contracts, boring revenue, aggressively sensible — offers you a lead role. Jumping mid-winter means leaving severance protection for a company whose 'winter-proof' claim has never actually been tested by a winter. Everything is unsinkable until the iceberg audit.",
+    choices: [
+      {
+        id: "cling-to-badge",
+        label: "Stay badged — survive the wave where you stand",
+        outcome: {
+          text:
+            "You decline the jump and ride out the wave at your desk. The cut misses you by one row in the org chart — close enough to hear it. Employed, intact, and newly appreciative of boring Fridays.",
+          effect: { netWorth: 25_000, burnout: 20 },
+          achievement: "winter-proof",
+          next: "y7-ai-goldrush",
+        },
+      },
+      {
+        id: "jump-midwinter",
+        label: "Jump to the 'winter-proof' startup mid-freeze",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Actually winter-proof — gov contracts hold",
+            text:
+              "The sensible startup turns out to be exactly as boring as advertised: the government checks clear quarterly, the roadmap ignores the news cycle entirely, and you lead a calm team through the industry's worst year. Winter-proof was real. You bought in at the bottom.",
+            effect: { netWorth: 55_000, burnout: 10, title: "Eng Lead (Winter-Proof)" },
+            achievement: "winter-proof",
+            next: "y7-ai-goldrush",
+          },
+          {
+            chance: 0.6,
+            label: "They lay off too — six weeks after you join",
+            text:
+              "'Winter-proof' meets its first winter and fails the audit: the anchor contract 'rebids,' and the startup cuts a third of staff — last in, first out. Six weeks of tenure, zero severance protection, one very cold lesson about marketing adjectives.",
+            effect: { netWorth: 0, burnout: 25, title: "Laid Off (Twice in One Winter)" },
+            next: "y7-comeback",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y6-winter-underwater-buy",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-startup",
+    headline: "Buying the Bottom",
+    text:
+      "The down round reprices everything — including a grim little perk: employees may buy additional shares at the new, crushed valuation. Buying your own company's stock during its worst year is either the trade of the decade or throwing good money into a submarine. The CFO, notably, is buying. The CFO also priced the round.",
+    choices: [
+      {
+        id: "preserve-cash",
+        label: "Pass — cash is a position too, especially in winter",
+        outcome: {
+          text:
+            "You keep your powder dry and your exposure singular — salary only. Whatever the recovery does, your rent money won't be aboard the submarine. In winters, liquidity is its own kind of alpha.",
+          effect: { netWorth: 15_000, burnout: 15 },
+          next: "y7-survivor",
+        },
+      },
+      {
+        id: "buy-the-dip",
+        label: "Buy in at the crushed price — the CFO is buying",
+        gamble: [
+          {
+            chance: 0.35,
+            label: "V-shaped recovery — the bottom was THE bottom",
+            text:
+              "The next eighteen months un-crush the valuation entirely: new logo momentum, a recovery round above the old peak, and your winter shares up 4x. Buying when the all-hands was a funeral: the trade you'll bore people with forever.",
+            effect: { netWorth: 70_000, burnout: 10 },
+            next: "y7-survivor",
+          },
+          {
+            chance: 0.65,
+            label: "Still underwater — the bottom had a basement",
+            text:
+              "The recovery arrives late and flat, and your 'discounted' shares stay stubbornly below even the crushed price. The CFO, it emerges, was averaging down from a much worse entry. You now understand insider buying: sometimes it's conviction, sometimes it's cope.",
+            effect: { netWorth: -25_000, burnout: 20 },
+            next: "y7-survivor",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y6-winter-severance-poker",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-startup",
+    headline: "The Voluntary Package",
+    text:
+      "The company opens a voluntary severance window: three months' pay to walk now, before the involuntary round decides for you. Taking it mid-winter is a bet that YOU can find work in a frozen market faster than the package runs out. The market currently answers emails with an away message.",
+    choices: [
+      {
+        id: "keep-the-seat",
+        label: "Decline — hold the seat through the storm",
+        outcome: {
+          text:
+            "You skip the package and keep the paycheck. The involuntary round grazes your team but misses you, and by spring you're running what's left. Not the comfortable path — the compounding one.",
+          effect: { netWorth: 20_000, burnout: 20 },
+          next: "y7-survivor",
+        },
+      },
+      {
+        id: "take-package-bet",
+        label: "Take the package — bet on a fast rehire",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "Rehired in five weeks — severance becomes a bonus",
+            text:
+              "Your network outperforms the market: a warm intro lands you a Senior role in week five, while the three-month package keeps paying. Double-dipping legally: the winter's rarest trick. You buy the group chat a round.",
+            effect: { netWorth: 60_000, burnout: 5, title: "Senior SWE (Landed Fast)" },
+            achievement: "big-bonus",
+            next: "y7-ai-goldrush",
+          },
+          {
+            chance: 0.45,
+            label: "Frozen market — seven months of silence",
+            text:
+              "The package runs out in month three; the market stays frozen through month seven. You learn the exact sound a savings account makes when it drains. The eventual offer is fine. The seven months were not.",
+            effect: { netWorth: -10_000, burnout: 20 },
+            next: "y7-comeback",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y6-winter-ai-hailmary",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-founder",
+    headline: "The Hail Mary Pivot",
+    text:
+      "Deep in the funding freeze, your one advisor with a pulse says the quiet part: 'The only checks being written this year have AI in the memo line.' A hard pivot to AI could catch the earliest wave of the next boom — or land you in a crater of a hundred identical pivots. Five months of runway. One throw.",
+    choices: [
+      {
+        id: "stay-the-course-lean",
+        label: "Stay the course — leanness beats fashion",
+        outcome: {
+          text:
+            "You ignore the memo-line advice and keep shipping the unfashionable thing customers pay for. The freeze eventually thaws for boring revenue too — it just doesn't tweet about it.",
+          effect: { netWorth: 5_000, burnout: 20 },
+          next: "y7-founder-grind",
+        },
+      },
+      {
+        id: "throw-the-hailmary",
+        label: "Hard pivot to AI — catch the wave early or die trying",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Early wave caught — pivots into the boom",
+            text:
+              "You rebuild the product around the models months before the gold rush goes mainstream, and when the wave breaks, you're already standing on it: inbound, press, and the first term sheet of the thaw. The hail mary spirals in. Touchdown.",
+            effect: { netWorth: 50_000, burnout: 15, title: "AI Founder (Early)" },
+            next: "y7-founder-grind",
+          },
+          {
+            chance: 0.6,
+            label: "Crowded crater — one of a hundred pivots",
+            text:
+              "By launch day there are ninety-nine other 'AI-powered' pivots with identical homepages, four with better funding. The wave arrives; you're underneath it. Three months of runway gone, one demo nobody remembers. The memo line giveth and taketh.",
+            effect: { netWorth: -25_000, burnout: 25 },
+            next: "y7-founder-grind",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y6-winter-shark-bridge",
+    year: 6,
+    age: 27,
+    slot: "y6-winter-founder",
+    headline: "The Shark's Bridge",
+    text:
+      "One investor is still writing checks this winter — at shark terms: a bridge with a 3x liquidation preference that eats most futures where you're not a unicorn. The alternative: refuse, cut to the bone, and race revenue against a five-month runway clock. The shark smiles. Sharks do that.",
+    choices: [
+      {
+        id: "take-shark-terms",
+        label: "Take the shark's bridge — alive and encumbered beats dead",
+        outcome: {
+          text:
+            "You sign the 3x pref with a steady hand and a clenched jaw. Payroll is safe; your exit math is now a hostage negotiation scheduled for later. Survival first. Cap-table therapy second.",
+          effect: { netWorth: 10_000, burnout: 20 },
+          next: "y7-founder-grind",
+        },
+      },
+      {
+        id: "race-the-clock",
+        label: "Refuse the shark — race revenue against the runway",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Revenue closes the gap — clean cap table intact",
+            text:
+              "Five months of feral, invoice-chasing focus later, revenue crosses burn with six weeks to spare. No shark, no pref stack, every future dollar still yours. The team shirt says 'DEFAULT ALIVE' and nobody's laughing — it's reverent.",
+            effect: { netWorth: 35_000, burnout: 15 },
+            next: "y7-founder-grind",
+          },
+          {
+            chance: 0.5,
+            label: "Miss payroll once — a near-death you'll never forget",
+            text:
+              "The race comes up two weeks short, and you cover payroll from your own account while everything wobbles. A customer prepayment saves the company on a Thursday afternoon. Alive, unencumbered, and permanently changed by the sound of that particular coin flip.",
+            effect: { netWorth: -30_000, burnout: 30 },
+            next: "y7-founder-grind",
+          },
+        ],
       },
     ],
   },

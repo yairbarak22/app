@@ -501,4 +501,177 @@ export const YEAR_08: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y8-prorata-doubledown",
+    year: 8,
+    age: 29,
+    slot: "y8-goldencage",
+    headline: "The Pro-Rata Question",
+    text:
+      "The one angel check that didn't die — the friend whose charts keep going up — is raising a hot Series B, and your pro-rata rights let you invest again at scale: a check ten times your original. The first check was beer money that got lucky. This one is real money that has to be right.",
+    choices: [
+      {
+        id: "decline-prorata",
+        label: "Let the pro-rata lapse — house money stays house money",
+        outcome: {
+          text:
+            "You decline gracefully and let the original check keep compounding untouched. Whatever happens next, your lucky bet stays a lucky bet instead of becoming a thesis. Your portfolio remains boring. Boring pays the mortgage.",
+          effect: { netWorth: 80_000, burnout: 0 },
+          next: "y9-politics",
+        },
+      },
+      {
+        id: "exercise-prorata",
+        label: "Exercise the full pro-rata — ten times the original check",
+        gamble: [
+          {
+            chance: 0.35,
+            label: "Marks up 4x within a year — thesis confirmed",
+            text:
+              "The B becomes an oversubscribed C in eleven months, and your doubled-down position marks up 4x on paper with secondary buyers circling. The beer money that got lucky is now a position with a seat at your net-worth table.",
+            effect: { netWorth: 150_000, burnout: 5 },
+            next: "y9-politics",
+          },
+          {
+            chance: 0.65,
+            label: "Growth stalls — big check, long wait",
+            text:
+              "The up-and-to-the-right chart discovers gravity two quarters after your wire clears. Not dead — just flat, illiquid, and very large in your portfolio now. The friend still texts charts. You've muted the thread, lovingly.",
+            effect: { netWorth: -50_000, burnout: 5 },
+            next: "y9-politics",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y8-moonshot-research",
+    year: 8,
+    age: 29,
+    slot: "y8-frontierlab",
+    headline: "The Research Fork",
+    text:
+      "Annual planning at the lab offers you a fork: the safe track (evals infrastructure — needed, funded, promotable) or a moonshot research direction two senior people believe in and everyone else calls 'a career detour with math.' Breakthroughs get papers and glory. Detours get a year older.",
+    choices: [
+      {
+        id: "safe-evals",
+        label: "Take the evals track — needed, funded, promotable",
+        outcome: {
+          text:
+            "You build the measurement infrastructure every team quietly depends on. No headlines, maximum leverage: your dashboards decide what ships. The moonshot team cites your evals in their paper. Everyone cites your evals.",
+          effect: { netWorth: 80_000, burnout: 10 },
+          next: "y9-politics",
+        },
+      },
+      {
+        id: "join-moonshot",
+        label: "Join the moonshot — a year on the risky direction",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Breakthrough — your name on the paper of the year",
+            text:
+              "The risky direction cracks open in month nine, and the resulting paper rearranges half the field's roadmaps. Your name sits on it, third author, permanently. Conference hallways now pronounce your surname correctly. The detour was the highway.",
+            effect: { netWorth: 140_000, burnout: 20, title: "MTS (Breakthrough Author)" },
+            next: "y9-politics",
+          },
+          {
+            chance: 0.6,
+            label: "Negative result — a year of beautiful dead ends",
+            text:
+              "The direction doesn't crack; it politely declines to exist. You publish a negative result — scientifically noble, career-wise invisible — and return to the main track a year behind your cohort with a much better intuition for what won't work. Expensive intuition. Real, though.",
+            effect: { netWorth: 50_000, burnout: 20 },
+            next: "y9-politics",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y8-retention-poker",
+    year: 8,
+    age: 29,
+    slot: "y8-acquisition",
+    headline: "Mid-Deal Leverage",
+    text:
+      "Halfway through the acquisition's diligence, a truth crystallizes: the deal needs you more than you need the deal. Your name is in the retention schedule the acquirer keeps asking about. Threatening to leave mid-deal could double your package — or hand the deal team a reason to de-risk you out of the story entirely.",
+    choices: [
+      {
+        id: "ride-quietly",
+        label: "Ride the deal quietly — leverage unspent is still leverage",
+        outcome: {
+          text:
+            "You keep your seat, your silence, and your standard package. The deal closes on schedule, and your restraint gets remembered by exactly the people who decide what you run next. The quiet play compounds.",
+          effect: { netWorth: 90_000, burnout: 10 },
+          next: "y9-politics",
+        },
+      },
+      {
+        id: "threaten-mid-deal",
+        label: "Spend the leverage — renegotiate or walk, mid-deal",
+        gamble: [
+          {
+            chance: 0.6,
+            label: "They can't lose you — package doubles",
+            text:
+              "The deal team does the math on 'key person risk' and the math says pay. Your retention package doubles, with an acceleration clause added like an apology. Leverage, spent at the exact moment it peaked. The MBA case study writes itself.",
+            effect: { netWorth: 180_000, burnout: 10 },
+            achievement: "big-bonus",
+            next: "y9-politics",
+          },
+          {
+            chance: 0.4,
+            label: "De-risked — 'we've accepted your resignation'",
+            text:
+              "The acquirer's playbook has a page for this: your threat becomes 'attrition risk,' your systems get emergency-documented, and your resignation is graciously accepted before you finished making it. The deal closes without you. Leverage has an expiry time, and it was Tuesday.",
+            effect: { netWorth: 30_000, burnout: 20, title: "Eng Lead (Out-Leveraged)" },
+            next: "y9-zombie",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y8-termsheet-bluff",
+    year: 8,
+    age: 29,
+    slot: "y8-seriesa",
+    headline: "The Phantom Term Sheet",
+    text:
+      "Your Series A negotiation stalls at a valuation you hate. The oldest trick in fundraising sits on the table: imply another term sheet exists. VCs run on FOMO the way engines run on fuel — but partners talk to each other at dinners specifically designed for catching this exact bluff.",
+    choices: [
+      {
+        id: "negotiate-straight",
+        label: "Play it straight — negotiate on traction, not phantoms",
+        outcome: {
+          text:
+            "You push the valuation up 10% the honest way: cohort charts and a pipeline review. The partner respects the no-games posture and says so at the board level for years. Slower money, cleaner reputation.",
+          effect: { netWorth: 30_000, burnout: 10 },
+          next: "y9-scale",
+        },
+      },
+      {
+        id: "bluff-the-sheet",
+        label: "Imply the phantom term sheet — let FOMO negotiate",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "FOMO wins — terms improve 20% overnight",
+            text:
+              "'We're moving quickly with another party' does in one email what three weeks of cohort charts couldn't: the valuation jumps 20% and the exploding deadline un-explodes. FOMO remains the market's strongest currency. You feel slightly gross and significantly richer.",
+            effect: { netWorth: 50_000, burnout: 10 },
+            next: "y9-scale",
+          },
+          {
+            chance: 0.45,
+            label: "Caught — partners compared notes at dinner",
+            text:
+              "The partner mentions your 'other term sheet' to the only other fund you pitched — at a dinner, over branzino. The bluff dies loudly. The round still closes, at a spite discount, with a reputation ding that follows you into the next raise. Branzino remembers.",
+            effect: { netWorth: 5_000, burnout: 20 },
+            next: "y9-scale",
+          },
+        ],
+      },
+    ],
+  },
 ];

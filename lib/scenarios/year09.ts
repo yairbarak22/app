@@ -145,6 +145,7 @@ export const YEAR_09: Scenario[] = [
           text:
             "The recruiter who's emailed you every six months since college finally gets a yes. Staff level, real money, and a first week so calm you keep waiting for the emergency. There is no emergency. There's just... process. It's beautiful.",
           effect: { netWorth: 75_000, burnout: 10, title: "Staff SWE @ Big Tech" },
+          achievement: "boomerang",
           next: "y10-poach",
         },
       },
@@ -380,6 +381,221 @@ export const YEAR_09: Scenario[] = [
           effect: { netWorth: -20_000, burnout: 10 },
           next: "y10-founder-crossroads",
         },
+      },
+    ],
+  },
+  {
+    id: "y9-coup-bet",
+    year: 9,
+    age: 30,
+    slot: "y9-politics",
+    headline: "The Coup Invitation",
+    text:
+      "A director you trust closes her office door: a faction is moving to oust the stack-ranking SVP — testimonies gathered, skip-levels aligned, one board-adjacent ally secured. She wants your name on the list of supporters. Coups that win rewrite org charts in the winners' favor. Coups that fail publish the list.",
+    choices: [
+      {
+        id: "stay-neutral-coup",
+        label: "Stay neutral — you build systems, not conspiracies",
+        outcome: {
+          text:
+            "You decline politely and delete the thread. The coup proceeds without you — succeeding partially, as coups do — and both factions still return your messages afterward. Neutrality: the only position with no downside case this quarter.",
+          effect: { netWorth: 70_000, burnout: 10 },
+          next: "y10-poach",
+        },
+      },
+      {
+        id: "join-the-coup",
+        label: "Sign on — the SVP is genuinely making everything worse",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "Coup succeeds — the winners redraw the map",
+            text:
+              "The testimonies land, the board-adjacent ally delivers, and the SVP departs to 'pursue portfolio work.' The winners' map has your name on a bigger box, drawn by the director who remembers exactly who signed early. Fortune favors the organized.",
+            effect: { netWorth: 110_000, burnout: 15, title: "Senior Staff (Coup Class)" },
+            next: "y10-poach",
+          },
+          {
+            chance: 0.5,
+            label: "Coup fails — the list gets published",
+            text:
+              "The SVP survives, as entrenched things do, and the supporter list finds its way to his desk within a week. Nothing formal happens — winters make firings loud — but your projects start dying of resource starvation. Exile, administered via budget.",
+            effect: { netWorth: 40_000, burnout: 20 },
+            next: "y10-poach",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y9-skiplevel-gamble",
+    year: 9,
+    age: 30,
+    slot: "y9-politics",
+    headline: "Over the VP's Head",
+    text:
+      "Your hostile VP has blocked your platform proposal three times with escalating creativity. The SVP — who once starred your incident writeup — has open office hours Thursday. Going over a VP's head is the org-chart equivalent of a trick shot: spectacular when it lands, unforgettable when it doesn't.",
+    choices: [
+      {
+        id: "endure-the-vp",
+        label: "Endure — outlast him with paper trails and patience",
+        outcome: {
+          text:
+            "You document every blocked proposal with timestamps and projected costs, building a file that will outlive him. VPs rotate every eighteen months on average. Your paper trail has no rotation schedule.",
+          effect: { netWorth: 65_000, burnout: 15 },
+          next: "y10-poach",
+        },
+      },
+      {
+        id: "book-the-office-hours",
+        label: "Book the Thursday slot — take it to the SVP",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "SVP intervenes — proposal funded, VP defanged",
+            text:
+              "The SVP hears ten minutes, asks two questions, and ends the meeting with 'why hasn't this shipped?' The proposal gets funded over the VP's head by Friday, and the VP's blocking privileges quietly expire. Trick shot: nothing but net.",
+            effect: { netWorth: 95_000, burnout: 10, title: "Principal Eng (SVP-Backed)" },
+            next: "y10-poach",
+          },
+          {
+            chance: 0.55,
+            label: "SVP backs the chain of command",
+            text:
+              "The SVP listens politely and then does what SVPs mostly do: backs the hierarchy. 'Work it through your VP' arrives in writing, cc'd to the VP, who now has documentation of your Thursday adventure. The trick shot ricochets. It always could.",
+            effect: { netWorth: 35_000, burnout: 25 },
+            next: "y10-poach",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y9-zombie-equity-scoop",
+    year: 9,
+    age: 30,
+    slot: "y9-zombie",
+    headline: "The Departure Discount",
+    text:
+      "As colleagues flee the zombie, several offer to sell you their vested shares at desperation prices — 70% below the last round. The company is flat, not dead; the shares are cheap, not free. Buying your coworkers' abandoned hope is either vulture genius or doubling down on a horse that's lying down.",
+    choices: [
+      {
+        id: "pass-on-scoop",
+        label: "Pass — you already work here, that's exposure enough",
+        outcome: {
+          text:
+            "You decline the discount politely and keep your capital diversified away from the building you sit in. The zombie shuffles on either way. Your portfolio doesn't smell like your employer, which auditors of your future sleep will appreciate.",
+          effect: { netWorth: 60_000, burnout: 5 },
+          next: "y10-poach",
+        },
+      },
+      {
+        id: "scoop-the-shares",
+        label: "Buy every share offered — vulture pricing on hope",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "PE acquisition at 3x — the vultures feast",
+            text:
+              "Fourteen months later the PE firm arrives with its EBITDA prayers and buys the zombie at 3x your entry. Your coworkers' desperation shares triple quietly in a spreadsheet nobody else saw. Vulture genius, confirmed — you buy the sellers a very awkward round of drinks.",
+            effect: { netWorth: 130_000, burnout: 5 },
+            next: "y10-poach",
+          },
+          {
+            chance: 0.7,
+            label: "Still a zombie — cheap shares, cheaper hope",
+            text:
+              "The zombie neither dies nor lives; it just continues, which is the one outcome your discount math didn't price. Your scooped shares sit in the same drawer as everyone else's, only more numerous. The horse remains lying down, breathing steadily.",
+            effect: { netWorth: -30_000, burnout: 10 },
+            next: "y10-poach",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y9-second-product-bet",
+    year: 9,
+    age: 30,
+    slot: "y9-scale",
+    headline: "The Second Act",
+    text:
+      "Your core product's growth is decelerating in the polite way charts do before board meetings get tense. The team has a second product concept — adjacent market, shared infrastructure, genuinely exciting. Multi-product companies are how empires happen. Split focus is how thirty-person companies die. Both statements are true.",
+    choices: [
+      {
+        id: "focus-the-core",
+        label: "Stay single-product — deceleration beats distraction",
+        outcome: {
+          text:
+            "You kill the second act before it's born and pour everything into re-accelerating the core. The growth chart responds like a plant that's been watered: slowly, then visibly. One product, whole company. It's enough.",
+          effect: { netWorth: 30_000, burnout: 10 },
+          next: "y10-founder-crossroads",
+        },
+      },
+      {
+        id: "launch-product-two",
+        label: "Green-light the second product — empires are multi-product",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Second product outgrows the first",
+            text:
+              "The adjacent market turns out to be the bigger one, and product two crosses product one's revenue in fourteen months. The board deck grows a second chart, then leads with it. Congratulations: you're a platform now, with the valuation grammar to match.",
+            effect: { netWorth: 70_000, burnout: 15 },
+            next: "y10-founder-crossroads",
+          },
+          {
+            chance: 0.6,
+            label: "Split focus — both products stall",
+            text:
+              "Thirty people running two roadmaps equals fifteen people running each, minus coordination tax. Both charts flatten in sympathy. You mercy-kill product two in Q3 and spend two quarters re-focusing the survivors. Empires, it turns out, are sequenced, not parallelized.",
+            effect: { netWorth: -15_000, burnout: 25 },
+            next: "y10-founder-crossroads",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y9-live-demo-bet",
+    year: 9,
+    age: 30,
+    slot: "y9-scale",
+    headline: "The Live Demo",
+    text:
+      "The industry's biggest conference offers you a keynote demo slot — five minutes, main stage, six thousand people, live. Your product demos beautifully 49 times out of 50. The 50th time involves a spinner that never stops spinning. Pre-recorded videos exist, but the crowd can smell them. Live is legend or blooper reel.",
+    choices: [
+      {
+        id: "decline-keynote",
+        label: "Decline the slot — ship the quarter instead",
+        outcome: {
+          text:
+            "You pass the stage to a competitor who does fine, and spend the week closing two enterprise deals instead. Less legend, more revenue. The conference will run next year; the payroll runs monthly.",
+          effect: { netWorth: 28_000, burnout: 10 },
+          next: "y10-founder-crossroads",
+        },
+      },
+      {
+        id: "demo-live",
+        label: "Demo live — legend or blooper reel, no net",
+        gamble: [
+          {
+            chance: 0.6,
+            label: "It lands — inbound floods for a quarter",
+            text:
+              "Five minutes, zero spinners, one spontaneous mid-demo applause break. The clip does numbers, the booth line wraps the hall, and inbound floods the pipeline for a full quarter. Live demos are a casino, and tonight the founder's table was hot.",
+            effect: { netWorth: 55_000, burnout: 15 },
+            next: "y10-founder-crossroads",
+          },
+          {
+            chance: 0.4,
+            label: "The spinner — six thousand witnesses",
+            text:
+              "The 50th time chooses the main stage. The spinner spins, the silence grows teeth, and your improvised 'well, that's why we have retries!' gets a mercy laugh. The blooper clip outperforms your entire marketing budget in reach, which is almost — almost — a win.",
+            effect: { netWorth: 5_000, burnout: 25 },
+            next: "y10-founder-crossroads",
+          },
+        ],
       },
     ],
   },

@@ -13,10 +13,12 @@ export default function StatsBar({
   stats,
   year,
   age,
+  achievementCount,
 }: {
   stats: GameStats;
   year: number;
   age: number;
+  achievementCount: number;
 }) {
   return (
     <div className="rounded-lg border border-term-border bg-term-panel p-3 text-sm">
@@ -24,12 +26,17 @@ export default function StatsBar({
         <span className="truncate text-term-dim">
           YR {year} · AGE {age} · <span className="text-slate-200">{stats.title}</span>
         </span>
-        <span
-          className={`shrink-0 font-bold ${
-            stats.netWorth < 0 ? "text-term-red" : "text-term-green"
-          }`}
-        >
-          {formatMoney(stats.netWorth)}
+        <span className="flex shrink-0 items-baseline gap-2">
+          {achievementCount > 0 && (
+            <span className="text-xs text-term-dim">🏆{achievementCount}</span>
+          )}
+          <span
+            className={`font-bold ${
+              stats.netWorth < 0 ? "text-term-red" : "text-term-green"
+            }`}
+          >
+            {formatMoney(stats.netWorth)}
+          </span>
         </span>
       </div>
       <div className="mt-2 flex items-center gap-2">

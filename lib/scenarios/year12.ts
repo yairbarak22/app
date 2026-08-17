@@ -417,4 +417,219 @@ export const YEAR_12: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y12-lumpsum-bet",
+    year: 12,
+    age: 33,
+    slot: "y12-fumoney",
+    headline: "The Windfall Question",
+    text:
+      "A vest cliff, a bonus, and a tender all land in the same month — the largest single pile of cash you've ever held at once. The research says lump-sum investing beats dollar-cost averaging two-thirds of the time. The research has never met your amygdala at a market top.",
+    choices: [
+      {
+        id: "dca-the-pile",
+        label: "DCA it over a year — pay the average, skip the regret",
+        outcome: {
+          text:
+            "You automate twelve monthly buys and stop looking. The result is mathematically mediocre and emotionally perfect — no single day can ever be The Day You Blew It. Your amygdala sends a thank-you card.",
+          effect: { netWorth: 120_000, burnout: 5 },
+          next: "y13-lastcycle",
+        },
+      },
+      {
+        id: "lump-sum-now",
+        label: "Lump sum today — the math says now",
+        gamble: [
+          {
+            chance: 0.6,
+            label: "Up year — optimal entry, maximum growth",
+            text:
+              "The market grinds up 20% over the year, and your day-one entry captures every point of it. The research wins again, as research does two-thirds of the time. You develop the quiet superiority of someone whose spreadsheet beat their feelings.",
+            effect: { netWorth: 220_000, burnout: 0 },
+            next: "y13-lastcycle",
+          },
+          {
+            chance: 0.4,
+            label: "You bought the top — the exact top",
+            text:
+              "Your wire settles on what charts will later label the year's peak, followed by a 15% slide you experience in real time, daily, personally. The math still favors your move in the long run. The long run has never once comforted anyone in October.",
+            effect: { netWorth: -60_000, burnout: 10 },
+            next: "y13-lastcycle",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y12-seed-best-friend",
+    year: 12,
+    age: 33,
+    slot: "y12-fumoney",
+    headline: "The Best Friend's Round",
+    text:
+      "Your oldest friend — the garage roommate, the one who drove you to your first day of work — is raising a seed round for his startup and needs $150K to close it. The idea is decent. The founder is family. Money between friends is a bridge or a wall, and you don't get to know which until it's built.",
+    choices: [
+      {
+        id: "decline-preserve",
+        label: "Decline with love — the friendship outvalues the equity",
+        outcome: {
+          text:
+            "You say no over a long dinner you pay for, and explain it so honestly he ends up agreeing. The round closes without you; the friendship closes ranks. Twenty years from now, neither of you will remember the startup's name. You'll remember the dinner.",
+          effect: { netWorth: 130_000, burnout: 5 },
+          next: "y13-lastcycle",
+        },
+      },
+      {
+        id: "write-the-check",
+        label: "Write the $150K — bet on your oldest friend",
+        gamble: [
+          {
+            chance: 0.35,
+            label: "It works — money AND the friendship compound",
+            text:
+              "The startup finds its market in year two, and your check marks up alongside something rarer: a friendship that survived money and grew. He thanks you at his Series A dinner by name, voice cracking. Best position in your portfolio, by any metric that matters.",
+            effect: { netWorth: 180_000, burnout: -5 },
+            next: "y13-lastcycle",
+          },
+          {
+            chance: 0.65,
+            label: "It dies — the money goes, the friendship goes weird",
+            text:
+              "The startup winds down in eighteen months, and the $150K takes something with it: he apologizes too much, you reassure too carefully, and the group chat develops a polite frost. The money you'd written off. The weirdness you hadn't.",
+            effect: { netWorth: -150_000, burnout: 10 },
+            next: "y13-lastcycle",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y12-anchor-lp",
+    year: 12,
+    age: 33,
+    slot: "y12-postexit",
+    headline: "The Anchor Ask",
+    text:
+      "A first-time fund manager — sharp, hungry, unproven — asks you to anchor her fund: the big first check that makes every other LP comfortable. Anchors get better economics and their name whispered in every pitch. First-time funds also have the widest outcome distribution in all of finance.",
+    choices: [
+      {
+        id: "small-check-support",
+        label: "Write a small check — support without anchoring",
+        outcome: {
+          text:
+            "You come in as a regular LP with a fifth of the ask, enough to signal belief without betting the pile. She closes the fund slightly smaller and remembers you kindly. Optionality preserved on all fronts, including hers.",
+          effect: { netWorth: 100_000, burnout: 5 },
+          next: "y13-lastcycle",
+        },
+      },
+      {
+        id: "anchor-the-fund",
+        label: "Anchor it — the big check, the better economics",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "She's the real thing — carry plus kingmaker status",
+            text:
+              "Her first fund catches a generational company in month seven, and your anchor economics turn the win into a windfall. Better: every hot first-time manager for a decade now calls you first. You didn't just back a fund. You bought a seat at the origin of things.",
+            effect: { netWorth: 200_000, burnout: 5 },
+            next: "y13-lastcycle",
+          },
+          {
+            chance: 0.6,
+            label: "The long J-curve — a decade of 'early days'",
+            text:
+              "The fund performs like most first funds: two write-offs, five zombies, one maybe. Quarterly letters master the art of optimistic past tense. Your anchor check ages in a cellar with no vintage label — not gone, just geological.",
+            effect: { netWorth: -120_000, burnout: 5 },
+            next: "y13-lastcycle",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y12-rollup-spree",
+    year: 12,
+    age: 33,
+    slot: "y12-warpath",
+    headline: "The Roll-Up Thesis",
+    text:
+      "Your CFO — the one who's done this before — slides a deck across the table: two smaller competitors, both buyable, financed with debt and stock. The roll-up would make you the category's undisputed consolidator overnight. Integration, she notes on slide nine, 'is where roll-ups go to die.' Then she waits.",
+    choices: [
+      {
+        id: "organic-path",
+        label: "Decline the spree — one company, one culture, one P&L",
+        outcome: {
+          text:
+            "You pass on empire-by-acquisition and keep compounding the machine you already understand. The two targets sell to a PE roll-up that spends three years digesting them. You spend those years growing past the whole indigestion.",
+          effect: { netWorth: 50_000, burnout: 15 },
+          next: "y13-endgame-founder",
+        },
+      },
+      {
+        id: "execute-rollup",
+        label: "Execute the roll-up — buy both, integrate or die",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "Integration works — category owner, priced accordingly",
+            text:
+              "Eighteen brutal months of systems mergers and culture triage later, the roll-up holds: one brand, one platform, sixty percent market share. The category now has a capital city and you're its mayor. Slide nine was a warning, not a prophecy.",
+            effect: { netWorth: 150_000, burnout: 20, title: "CEO (The Consolidator)" },
+            next: "y13-endgame-founder",
+          },
+          {
+            chance: 0.55,
+            label: "Integration hell — three companies, zero cultures",
+            text:
+              "Slide nine was a prophecy. Three codebases refuse to merge, two sales teams poach each other's accounts, and the debt payment arrives monthly regardless. You spend two years un-buying what you bought, at a discount to what you paid. The category consolidates around your distraction.",
+            effect: { netWorth: -80_000, burnout: 30 },
+            next: "y13-endgame-founder",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y12-superbowl-ad",
+    year: 12,
+    age: 33,
+    slot: "y12-warpath",
+    headline: "The Big Game Ad",
+    text:
+      "Your CMO wants to spend seven million dollars on thirty seconds of the Big Game — the full send: celebrity cameo, QR code, war room. B2B software companies doing Super Bowl ads is either a category-defining flex or the single most expensive way to confuse 100 million people. The deck's last slide just says 'BRAND.'",
+    choices: [
+      {
+        id: "performance-marketing",
+        label: "Keep the $7M in performance marketing — measurable, boring",
+        outcome: {
+          text:
+            "You feed the money into the funnel that reports its own ROI weekly, and it does what it always does: works, unglamorously. No war room, no cameo, no trophy — just pipeline, which is the only trophy the board recognizes.",
+          effect: { netWorth: 55_000, burnout: 10 },
+          next: "y13-endgame-founder",
+        },
+      },
+      {
+        id: "run-the-ad",
+        label: "Run the ad — thirty seconds, full send",
+        gamble: [
+          {
+            chance: 0.3,
+            label: "Cultural moment — the ad becomes THE ad",
+            text:
+              "The cameo lands, the joke lands, and by halftime your brand is a meme in the best possible way. Monday's pipeline is triple the record; recruiting inbound goes vertical; enterprise buyers now recognize the logo their kids laughed at. 'BRAND,' vindicated.",
+            effect: { netWorth: 180_000, burnout: 10 },
+            next: "y13-endgame-founder",
+          },
+          {
+            chance: 0.7,
+            label: "$7M for a national shrug",
+            text:
+              "The ad runs third in a break with a beer ad people still quote and a car ad with a dog. A hundred million people see thirty seconds of your brand and retain a QR code nobody scanned. The CMO's retro deck retitles it 'a reach investment.' The board retitles the CMO.",
+            effect: { netWorth: -90_000, burnout: 20 },
+            next: "y13-endgame-founder",
+          },
+        ],
+      },
+    ],
+  },
 ];

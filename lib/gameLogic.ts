@@ -1,7 +1,9 @@
 import { SCENARIOS } from "./scenarios";
 import type {
+  Achievement,
   Ending,
   EndingKind,
+  GambleOutcome,
   GameStats,
   RandomEvent,
   Scenario,
@@ -116,6 +118,231 @@ export const RANDOM_EVENTS: RandomEvent[] = [
     minYear: 4,
   },
 ];
+
+// ---------------------------------------------------------------------------
+// ACHIEVEMENTS — unlocked mid-run, each with a prize applied on unlock.
+// Sources: stat milestones (checkStatAchievements), title changes
+// (titleAchievements), explicit outcome tags, and luck (gamble/ad detection
+// in the store).
+// ---------------------------------------------------------------------------
+
+export const ACHIEVEMENTS: Achievement[] = [
+  // Money & survival milestones
+  {
+    id: "debt-free",
+    icon: "🎉",
+    name: "Out of the Red",
+    description: "Student loans: destroyed. Net worth crossed $0.",
+    reward: { burnout: -5 },
+  },
+  {
+    id: "six-figures",
+    icon: "💯",
+    name: "Six Figures",
+    description: "Net worth crossed $100K. The money starts working for you.",
+    reward: { netWorth: 5_000 },
+  },
+  {
+    id: "quarter-club",
+    icon: "📈",
+    name: "Quarter Club",
+    description: "Net worth crossed $250K.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "two-commas",
+    icon: "🤑",
+    name: "Two Commas",
+    description: "Millionaire. The spreadsheet confirms it.",
+    reward: { burnout: -10 },
+  },
+  {
+    id: "generational-track",
+    icon: "🏝️",
+    name: "Generational Track",
+    description: "Net worth crossed $3M. The grandkids are covered.",
+    reward: { netWorth: 50_000 },
+  },
+  {
+    id: "near-meltdown",
+    icon: "🫠",
+    name: "Near-Meltdown",
+    description: "Hit 90% burnout and lived to tell. Wake-up call cashed.",
+    reward: { burnout: -15 },
+  },
+  {
+    id: "zen-engineer",
+    icon: "🧘",
+    name: "Zen Engineer",
+    description: "Burnout at 10% or less after year 6. Teach us your ways.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "decade-club",
+    icon: "🎖️",
+    name: "Decade Club",
+    description: "Reached year 8. Officially industry furniture.",
+    reward: { netWorth: 15_000 },
+  },
+  {
+    id: "endgame",
+    icon: "🏆",
+    name: "The Endgame",
+    description: "Reached year 12. Few careers make it this far intact.",
+    reward: { netWorth: 25_000 },
+  },
+  // Career events
+  {
+    id: "founder-mode",
+    icon: "🚀",
+    name: "Founder Mode",
+    description: "Started your own company. God help you.",
+    reward: { burnout: -5 },
+  },
+  {
+    id: "corner-office",
+    icon: "👔",
+    name: "Corner Office",
+    description: "Reached an executive title. The meetings found you.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "the-exit",
+    icon: "💰",
+    name: "The Exit",
+    description: "Sold a company. The wire cleared. Champagne bonus included.",
+    reward: { netWorth: 25_000, burnout: -10 },
+  },
+  {
+    id: "acquihired",
+    icon: "📦",
+    name: "Acquihired",
+    description: "Sold the team, kept the story. Retention sweetener attached.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "rang-the-bell",
+    icon: "🔔",
+    name: "Rang the Bell",
+    description: "Took a company public. IPO-pop bonus on the house.",
+    reward: { netWorth: 100_000 },
+  },
+  {
+    id: "unicorn-rider",
+    icon: "🦄",
+    name: "Unicorn Rider",
+    description: "Rode a $1B+ valuation. The horn is real (on paper).",
+    reward: { netWorth: 20_000 },
+  },
+  {
+    id: "gave-back",
+    icon: "🎓",
+    name: "Gave Back",
+    description: "Taught the next generation the things the docs won't say.",
+    reward: { burnout: -10 },
+  },
+  {
+    id: "big-bonus",
+    icon: "💵",
+    name: "The Fat Bonus",
+    description: "Landed a serious bonus. Payroll asked if it was a typo.",
+    reward: { netWorth: 15_000 },
+  },
+  {
+    id: "winter-proof",
+    icon: "🧊",
+    name: "Winter-Proof",
+    description: "Kept your job through the Tech Winter. The list lost.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "boomerang",
+    icon: "🪃",
+    name: "Boomerang",
+    description: "Left. Came back. No hard feelings, better badge photo.",
+    reward: { burnout: -5 },
+  },
+  // Luck
+  {
+    id: "against-the-odds",
+    icon: "🍀",
+    name: "Against the Odds",
+    description: "Won a gamble at 30% or worse. The dice owed you one.",
+    reward: { netWorth: 10_000 },
+  },
+  {
+    id: "snake-eyes",
+    icon: "🎲",
+    name: "Snake Eyes",
+    description: "Lost the safe bet. Consolation beer money enclosed.",
+    reward: { netWorth: 2_000 },
+  },
+  {
+    id: "called-a-favor",
+    icon: "🕊️",
+    name: "Called in a Favor",
+    description: "A connection saved your career at the exact right moment.",
+    reward: { burnout: -5 },
+  },
+];
+
+const achievementIndex = new Map(ACHIEVEMENTS.map((a) => [a.id, a]));
+
+export function getAchievement(id: string): Achievement {
+  const achievement = achievementIndex.get(id);
+  if (!achievement) throw new Error(`Unknown achievement id: ${id}`);
+  return achievement;
+}
+
+/** Achievements inferred automatically from a newly acquired title. */
+export function titleAchievements(title: string): string[] {
+  const ids: string[] = [];
+  if (/Exited|Sold for Parts/i.test(title)) ids.push("the-exit");
+  if (/Acquihired/i.test(title)) ids.push("acquihired");
+  if (/Founder|Co-CEO/i.test(title) && !/Founding Engineer/i.test(title))
+    ids.push("founder-mode");
+  if (/\b(VP|CTO|Chairman|Chief|Head of Engineering|President)\b/.test(title))
+    ids.push("corner-office");
+  if (/Public/i.test(title)) ids.push("rang-the-bell");
+  if (/Unicorn/i.test(title)) ids.push("unicorn-rider");
+  if (/Professor|Adjunct|Instructor|Lecturer|Mentor/i.test(title))
+    ids.push("gave-back");
+  return ids;
+}
+
+/** Stat/progress milestones crossed by this turn's stat change. */
+export function checkStatAchievements(
+  prev: GameStats,
+  next: GameStats,
+  year: number,
+): string[] {
+  const ids: string[] = [];
+  if (prev.netWorth < 0 && next.netWorth >= 0) ids.push("debt-free");
+  if (prev.netWorth < 100_000 && next.netWorth >= 100_000) ids.push("six-figures");
+  if (prev.netWorth < 250_000 && next.netWorth >= 250_000) ids.push("quarter-club");
+  if (prev.netWorth < 1_000_000 && next.netWorth >= 1_000_000) ids.push("two-commas");
+  if (prev.netWorth < 3_000_000 && next.netWorth >= 3_000_000)
+    ids.push("generational-track");
+  if (next.burnout >= 90 && next.burnout < 100) ids.push("near-meltdown");
+  if (year >= 6 && next.burnout <= 10) ids.push("zen-engineer");
+  if (year >= 8) ids.push("decade-club");
+  if (year >= 12) ids.push("endgame");
+  return ids;
+}
+
+/** Roll a gamble: pick one outcome according to its displayed odds. */
+export function resolveGamble(
+  gamble: GambleOutcome[],
+  rng: () => number = Math.random,
+): GambleOutcome {
+  const roll = rng();
+  let cumulative = 0;
+  for (const outcome of gamble) {
+    cumulative += outcome.chance;
+    if (roll < cumulative) return outcome;
+  }
+  return gamble[gamble.length - 1];
+}
 
 // ---------------------------------------------------------------------------
 // Scenario pools & lookup

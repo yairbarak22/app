@@ -29,18 +29,44 @@ export interface Outcome {
   next?: string;
   /** Ending kind when the run ends here (no `next`). Defaults to "retired". */
   ending?: EndingKind;
+  /** Achievement id unlocked when this outcome resolves. */
+  achievement?: string;
+}
+
+/** One possible result of a risky choice. Odds are SHOWN to the player up front. */
+export interface GambleOutcome extends Outcome {
+  /** 0–1 probability. All outcomes of one gamble sum to 1. */
+  chance: number;
+  /** Short result label shown next to the odds before choosing (e.g. "Deal closes: +$300K"). */
+  label: string;
 }
 
 export interface Choice {
   id: string;
   label: string;
-  outcome: Outcome;
+  /** Deterministic result. Exactly one of `outcome` / `gamble` is set. */
+  outcome?: Outcome;
+  /**
+   * Risky choice: the result is rolled from these weighted outcomes, and the
+   * player sees every outcome's odds before committing.
+   */
+  gamble?: GambleOutcome[];
   /**
    * Rewarded-ad gate. When set, picking this choice plays a rewarded ad first:
    * ad completed → `outcome`; ad skipped/failed → `adFallback`.
    */
   requiresAd?: boolean;
   adFallback?: Outcome;
+}
+
+/** A milestone the player can unlock mid-run, with a reward applied on unlock. */
+export interface Achievement {
+  id: string;
+  icon: string;
+  name: string;
+  description: string;
+  /** Prize applied to stats the moment it unlocks. */
+  reward?: StatEffect;
 }
 
 export interface Scenario {

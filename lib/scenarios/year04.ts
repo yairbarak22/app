@@ -290,6 +290,7 @@ export const YEAR_04: Scenario[] = [
           text:
             "You tell the interviewer the startup 'taught you ownership.' They nod knowingly. The re-badge photo captures a person who has Seen Things. Your first paycheck feels like a warm bath.",
           effect: { netWorth: 55_000, burnout: 5, title: "Senior SWE @ Big Tech" },
+          achievement: "boomerang",
           next: "y5-bigtech-staffpacket",
         },
       },
@@ -498,6 +499,179 @@ export const YEAR_04: Scenario[] = [
           effect: { netWorth: 20_000, burnout: 10 },
           next: "y5-startup-seriesb",
         },
+      },
+    ],
+  },
+  {
+    id: "y4-refresher-poker",
+    year: 4,
+    age: 25,
+    slot: "y4-bigtech-handcuffs",
+    headline: "The Phantom Offer",
+    text:
+      "Refresher season, and the grapevine says the comp committee only opens the big budget for flight risks. You don't have a competing offer. You could imply one — carefully, deniably, over coffee with your manager. Comp poker with cards you don't hold. What could possibly go wrong.",
+    choices: [
+      {
+        id: "sign-standard",
+        label: "Sign the standard refresher — bluffing is for poker night",
+        outcome: {
+          text:
+            "You take the standard grant and keep your integrity un-audited. The money is genuinely good; the what-if is genuinely small. Some pots aren't worth the tell.",
+          effect: { netWorth: 90_000, burnout: 10 },
+          next: "y5-bigtech-staffpacket",
+        },
+      },
+      {
+        id: "imply-the-offer",
+        label: "Imply a competing offer — 'exploring options' over coffee",
+        gamble: [
+          {
+            chance: 0.55,
+            label: "Comp committee blinks — massive retention refresh",
+            text:
+              "The phrase 'exploring options' travels from coffee to comp committee in 72 hours, returning as a refresh 40% over standard 'to reflect your market position.' Your market position was a latte and good posture. Poker: won.",
+            effect: { netWorth: 120_000, burnout: 10 },
+            achievement: "big-bonus",
+            next: "y5-bigtech-staffpacket",
+          },
+          {
+            chance: 0.45,
+            label: "'We wish you the best' — now you actually have to leave",
+            text:
+              "Your manager, unexpectedly zen: 'If you've got something better, take it — we'll backfill.' The bluff has no cards behind it, so you scramble to make one real. The rocket ship's recruiter, thankfully, still answers. Dignity: singed. Trajectory: rerouted.",
+            effect: { netWorth: 45_000, burnout: 20, title: "Senior Eng @ Rocket Ship" },
+            next: "y5-rocketship",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y4-two-doors",
+    year: 4,
+    age: 25,
+    slot: "y4-open-market",
+    headline: "Two Doors, One Résumé",
+    text:
+      "The gauntlet finally produces two offers on the same Friday: a boring insurer with a pension and a seed startup as employee #4 with equity that's either a future down payment or future wallpaper. Your severance runs out in three weeks. The doors are open. Pick.",
+    choices: [
+      {
+        id: "insurer-door",
+        label: "Take the insurer — pensions are punk rock now",
+        outcome: {
+          text:
+            "You choose the company whose product is literally managing risk, which feels thematically correct after this year. The work is calm, the checks clear, and 'boring' turns out to be a luxury good.",
+          effect: { netWorth: 35_000, burnout: 5, title: "Senior SWE (Insured)" },
+          next: "y5-bigtech-staffpacket",
+        },
+      },
+      {
+        id: "startup-door",
+        label: "Take the seed startup — employee #4, equity heavy",
+        gamble: [
+          {
+            chance: 0.25,
+            label: "It's a rocket — early seat on a real one",
+            text:
+              "Eight months in, the startup's growth chart goes vertical and a Tier-1 fund preempts the A. Employee #4 at a breakout company — the seat everyone claims they'd have taken. You actually took it, mid-layoff, on your last three weeks of severance. Legend behavior.",
+            effect: { netWorth: 55_000, burnout: 10, title: "Founding Eng (Early & Right)" },
+            next: "y5-rocketship",
+          },
+          {
+            chance: 0.75,
+            label: "It dies in 8 months — back to the market",
+            text:
+              "The seed round was the last round. The startup winds down politely before its first birthday, and you're back in the gauntlet — with a better story and thinner savings. The equity wallpaper isn't even printed.",
+            effect: { netWorth: 10_000, burnout: 20 },
+            next: "y5-bigtech-staffpacket",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y4-pivot-or-persist",
+    year: 4,
+    age: 25,
+    slot: "y4-founder-garage",
+    headline: "Five Months of Runway",
+    text:
+      "The current idea has polite users and impolite growth. A customer interview accidentally revealed a much bigger adjacent problem — but chasing it means throwing away eight months of code and restarting the clock with five months of runway. The sunk cost fallacy has never felt less like a fallacy.",
+    choices: [
+      {
+        id: "persist-current",
+        label: "Persist — eight months of learning has to compound",
+        outcome: {
+          text:
+            "You keep grinding the original idea, and the polite users slowly become paying users. It's not a rocket; it's a staircase. Staircases, notably, also go up.",
+          effect: { netWorth: 15_000, burnout: 15 },
+          next: "y5-founder-pmf",
+        },
+      },
+      {
+        id: "hard-pivot",
+        label: "Hard pivot — bet the runway on the bigger problem",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "The new idea catches instantly",
+            text:
+              "The pivot lands like it was always the plan: three design partners in a month, inbound from a market that actually pulls. Eight months of dead code becomes tuition. The graveyard of your repos has one more stone and zero regrets.",
+            effect: { netWorth: 30_000, burnout: 10 },
+            next: "y5-founder-pmf",
+          },
+          {
+            chance: 0.55,
+            label: "Three months lost — worse off than before",
+            text:
+              "The bigger problem turns out to have bigger incumbents, and the pivot burns three of your five months learning why. You limp back toward the original idea humbled and lighter. The sunk cost fallacy sends its regards.",
+            effect: { netWorth: -20_000, burnout: 20 },
+            next: "y5-founder-pmf",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y4-rockstar-roulette",
+    year: 4,
+    age: 25,
+    slot: "y4-startup-scale",
+    headline: "The 10x Candidate",
+    text:
+      "Into your hiring pipeline walks a legitimate legend: shipped systems you've studied, references that say 'genius' — and two that say 'genius, but.' The 'but' has stories. He'd cost both your open headcounts and reshape the team either into a rocket or a crater. The safe alternative: two solid mid-levels who will definitely, boringly, deliver.",
+    choices: [
+      {
+        id: "two-solids",
+        label: "Hire the two solid mid-levels — teams beat heroes",
+        outcome: {
+          text:
+            "The two arrive, gel, and grind the backlog down like weather eroding a mountain. Nothing about it makes a good story, which is the highest compliment infrastructure hiring can earn.",
+          effect: { netWorth: 28_000, burnout: 10 },
+          next: "y5-startup-seriesb",
+        },
+      },
+      {
+        id: "hire-the-legend",
+        label: "Hire the legend — absorb the 'but'",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "He carries the roadmap — the 'but' stays dormant",
+            text:
+              "The legend ships the entire Q3 roadmap by mid-August and rewrites your worst subsystem as a warm-up. The 'but' surfaces only as strong opinions about tabs. Your bet becomes the hire other founders ask you about at dinners.",
+            effect: { netWorth: 45_000, burnout: 5 },
+            next: "y5-startup-seriesb",
+          },
+          {
+            chance: 0.5,
+            label: "The 'but' arrives — two good engineers quit",
+            text:
+              "The genius is real and so are the stories: steamrolled design reviews, midnight rewrites of teammates' merged code, and two resignation letters that both cite 'team dynamics.' You exit him by Q4, slower and wiser. References that say 'but' mean but.",
+            effect: { netWorth: 10_000, burnout: 25 },
+            next: "y5-startup-seriesb",
+          },
+        ],
       },
     ],
   },

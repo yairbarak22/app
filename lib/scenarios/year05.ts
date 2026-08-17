@@ -501,4 +501,176 @@ export const YEAR_05: Scenario[] = [
       },
     ],
   },
+  {
+    id: "y5-promo-appeal",
+    year: 5,
+    age: 26,
+    slot: "y5-bigtech-staffpacket",
+    headline: "The Appeal",
+    text:
+      "The committee's verdict: 'strong packet, not this cycle.' But there's a rarely-used appeal process — one shot, review by a different committee, reputation on the line. Winners get the level immediately. Losers get a permanent note that reads, between the lines, 'impatient.' Your mentor says appeal. Your manager says wait. They can't both be right.",
+    choices: [
+      {
+        id: "wait-a-cycle",
+        label: "Wait the cycle — packets age like wine, appeals like milk",
+        outcome: {
+          text:
+            "You bank the feedback, land one more marquee project, and clear the bar next cycle without drama. The extra six months sting less than a failed appeal would have. Patience: still undefeated in committee rooms.",
+          effect: { netWorth: 65_000, burnout: 5 },
+          next: "y6-winter-bigtech",
+        },
+      },
+      {
+        id: "file-the-appeal",
+        label: "File the appeal — the packet is strong NOW",
+        gamble: [
+          {
+            chance: 0.35,
+            label: "Appeal lands — Staff, effective immediately",
+            text:
+              "The second committee reads the same packet and reaches the obvious conclusion in forty minutes. Staff, backdated comp, and a quiet legend: the one who appealed and won. Your mentor buys the drinks and says nothing smug, loudly.",
+            effect: { netWorth: 95_000, burnout: 10, title: "Staff SWE @ Big Tech" },
+            next: "y6-winter-bigtech",
+          },
+          {
+            chance: 0.65,
+            label: "Appeal denied — 'impatient' enters your file",
+            text:
+              "The appeal dies in review with a note about 'calibration consistency.' Nothing changes on paper except everything: two directors now pronounce your name with a faint eyebrow. The promo comes eventually. The eyebrow takes longer.",
+            effect: { netWorth: 55_000, burnout: 15 },
+            next: "y6-winter-bigtech",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y5-exercise-loan",
+    year: 5,
+    age: 26,
+    slot: "y5-rocketship",
+    headline: "The Exercise Loan",
+    text:
+      "A specialty lender will front you six figures to early-exercise all your rocket-ship options — huge tax savings if the IPO comes soon, a personal debt crater if it doesn't. The loan doc's font is elegant. The interest clause is not. The IPO countdown clock at all-hands currently says 'soon™.'",
+    choices: [
+      {
+        id: "exercise-nothing",
+        label: "Exercise nothing — debt and options don't mix",
+        outcome: {
+          text:
+            "You pass on the loan and let the options ride unexercised. Less optimal on some spreadsheet, infinitely calmer in every dream. The lender's follow-up emails achieve spam-folder velocity by June.",
+          effect: { netWorth: 45_000, burnout: 5 },
+          next: "y6-winter-startup",
+        },
+      },
+      {
+        id: "loan-and-exercise",
+        label: "Take the loan — exercise everything before the IPO",
+        gamble: [
+          {
+            chance: 0.45,
+            label: "IPO within the window — the tax play prints",
+            text:
+              "The IPO lands inside your holding window and the loan play works exactly as the spreadsheet promised: long-term rates on a life-changing gain. The lender sends a fruit basket. You send your accountant one.",
+            effect: { netWorth: 130_000, burnout: 10 },
+            next: "y6-winter-startup",
+          },
+          {
+            chance: 0.55,
+            label: "IPO delays — interest bleeds you monthly",
+            text:
+              "'Soon™' becomes 'market conditions,' and the loan's interest meter runs while your shares stay paper. You're now paying monthly for the privilege of owning your own upside. The fruit basket does not arrive.",
+            effect: { netWorth: -40_000, burnout: 20 },
+            next: "y6-winter-startup",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y5-cro-alliance",
+    year: 5,
+    age: 26,
+    slot: "y5-startup-seriesb",
+    headline: "The CRO's Invitation",
+    text:
+      "The new CRO — boat guy — invites you to co-sponsor his reorg proposal: engineering aligned under revenue pods, with you running the biggest one. If his plan wins the board, you rise with him. If it dies, you're 'his person' at a company that just rejected him. Politics is now offering you equity in itself.",
+    choices: [
+      {
+        id: "stay-neutral",
+        label: "Stay neutral — let the executives fight executives",
+        outcome: {
+          text:
+            "You listen politely and commit to nothing, a skill worth more than most certifications. The reorg fight resolves without your fingerprints on it, and both survivors still trust you. Switzerland: strong Q3.",
+          effect: { netWorth: 40_000, burnout: 10 },
+          next: "y6-winter-startup",
+        },
+      },
+      {
+        id: "back-the-cro",
+        label: "Back the CRO's plan — ride the reorg up",
+        gamble: [
+          {
+            chance: 0.5,
+            label: "His plan wins — you run the biggest pod",
+            text:
+              "The board buys the revenue-pod gospel, and you ascend with the tide: Director title, the flagship pod, and a seat at tables you used to hear about secondhand. The boat guy delivers. You still decline the boat invite.",
+            effect: { netWorth: 70_000, burnout: 10, title: "Director of Engineering" },
+            next: "y6-winter-startup",
+          },
+          {
+            chance: 0.5,
+            label: "CRO flames out — you're 'his person' now",
+            text:
+              "The board passes, the CRO 'transitions out' within two quarters, and his org chart dies with his login. You spend a year laundering the association through good work. The lesson, engraved: don't co-sign what you can't co-steer.",
+            effect: { netWorth: 20_000, burnout: 20 },
+            next: "y6-winter-startup",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "y5-whale-demo",
+    year: 5,
+    age: 26,
+    slot: "y5-founder-pmf",
+    headline: "The Whale Demo",
+    text:
+      "A Fortune 100 wants a custom demo in six weeks — a deal that would triple your revenue in one signature. Preparing it properly means pausing every other deal in the pipeline: ten smaller fish released to chase one whale. Your sales advisor says whales ghost. Your board says whales fund Series As. The ocean says nothing.",
+    choices: [
+      {
+        id: "keep-the-fish",
+        label: "Keep the ten small deals — schools beat whales",
+        outcome: {
+          text:
+            "You close seven of the ten small deals and build the compounding base that boring companies are made of. The whale swims to a competitor, who spends a year building its custom demo. You spend the year growing.",
+          effect: { netWorth: 25_000, burnout: 10 },
+          next: "y6-winter-founder",
+        },
+      },
+      {
+        id: "chase-the-whale",
+        label: "Bet the quarter on the whale demo",
+        gamble: [
+          {
+            chance: 0.4,
+            label: "Whale signs — seven-figure contract",
+            text:
+              "The demo lands in a conference room with more VPs than chairs, and procurement moves at whale speed — slow, then all at once. The contract triples revenue and re-prices your next round before you've raised it. Ahab was just underfunded.",
+            effect: { netWorth: 80_000, burnout: 15 },
+            next: "y6-winter-founder",
+          },
+          {
+            chance: 0.6,
+            label: "Whale ghosts after the demo",
+            text:
+              "Six weeks of custom work, one flawless demo, two enthusiastic follow-ups — then the ocean goes silent. 'Budget re-prioritization.' The paused pipeline half-thaws; three small fish found other vendors. Whales, it turns out, ghost.",
+            effect: { netWorth: -10_000, burnout: 20 },
+            next: "y6-winter-founder",
+          },
+        ],
+      },
+    ],
+  },
 ];

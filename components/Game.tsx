@@ -40,6 +40,9 @@ export default function Game({ challenge }: { challenge?: ShareData | null }) {
   const activeRandomEvent = useGameStore((s) => s.activeRandomEvent);
   const log = useGameStore((s) => s.log);
   const ending = useGameStore((s) => s.ending);
+  const lastRoll = useGameStore((s) => s.lastRoll);
+  const unlocked = useGameStore((s) => s.unlocked);
+  const pendingUnlocks = useGameStore((s) => s.pendingUnlocks);
   const adPlaying = useGameStore((s) => s.adPlaying);
   const adProgress = useGameStore((s) => s.adProgress);
 
@@ -92,7 +95,12 @@ export default function Game({ challenge }: { challenge?: ShareData | null }) {
 
       {phase !== "intro" && phase !== "gameover" && (
         <>
-          <StatsBar stats={stats} year={scenario.year} age={scenario.age} />
+          <StatsBar
+            stats={stats}
+            year={scenario.year}
+            age={scenario.age}
+            achievementCount={unlocked.length}
+          />
           {phase === "scenario" && (
             <ScenarioView
               scenario={scenario}
@@ -101,7 +109,12 @@ export default function Game({ challenge }: { challenge?: ShareData | null }) {
             />
           )}
           {phase === "outcome" && pendingOutcome && (
-            <OutcomeView outcome={pendingOutcome} onContinue={continueToNextYear} />
+            <OutcomeView
+              outcome={pendingOutcome}
+              roll={lastRoll}
+              unlocks={pendingUnlocks}
+              onContinue={continueToNextYear}
+            />
           )}
         </>
       )}
@@ -112,6 +125,7 @@ export default function Game({ challenge }: { challenge?: ShareData | null }) {
           stats={stats}
           age={finalAge}
           log={log}
+          unlocked={unlocked}
           onRestart={restart}
         />
       )}

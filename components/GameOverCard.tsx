@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formatMoney } from "@/lib/gameLogic";
+import { formatMoney, getAchievement } from "@/lib/gameLogic";
 import { encodeShareParams } from "@/lib/share";
 import type { Ending, GameStats, LogEntry } from "@/lib/types";
 
@@ -19,12 +19,18 @@ function buildShareUrl(age: number, stats: GameStats, ending: Ending): string {
   return `${origin}/?${params}`;
 }
 
-function buildShareText(age: number, stats: GameStats, ending: Ending): string {
+function buildShareText(
+  age: number,
+  stats: GameStats,
+  ending: Ending,
+  achievementCount: number,
+): string {
   const url = buildShareUrl(age, stats, ending);
+  const trophies = achievementCount > 0 ? ` 🏆 ${achievementCount} achievements.` : "";
   if (ending.kind === "burnout") {
-    return `I burned out at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. The pager won. Survive longer than me: ${url}`;
+    return `I burned out at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator.${trophies} The pager won. Survive longer than me: ${url}`;
   }
-  return `I retired at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. Beat my run: ${url}`;
+  return `I retired at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator.${trophies} Beat my run: ${url}`;
 }
 
 export default function GameOverCard({
@@ -32,16 +38,19 @@ export default function GameOverCard({
   stats,
   age,
   log,
+  unlocked,
   onRestart,
 }: {
   ending: Ending;
   stats: GameStats;
   age: number;
   log: LogEntry[];
+  unlocked: string[];
   onRestart: () => void;
 }) {
   const [copied, setCopied] = useState(false);
-  const shareText = buildShareText(age, stats, ending);
+  const shareText = buildShareText(age, stats, ending, unlocked.length);
+  const achievements = unlocked.map((id) => getAchievement(id));
 
   const shareToX = () => {
     window.open(
@@ -115,6 +124,25 @@ export default function GameOverCard({
             <p className="text-slate-300">{ending.achievement}</p>
           </div>
         </div>
+
+        {achievements.length > 0 && (
+          <div className="mt-4 border-t border-term-border pt-3">
+            <p className="text-xs text-term-dim">
+              ACHIEVEMENTS ({achievements.length}/22)
+            </p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {achievements.map((a) => (
+                <span
+                  key={a.id}
+                  title={a.description}
+                  className="rounded border border-term-border bg-term-panel px-1.5 py-0.5 text-xs text-slate-300"
+                >
+                  {a.icon} {a.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {log.length > 0 && (
           <div className="mt-4 border-t border-term-border pt-3">

@@ -1,19 +1,33 @@
 "use client";
 
 import { formatMoney } from "@/lib/gameLogic";
-import type { Outcome } from "@/lib/types";
+import type { RollResult } from "@/lib/store";
+import type { Achievement, Outcome } from "@/lib/types";
 
 export default function OutcomeView({
   outcome,
+  roll,
+  unlocks,
   onContinue,
 }: {
   outcome: Outcome;
+  roll: RollResult | null;
+  unlocks: Achievement[];
   onContinue: () => void;
 }) {
   const { netWorth = 0, burnout = 0 } = outcome.effect;
 
   return (
     <div className="flex flex-col gap-4">
+      {roll && (
+        <div className="rounded-lg border border-term-purple/50 bg-term-purple/10 p-3 text-sm">
+          <p className="font-bold text-term-purple">
+            🎲 The dice landed on the {Math.round(roll.chance * 100)}% outcome
+          </p>
+          <p className="mt-0.5 text-slate-300">{roll.label}</p>
+        </div>
+      )}
+
       <p className="leading-relaxed text-slate-300">{outcome.text}</p>
 
       <div className="flex flex-wrap gap-2 text-xs">
@@ -47,6 +61,29 @@ export default function OutcomeView({
           </span>
         )}
       </div>
+
+      {unlocks.map((achievement) => (
+        <div
+          key={achievement.id}
+          className="rounded-lg border border-term-green/50 bg-term-green/10 p-3 text-sm"
+        >
+          <p className="font-bold text-term-green">
+            {achievement.icon} Achievement unlocked: {achievement.name}
+          </p>
+          <p className="mt-0.5 text-slate-300">{achievement.description}</p>
+          {achievement.reward && (
+            <p className="mt-1 text-xs text-term-dim">
+              Prize:
+              {achievement.reward.netWorth
+                ? ` +${formatMoney(achievement.reward.netWorth)}`
+                : ""}
+              {achievement.reward.burnout
+                ? ` ${achievement.reward.burnout > 0 ? "+" : ""}${achievement.reward.burnout}% burnout`
+                : ""}
+            </p>
+          )}
+        </div>
+      ))}
 
       <button
         onClick={onContinue}
