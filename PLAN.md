@@ -76,7 +76,7 @@ Design rules:
 - **M1 — Core loop (done):** scenario engine, metrics, outcome screens, burnout loss condition, mock rewarded-ad path, RNG event scaffold, scorecard + share.
 - **M2 — Content, Years 1–3 (done):** first three career years with branching (Big Tech vs. startup paths) to validate the flow.
 - **M3 — Full content, Years 4–15 (done):** the complete 15-year career — 39 scenarios across three macro-paths (Big Tech climber / startup employee / founder) with cross-overs; **the Tech Winter** flagship layoff event in Year 6 hits every path (each with an ad-gated rescue); AI gold rush, org politics, acquisitions, Series A/B, IPO, board coups; 7 RNG events including percentage-based market crashes/rallies; early-exit and FIRE endings; net-worth-tiered retirement scorecards; passive yearly burnout recovery for pacing.
-- **M4 — Viral polish:** OG image generation for the scorecard (`@vercel/og`), share-link stat seeding, leaderboard-style copy.
+- **M4 — Viral polish (done):** dynamic OG card generation (`next/og` at `/api/og`) — a bare link unfurls into the promo card, a shared run unfurls into the player's personalized scorecard; share links seeded with run stats (`?k=&a=&nw=&t=`, defensively decoded); challenge banner for friends arriving via a shared link; leaderboard-style share copy ("Beat my run"). Set `NEXT_PUBLIC_SITE_URL` at deploy time for absolute OG URLs.
 - **M5 — Monetization:** swap `ads.ts` mock for a real rewarded-ads SDK (e.g., AdSense H5 / Applovin), add affiliate placements (job boards, interview prep) as in-fiction items.
 - **M6 — Launch:** analytics events (play, finish, share), deploy to Vercel, seed on X/HN/Reddit.
 

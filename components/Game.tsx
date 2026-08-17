@@ -1,6 +1,7 @@
 "use client";
 
-import { ageForYear, getScenario } from "@/lib/gameLogic";
+import { ageForYear, formatMoney, getScenario } from "@/lib/gameLogic";
+import type { ShareData } from "@/lib/share";
 import { useGameStore } from "@/lib/store";
 import AdModal from "./AdModal";
 import GameOverCard from "./GameOverCard";
@@ -8,7 +9,30 @@ import OutcomeView from "./OutcomeView";
 import ScenarioView from "./ScenarioView";
 import StatsBar from "./StatsBar";
 
-export default function Game() {
+function ChallengeBanner({ challenge }: { challenge: ShareData }) {
+  const money = formatMoney(challenge.netWorth);
+  return (
+    <div className="rounded-lg border border-term-amber/50 bg-term-amber/10 p-3 text-sm">
+      <p className="font-bold text-term-amber">⚔ CHALLENGE ISSUED</p>
+      <p className="mt-1 text-slate-300">
+        {challenge.kind === "burnout" ? (
+          <>
+            A <span className="text-slate-100">{challenge.title}</span> burned out at{" "}
+            {challenge.age} with {money}. Survive longer. Earn more.
+          </>
+        ) : (
+          <>
+            A <span className="text-slate-100">{challenge.title}</span> retired at{" "}
+            {challenge.age} with <span className="text-term-green">{money}</span>. Beat
+            that run.
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
+export default function Game({ challenge }: { challenge?: ShareData | null }) {
   const phase = useGameStore((s) => s.phase);
   const stats = useGameStore((s) => s.stats);
   const currentScenarioId = useGameStore((s) => s.currentScenarioId);
@@ -39,6 +63,7 @@ export default function Game() {
 
       {phase === "intro" && (
         <div className="flex flex-1 flex-col justify-center gap-5">
+          {challenge && <ChallengeBanner challenge={challenge} />}
           <div>
             <h2 className="text-2xl font-black leading-tight text-slate-100">
               From graduation

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Tech Career Simulator",
   description:
     "From graduation to exit. Maximize your net worth, dodge the layoffs, and retire before the burnout gets you. A free text-based career sim for tech workers.",

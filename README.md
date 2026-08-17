@@ -4,7 +4,7 @@
 
 A free, fast, text-based browser game about surviving a career in tech. Dark industry humor included: TC, RSUs, LeetCode, layoffs, on-call, and the memo with the word "journey" in it.
 
-**Status:** Full game content complete — all 15 career years (39 scenarios) across three macro-paths (Big Tech / startup employee / founder), including the Year 6 **Tech Winter** layoff event on every path, rewarded-ad mock choices, 7 RNG events, early exits, FIRE retirement, and net-worth-tiered endings. See [PLAN.md](./PLAN.md) for the build plan and roadmap.
+**Status:** Full game + viral engine — all 15 career years (39 scenarios) across three macro-paths (Big Tech / startup employee / founder), the Year 6 **Tech Winter** layoff event on every path, rewarded-ad mock choices, 7 RNG events, net-worth-tiered endings, and a complete share loop: run-seeded share links, personalized Open Graph cards (`/api/og`), and a challenge banner for invited friends. See [PLAN.md](./PLAN.md) for the build plan and roadmap.
 
 ## Quick start
 
@@ -23,7 +23,9 @@ Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS v4 ·
 - `lib/gameLogic.ts` — all game content (scenario graph, RNG events) + pure helpers. Add new years here.
 - `lib/store.ts` — Zustand store; the game state machine.
 - `lib/ads.ts` — rewarded-ads adapter (mocked; swap for a real SDK later).
-- `components/` — terminal-style UI (stats bar, scenario, outcome, ad modal, scorecard).
+- `lib/share.ts` — share-link param encoding/decoding (the viral engine's plumbing).
+- `app/api/og/route.tsx` — dynamic 1200×630 Open Graph card; personalized per shared run.
+- `components/` — terminal-style UI (stats bar, scenario, outcome, ad modal, scorecard, challenge banner).
 
 ## Adding content
 

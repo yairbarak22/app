@@ -2,15 +2,29 @@
 
 import { useState } from "react";
 import { formatMoney } from "@/lib/gameLogic";
+import { encodeShareParams } from "@/lib/share";
 import type { Ending, GameStats, LogEntry } from "@/lib/types";
 
-const GAME_URL = "https://techcareersim.com"; // TODO: real domain at launch
+const GAME_URL = "https://techcareersim.com"; // fallback; real origin used at runtime
+
+/** Share link seeded with this run's stats → the link unfurls as YOUR card. */
+function buildShareUrl(age: number, stats: GameStats, ending: Ending): string {
+  const origin = typeof window !== "undefined" ? window.location.origin : GAME_URL;
+  const params = encodeShareParams({
+    kind: ending.kind,
+    age,
+    netWorth: stats.netWorth,
+    title: stats.title,
+  });
+  return `${origin}/?${params}`;
+}
 
 function buildShareText(age: number, stats: GameStats, ending: Ending): string {
+  const url = buildShareUrl(age, stats, ending);
   if (ending.kind === "burnout") {
-    return `I burned out at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. The pager won. Think you can survive? → ${GAME_URL}`;
+    return `I burned out at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. The pager won. Survive longer than me: ${url}`;
   }
-  return `I made it to age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. Think you can beat me? → ${GAME_URL}`;
+  return `I retired at age ${age} with ${formatMoney(stats.netWorth)} as a "${stats.title}" in the Tech Career Simulator. Beat my run: ${url}`;
 }
 
 export default function GameOverCard({
@@ -37,8 +51,9 @@ export default function GameOverCard({
   };
 
   const shareToLinkedIn = () => {
+    const url = buildShareUrl(age, stats, ending);
     window.open(
-      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(GAME_URL)}`,
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       "_blank",
     );
   };
