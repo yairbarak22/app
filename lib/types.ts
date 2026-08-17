@@ -9,6 +9,12 @@ export interface GameStats {
 /** Delta applied to GameStats when a choice or event resolves. */
 export interface StatEffect {
   netWorth?: number;
+  /**
+   * Multiplicative net-worth change, e.g. -0.25 = lose 25%. Used by market
+   * RNG events. Only applied when net worth is positive (a crash can't
+   * shrink your student loans).
+   */
+  netWorthPct?: number;
   burnout?: number;
   /** When set, replaces the player's current title. */
   title?: string;
@@ -19,8 +25,10 @@ export interface Outcome {
   /** Consequence text shown on the outcome screen. */
   text: string;
   effect: StatEffect;
-  /** Scenario id for next year. Omit to end the run (demo complete / retirement). */
+  /** Scenario id for next year. Omit to end the run. */
   next?: string;
+  /** Ending kind when the run ends here (no `next`). Defaults to "retired". */
+  ending?: EndingKind;
 }
 
 export interface Choice {
@@ -60,7 +68,7 @@ export interface RandomEvent {
   once?: boolean;
 }
 
-export type EndingKind = "burnout" | "retired" | "demo-complete";
+export type EndingKind = "burnout" | "retired";
 
 export interface Ending {
   kind: EndingKind;

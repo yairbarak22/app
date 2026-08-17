@@ -9,6 +9,7 @@ import {
   getScenario,
   INITIAL_STATS,
   rollRandomEvent,
+  YEARLY_BURNOUT_RECOVERY,
 } from "./gameLogic";
 import type {
   Choice,
@@ -114,11 +115,11 @@ export const useGameStore = create<GameState>((set, get) => {
       const { pendingOutcome, stats, firedEventIds, log } = get();
       if (!pendingOutcome) return;
 
-      // No `next` pointer → the content ends here (demo boundary / retirement).
+      // No `next` pointer → the run ends here (retirement, exit, finale).
       if (!pendingOutcome.next) {
         set({
           phase: "gameover",
-          ending: buildEnding("demo-complete", stats),
+          ending: buildEnding(pendingOutcome.ending ?? "retired", stats),
           pendingOutcome: null,
         });
         return;
@@ -127,11 +128,12 @@ export const useGameStore = create<GameState>((set, get) => {
       const nextScenario = getScenario(pendingOutcome.next);
       const event = rollRandomEvent(nextScenario.year, firedEventIds);
 
-      let nextStats = stats;
+      // Passive recovery: the PTO you actually took this year.
+      let nextStats = applyEffect(stats, { burnout: -YEARLY_BURNOUT_RECOVERY });
       let nextLog = log;
       const nextFired = new Set(firedEventIds);
       if (event) {
-        nextStats = applyEffect(stats, event.effect);
+        nextStats = applyEffect(nextStats, event.effect);
         nextFired.add(event.id);
         nextLog = [
           ...log,

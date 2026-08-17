@@ -72,18 +72,24 @@ Design rules:
 
 ## 6. Milestones
 
-- **M0 — Scaffold (done in this commit):** Next.js + TS + Tailwind + Zustand boilerplate, terminal UI shell.
-- **M1 — Core loop (done in this commit):** scenario engine, metrics, outcome screens, burnout loss condition, mock rewarded-ad path, RNG event scaffold, scorecard + share.
-- **M2 — Content, Years 1–3 (done in this commit):** first three career years with branching (Big Tech vs. startup paths) to validate the flow.
-- **M3 — Full content:** years 4–15+, layoff winter (the PRD's Year 6 flagship scenario), founder path, IPO/acquisition endings, 10+ RNG events, achievements.
+- **M0 — Scaffold (done):** Next.js + TS + Tailwind + Zustand boilerplate, terminal UI shell.
+- **M1 — Core loop (done):** scenario engine, metrics, outcome screens, burnout loss condition, mock rewarded-ad path, RNG event scaffold, scorecard + share.
+- **M2 — Content, Years 1–3 (done):** first three career years with branching (Big Tech vs. startup paths) to validate the flow.
+- **M3 — Full content, Years 4–15 (done):** the complete 15-year career — 39 scenarios across three macro-paths (Big Tech climber / startup employee / founder) with cross-overs; **the Tech Winter** flagship layoff event in Year 6 hits every path (each with an ad-gated rescue); AI gold rush, org politics, acquisitions, Series A/B, IPO, board coups; 7 RNG events including percentage-based market crashes/rallies; early-exit and FIRE endings; net-worth-tiered retirement scorecards; passive yearly burnout recovery for pacing.
 - **M4 — Viral polish:** OG image generation for the scorecard (`@vercel/og`), share-link stat seeding, leaderboard-style copy.
 - **M5 — Monetization:** swap `ads.ts` mock for a real rewarded-ads SDK (e.g., AdSense H5 / Applovin), add affiliate placements (job boards, interview prep) as in-fiction items.
 - **M6 — Launch:** analytics events (play, finish, share), deploy to Vercel, seed on X/HN/Reddit.
 
-## 7. What's in this commit (M0–M2)
+## 7. Content map (M3)
 
-- Full playable demo of **Years 1–3** (graduation → first job → year-3 crossroads) across two branches (Big Tech / startup), including one **ad-gated rescue choice** to test the rewarded flow end-to-end.
-- One RNG event ("Crypto winter wipes your side bets") wired to prove the engine.
-- Game over on 100% burnout + demo-complete scorecard with working X/LinkedIn share.
+The full game is a directed scenario graph in `lib/gameLogic.ts` — 39 scenarios, every `next` pointer validated (year N always leads to year N+1, all nodes reachable):
+
+- **Years 1–3:** graduation → on-call hell / ramen profitability → first layoff scare or Series A.
+- **Years 4–5:** golden handcuffs, the Staff packet, pre-IPO rocket ships, founding from scratch or from ashes.
+- **Year 6 — THE TECH WINTER** (the PRD's flagship): industry-wide layoffs hit all three paths — Big Tech (your name is on the list), startup (the down round), founder (the funding freeze). Each variant carries a rewarded-ad rescue choice with a fallback if the ad is skipped.
+- **Years 7–11:** AI gold rush, comeback tours, survivor's guilt, frontier labs, corp-dev acquisitions, cofounder fights, the poach.
+- **Years 12–15 (endgame):** F-U money math (retire at 33!), post-exit life, the warpath, board coups, IPO bell or eleventh-hour sale, and "The Last Standup" finale.
+- **Endings:** burnout collapse at any point; retirement tiered by net worth (Out of the Game → Comfortably Out → Retired Rich → Generational Wealth).
+- **6 ad-gated choices** across the graph (~2–3 encountered per run); **7 RNG events** rolled between years, max one per year.
 
 Run it: `npm install && npm run dev` → http://localhost:3000

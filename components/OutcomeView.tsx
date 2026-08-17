@@ -52,7 +52,7 @@ export default function OutcomeView({
         onClick={onContinue}
         className="rounded-lg border border-term-green/50 bg-term-green/10 p-3 text-sm font-bold text-term-green transition-colors hover:bg-term-green/20"
       >
-        NEXT YEAR →
+        {outcome.next ? "NEXT YEAR →" : "SEE YOUR FINAL CARD →"}
       </button>
     </div>
   );

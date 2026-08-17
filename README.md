@@ -4,7 +4,7 @@
 
 A free, fast, text-based browser game about surviving a career in tech. Dark industry humor included: TC, RSUs, LeetCode, layoffs, on-call, and the memo with the word "journey" in it.
 
-**Status:** Playable demo — Years 1–3 (Big Tech and startup branches), rewarded-ad mock, RNG events, shareable scorecard. See [PLAN.md](./PLAN.md) for the full build plan and roadmap.
+**Status:** Full game content complete — all 15 career years (39 scenarios) across three macro-paths (Big Tech / startup employee / founder), including the Year 6 **Tech Winter** layoff event on every path, rewarded-ad mock choices, 7 RNG events, early exits, FIRE retirement, and net-worth-tiered endings. See [PLAN.md](./PLAN.md) for the build plan and roadmap.
 
 ## Quick start
 

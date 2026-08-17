@@ -34,7 +34,7 @@ export default function Game() {
         <h1 className="text-sm font-bold text-term-green">
           tech-career-sim<span className="text-term-dim">@v0.1</span>
         </h1>
-        <span className="text-xs text-term-dim">free · no login · 2 min</span>
+        <span className="text-xs text-term-dim">free · no login · 3 min</span>
       </header>
 
       {phase === "intro" && (
@@ -51,9 +51,10 @@ export default function Game() {
             </p>
           </div>
           <ul className="space-y-1 text-sm text-term-dim">
+            <li>▸ 15 years, one choice per year</li>
             <li>▸ Start: age 22, $30K in student loans</li>
             <li>▸ Burnout hits 100% → you're done</li>
-            <li>▸ Layoffs, crashes, and promos await</li>
+            <li>▸ Layoffs, winters, and gold rushes await</li>
           </ul>
           <button
             onClick={startGame}
