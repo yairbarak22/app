@@ -80,9 +80,9 @@ Design rules:
 - **M5 — Monetization:** swap `ads.ts` mock for a real rewarded-ads SDK (e.g., AdSense H5 / Applovin), add affiliate placements (job boards, interview prep) as in-fiction items.
 - **M6 — Launch:** analytics events (play, finish, share), deploy to Vercel, seed on X/HN/Reddit.
 
-## 7. Content map (M3)
+## 7. Content map (M3 + replayability expansion)
 
-The full game is a directed scenario graph in `lib/gameLogic.ts` — 39 scenarios, every `next` pointer validated (year N always leads to year N+1, all nodes reachable):
+The full game is a directed scenario graph in `lib/scenarios/` (one file per career year) — **139 scenarios: 39 hubs + 100 alternate variants**, organized into per-year pools. Every `next` pointer targets a hub id and resolves to a random pool member at play time, so each run deals a different hand of events. The graph is machine-validated: year N always leads to year N+1, variants share their hub's year, all 139 nodes reachable.
 
 - **Years 1–3:** graduation → on-call hell / ramen profitability → first layoff scare or Series A.
 - **Years 4–5:** golden handcuffs, the Staff packet, pre-IPO rocket ships, founding from scratch or from ashes.

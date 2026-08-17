@@ -49,6 +49,12 @@ export interface Scenario {
   year: number;
   /** Player age this year (age = 21 + year). */
   age: number;
+  /**
+   * Pool membership. A scenario with `slot: "y2-bigtech-oncall"` is an
+   * alternate version of that hub: any `next` pointing at the hub id picks
+   * randomly from the whole pool (hub + its variants). Hubs omit this field.
+   */
+  slot?: string;
   headline: string;
   text: string;
   choices: Choice[];

@@ -8,6 +8,7 @@ import {
   FIRST_SCENARIO_ID,
   getScenario,
   INITIAL_STATS,
+  resolveNext,
   rollRandomEvent,
   YEARLY_BURNOUT_RECOVERY,
 } from "./gameLogic";
@@ -85,7 +86,8 @@ export const useGameStore = create<GameState>((set, get) => {
     adProgress: 0,
     pendingAdChoice: null,
 
-    startGame: () => set({ phase: "scenario" }),
+    startGame: () =>
+      set({ phase: "scenario", currentScenarioId: resolveNext(FIRST_SCENARIO_ID) }),
 
     pickChoice: (choice) => {
       if (get().phase !== "scenario") return;
@@ -125,7 +127,7 @@ export const useGameStore = create<GameState>((set, get) => {
         return;
       }
 
-      const nextScenario = getScenario(pendingOutcome.next);
+      const nextScenario = getScenario(resolveNext(pendingOutcome.next));
       const event = rollRandomEvent(nextScenario.year, firedEventIds);
 
       // Passive recovery: the PTO you actually took this year.
@@ -162,7 +164,7 @@ export const useGameStore = create<GameState>((set, get) => {
       set({
         phase: "scenario",
         stats: INITIAL_STATS,
-        currentScenarioId: FIRST_SCENARIO_ID,
+        currentScenarioId: resolveNext(FIRST_SCENARIO_ID),
         pendingOutcome: null,
         activeRandomEvent: null,
         firedEventIds: new Set<string>(),
