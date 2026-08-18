@@ -67,26 +67,25 @@ export default function Game({ challenge }: { challenge?: ShareData | null }) {
       {phase === "intro" && (
         <div className="flex flex-1 flex-col justify-center gap-5">
           {challenge && <ChallengeBanner challenge={challenge} />}
-          <div>
-            <h2 className="text-2xl font-black leading-tight text-slate-100">
+          <div className="anim-rise">
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-slate-100">
               From graduation
               <br />
               to <span className="text-term-green">the exit</span>.
             </h2>
             <p className="cursor-blink mt-3 leading-relaxed text-slate-300">
-              One choice per year. Maximize your net worth. Keep burnout under
-              100%. Retire rich — or melt down trying.
+              One choice per year. Get rich. Don't melt down.
             </p>
           </div>
-          <ul className="space-y-1 text-sm text-term-dim">
-            <li>▸ 15 years, one choice per year</li>
-            <li>▸ Start: age 22, $30K in student loans</li>
-            <li>▸ Burnout hits 100% → you're done</li>
-            <li>▸ Layoffs, winters, and gold rushes await</li>
+          <ul className="anim-rise-1 space-y-1.5 text-sm text-term-dim">
+            <li>▸ 15 years, 200 scenarios, 🎲 real odds</li>
+            <li>▸ Start: age 22, $30K in loans</li>
+            <li>▸ Burnout hits 100% → game over</li>
+            <li>▸ 🏆 22 achievements with prizes</li>
           </ul>
           <button
             onClick={startGame}
-            className="rounded-lg border border-term-green/50 bg-term-green/10 p-4 text-sm font-bold text-term-green transition-colors hover:bg-term-green/20"
+            className="press-scale anim-rise-2 rounded-xl border border-term-green/50 bg-term-green/10 p-4 text-sm font-bold text-term-green transition-colors hover:bg-term-green/20"
           >
             ▶ START CAREER
           </button>

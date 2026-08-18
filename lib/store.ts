@@ -31,6 +31,8 @@ import type {
 export interface RollResult {
   chance: number;
   label: string;
+  /** True when the roll landed the gamble's best payout. */
+  won: boolean;
 }
 
 interface GameState {
@@ -178,7 +180,7 @@ export const useGameStore = create<GameState>((set, get) => {
         if (wonBest && picked.chance <= 0.3) extraAchievements.push("against-the-odds");
         if (gotWorst && picked.chance <= 0.35) extraAchievements.push("snake-eyes");
         resolveOutcome(choice, picked, {
-          roll: { chance: picked.chance, label: picked.label },
+          roll: { chance: picked.chance, label: picked.label, won: wonBest },
           extraAchievements,
         });
         return;

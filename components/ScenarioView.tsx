@@ -23,51 +23,62 @@ export default function ScenarioView({
   onPick: (choice: Choice) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div key={scenario.id} className="flex flex-col gap-4">
       {randomEvent && (
-        <div className="rounded-lg border border-term-amber/40 bg-term-amber/10 p-3 text-sm">
+        <div className="anim-pop rounded-xl border border-term-amber/40 bg-term-amber/10 p-3 text-sm">
           <p className="font-bold text-term-amber">{randomEvent.headline}</p>
           <p className="mt-1 text-slate-300">{randomEvent.text}</p>
         </div>
       )}
 
-      <div>
-        <p className="text-xs text-term-green">
+      <div className="anim-rise">
+        <p className="text-xs text-term-green/70">
           ~/career/year-{scenario.year} $ cat event.txt
         </p>
-        <h2 className="mt-2 text-lg font-bold text-slate-100">
+        <h2 className="mt-1.5 text-xl font-black tracking-tight text-slate-100">
           {scenario.headline}
         </h2>
         <p className="mt-2 leading-relaxed text-slate-300">{scenario.text}</p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         {scenario.choices.map((choice, i) => (
           <button
             key={choice.id}
             onClick={() => onPick(choice)}
-            className={`rounded-lg border p-3 text-left text-sm transition-colors ${
+            className={`press-scale anim-rise-${i + 1} rounded-xl border p-3 text-left text-sm transition-colors ${
               choice.requiresAd
                 ? "border-term-amber/50 bg-term-amber/5 hover:bg-term-amber/15"
                 : choice.gamble
                   ? "border-term-purple/50 bg-term-purple/5 hover:bg-term-purple/15"
-                  : "border-term-border bg-term-panel hover:border-term-green/50 hover:bg-term-green/5"
+                  : "border-term-border bg-term-panel hover:border-term-green/60 hover:bg-term-green/5"
             }`}
           >
-            <span className="mr-2 text-term-green">[{String.fromCharCode(65 + i)}]</span>
-            {choice.gamble && <span className="mr-1">🎲</span>}
-            <span className="text-slate-200">{choice.label}</span>
+            <span className="flex items-start gap-2.5">
+              <span className="keycap mt-0.5 shrink-0">
+                {String.fromCharCode(65 + i)}
+              </span>
+              <span className="text-slate-200">
+                {choice.gamble && <span className="mr-1">🎲</span>}
+                {choice.label}
+              </span>
+            </span>
             {choice.gamble && (
-              <span className="mt-2 block space-y-0.5 border-t border-term-purple/20 pt-2">
+              <span className="mt-2.5 block space-y-1 border-t border-term-purple/20 pt-2">
                 {choice.gamble.map((outcome) => (
-                  <span key={outcome.label} className="block text-xs text-term-dim">
-                    <span className="inline-block w-9 font-bold text-term-purple">
+                  <span
+                    key={outcome.label}
+                    className="flex items-baseline gap-2 text-xs text-term-dim"
+                  >
+                    <span className="w-9 shrink-0 text-right font-bold tabular-nums text-term-purple">
                       {Math.round(outcome.chance * 100)}%
                     </span>
-                    {outcome.label}
-                    {oddsEffect(outcome) && (
-                      <span className="text-slate-400"> ({oddsEffect(outcome)})</span>
-                    )}
+                    <span>
+                      {outcome.label}
+                      {oddsEffect(outcome) && (
+                        <span className="text-slate-500"> · {oddsEffect(outcome)}</span>
+                      )}
+                    </span>
                   </span>
                 ))}
               </span>

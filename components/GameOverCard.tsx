@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { fireConfetti } from "@/lib/confetti";
 import { formatMoney, getAchievement } from "@/lib/gameLogic";
 import { encodeShareParams } from "@/lib/share";
 import type { Ending, GameStats, LogEntry } from "@/lib/types";
@@ -52,6 +53,16 @@ export default function GameOverCard({
   const shareText = buildShareText(age, stats, ending, unlocked.length);
   const achievements = unlocked.map((id) => getAchievement(id));
 
+  // A rich retirement deserves a full-screen rain.
+  const fired = useRef(false);
+  useEffect(() => {
+    if (fired.current) return;
+    fired.current = true;
+    if (ending.kind === "retired") {
+      fireConfetti(stats.netWorth >= 1_000_000 ? "jackpot" : "win");
+    }
+  }, [ending.kind, stats.netWorth]);
+
   const shareToX = () => {
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
@@ -83,7 +94,7 @@ export default function GameOverCard({
     <div className="flex flex-col gap-4">
       {/* Scorecard — designed to be screenshot-friendly */}
       <div
-        className={`rounded-xl border-2 p-5 ${
+        className={`anim-pop rounded-xl border-2 p-5 ${
           isBurnout
             ? "border-term-red/60 bg-term-red/5"
             : "border-term-green/60 bg-term-green/5"
