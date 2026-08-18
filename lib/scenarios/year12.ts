@@ -12,34 +12,34 @@ export const YEAR_12: Scenario[] = [
     age: 33,
     headline: "The F-U Money Math",
     text:
-      "A rainy Sunday, a spreadsheet, and a realization: at a 4% withdrawal rate, you might already be done. The number that was a fantasy at 22 is a cell reference at 33. The question is no longer 'can you retire' — it's 'who are you if you do?'",
+      "A rainy Sunday, a spreadsheet, a realization: at a 4% withdrawal rate you might already be done. The question isn't 'can you retire' — it's 'who are you if you do?'",
     choices: [
       {
         id: "retire-now",
         label: "Retire. Now. The spreadsheet has spoken",
         outcome: {
           text:
-            "You give notice on a Tuesday, and the strangest part is how normal it feels. No countdown, no drama — just an out-of-office that never turns off. Week one, you sleep. Week two, you panic. Week three, you start living.",
+            "You give notice on a Tuesday and the strangest part is how normal it feels. Week one, you sleep. Week two, you panic. Week three, you start living.",
           effect: { burnout: -30, title: "Retired (FIRE)" },
           ending: "retired",
         },
       },
       {
         id: "one-more-vest",
-        label: "One more vest cycle. The next grant is too big to leave",
+        label: "One more vest cycle — the grant's too big",
         outcome: {
           text:
-            "'Just one more year' — the most expensive sentence in tech. The grant vests, the number grows, and the goalposts quietly walk themselves twenty yards down the field. You're rich and you're still setting a 7 AM alarm.",
+            "'Just one more year' — the most expensive sentence in tech. The grant vests, the goalposts walk twenty yards downfield, and you're rich with a 7 AM alarm.",
           effect: { netWorth: 160_000, burnout: 15 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "advisor-era",
-        label: "Go advisor-mode — five companies, zero standup meetings",
+        label: "Advisor mode — five companies, no standups",
         outcome: {
           text:
-            "You trade the badge for a portfolio: advisory shares in five startups, two board observer seats, and a calendar with actual white space. You're 'in tech' the way a retired athlete is 'in sports' — and it suits you.",
+            "Badge traded for portfolio: five advisories, two observer seats, actual white space. You're 'in tech' the way a retired athlete is 'in sports.' It suits you.",
           effect: { netWorth: 60_000, burnout: -15, title: "Advisor & Investor" },
           next: "y13-lastcycle",
         },
@@ -53,34 +53,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-fumoney",
     headline: "The Group Chat Fund",
     text:
-      "Your three most successful friends propose the inevitable: 'We should start a fund.' A small first vehicle, your collective networks as deal flow, and a group chat rebranded as an investment committee. It's either the beginning of a dynasty or the most expensive way to ruin four friendships. Historically, it's a coin flip.",
+      "Your three most successful friends propose the inevitable: 'We should start a fund.' Either the start of a dynasty or the most expensive way to ruin four friendships. Historically, a coin flip.",
     choices: [
       {
         id: "start-the-fund",
-        label: "Start the fund — your network IS the asset now",
+        label: "Start the fund — your network IS the asset",
         outcome: {
           text:
-            "You raise a modest first fund from operators who trust your judgment, and deal flow arrives through doors only former builders can open. Two investments look genius, one looks insane, and the friendships survive quarter one — the hardest benchmark in venture.",
+            "You raise a modest fund from operators who trust you. Two bets look genius, one insane, and the friendships survive Q1 — venture's hardest benchmark.",
           effect: { netWorth: 80_000, burnout: 10, title: "General Partner" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "lp-only",
-        label: "Write an LP check — friends' fund, arms-length distance",
+        label: "LP check only — arms-length friendship",
         outcome: {
           text:
-            "You invest in the fund instead of the friendship-endangering job of running it. Quarterly updates arrive; group dinners stay dinners; your capital works while you don't. The cleanest seat at the table is the one without a vote.",
+            "You invest in the fund, not the friendship-endangering job of running it. Dinners stay dinners; capital works while you don't. The cleanest seat has no vote.",
           effect: { netWorth: 120_000, burnout: 5 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "retire-instead-fund",
-        label: "Decline both — the spreadsheet says you're free",
+        label: "Decline both — the spreadsheet says free",
         outcome: {
           text:
-            "You realize mid-pitch that you're being recruited into a new decade of obligations and politely opt for the exit ramp instead. The friends fund launches without you; you launch a retirement with them as dinner guests. Both vehicles perform.",
+            "Mid-pitch you realize you're being recruited into a new decade of obligations, and opt for the exit ramp. The fund launches without you; both vehicles perform.",
           effect: { burnout: -25, title: "Retired (FIRE)" },
           ending: "retired",
         },
@@ -94,34 +94,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-fumoney",
     headline: "The Dream House Ledger",
     text:
-      "The house appears on a Sunday scroll: the porch, the light, the office with the window you've drawn in your head since the first cubicle. It costs exactly 'a meaningful fraction of everything.' The mortgage calculator and the retirement calculator open in adjacent tabs and begin to argue.",
+      "The house appears on a Sunday scroll: the porch, the light, the office window from your head. It costs 'a meaningful fraction of everything.' Two calculators open in adjacent tabs and argue.",
     choices: [
       {
         id: "buy-the-house",
-        label: "Buy it — you can't compound your way into a home",
+        label: "Buy it — you can't compound into a home",
         outcome: {
           text:
-            "You wire the down payment with shaking hands and wake up in the life you were saving for. The net worth chart dips; the 'why am I doing any of this' chart resolves. Some purchases are answers, not expenses.",
+            "You wire the down payment with shaking hands and wake up in the life you were saving for. The net worth chart dips; the 'why am I doing this' chart resolves.",
           effect: { netWorth: -400_000, burnout: -15 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "keep-renting",
-        label: "Keep renting — the spreadsheet wins again",
+        label: "Keep renting — the spreadsheet wins",
         outcome: {
           text:
-            "You close the listing tab and let the money keep working; the delta compounds into an entire second retirement over a decade. The landlord repaints your walls beige annually. Discipline: expensive in ways spreadsheets don't track, lucrative in ways they do.",
+            "You close the tab and let the delta compound into a second retirement. The landlord repaints beige yearly. Discipline: costly off-spreadsheet, lucrative on it.",
           effect: { netWorth: 140_000, burnout: 10 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "modest-house-retire",
-        label: "Buy the modest version — and retire on the difference",
+        label: "Buy the modest version, retire on the rest",
         outcome: {
           text:
-            "You buy the smaller house with the almost-as-good porch, and the delta between dream and modest turns out to be exactly one early retirement. You take it. The window in the office faces east. It's enough. It was always going to be enough.",
+            "The smaller house, the almost-as-good porch. The delta between dream and modest is exactly one early retirement. The office window faces east. It's enough.",
           effect: { netWorth: -200_000, burnout: -25, title: "Retired (Homeowner)" },
           ending: "retired",
         },
@@ -135,34 +135,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-fumoney",
     headline: "The Gut-Punch Year",
     text:
-      "The market chooses this exact year — the year of your retirement math — to drop 30% and sit there, smugly. Your 'done' number is suddenly 'almost' again. The FIRE forums split into 'stay the course' and 'one more year' factions, both typing furiously from desks they claim to be leaving soon.",
+      "The market picks your retirement-math year to drop 30% and sit there, smugly. 'Done' is suddenly 'almost.' The FIRE forums split into factions, all typing from desks they claim to be leaving soon.",
     choices: [
       {
         id: "one-more-year-club",
-        label: "Work one more year — rebuild the buffer properly",
+        label: "Work one more year — rebuild the buffer",
         outcome: {
           text:
-            "You join the One More Year club with full self-awareness and a calendar reminder labeled 'ACTUALLY LEAVE.' The market recovers; your buffer overfills; the reminder fires into a meeting you didn't need to be in. Classic club membership.",
+            "You join the One More Year club with a reminder labeled 'ACTUALLY LEAVE.' The market recovers; the buffer overfills; the reminder fires into a meeting.",
           effect: { netWorth: 130_000, burnout: 15 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "retire-leaner",
-        label: "Retire anyway — flexibility beats a bigger buffer",
+        label: "Retire anyway — flexibility beats buffer",
         outcome: {
           text:
-            "You retire into the drawdown with a leaner budget and a part-time consulting escape hatch you never end up pulling. The market recovers without your permission, as markets do. Turns out the scariest year to retire was just the cheapest year to buy your freedom.",
+            "You retire into the drawdown, leaner budget, escape hatch never pulled. The scariest year to retire was just the cheapest year to buy your freedom.",
           effect: { burnout: -25, title: "Retired (Bear Market Class)" },
           ending: "retired",
         },
       },
       {
         id: "consult-bridge",
-        label: "Split it — quit the job, consult two days a week",
+        label: "Quit the job, consult two days a week",
         outcome: {
           text:
-            "You resign from the badge but not the invoice: two days a week of advisory work covers all expenses, so the portfolio can heal untouched. It's retirement with training wheels, and the wheels are made of money. Best of both spreadsheets.",
+            "You resign from the badge but not the invoice: two advisory days a week cover expenses while the portfolio heals. Retirement with training wheels made of money.",
           effect: { netWorth: 70_000, burnout: -10, title: "Semi-Retired Consultant" },
           next: "y13-lastcycle",
         },
@@ -177,34 +177,34 @@ export const YEAR_12: Scenario[] = [
     age: 33,
     headline: "The Morning After",
     text:
-      "The wire cleared months ago and the champagne is long flat. You've done the post-exit checklist: the trip, the house, the awkward money conversations with old friends. Now it's 9 AM on a Wednesday and you have absolutely nothing to do. It's the best and worst feeling you've ever had.",
+      "The wire cleared months ago; the champagne is flat. Trip taken, house bought, awkward money talks had. It's 9 AM on a Wednesday and you have nothing to do. The best and worst feeling you've ever had.",
     choices: [
       {
         id: "vineyard-out",
-        label: "Actually retire — buy the land, log off forever",
+        label: "Actually retire — buy land, log off",
         outcome: {
           text:
-            "You buy acreage with terrible cell coverage on purpose. The exit money compounds quietly while you learn what tomatoes need. Old colleagues visit and can't stop checking their phones. You genuinely, permanently, do not miss it.",
+            "You buy acreage with terrible cell coverage on purpose and learn what tomatoes need. Colleagues visit and can't stop checking their phones. You don't miss it.",
           effect: { burnout: -40, title: "Exited & Gone" },
           ending: "retired",
         },
       },
       {
         id: "vc-partner",
-        label: "Join a fund — become the VC you always argued with",
+        label: "Join a VC fund — switch sides",
         outcome: {
           text:
-            "A Tier-1 fund hires you as the 'operator partner.' You now say 'circling back' unironically and pass on two future unicorns in your first year (everyone does — it's tradition). The carry math is long, but the game is fun from this side.",
+            "A Tier-1 fund makes you the 'operator partner.' You say 'circling back' unironically and pass on two future unicorns in year one — it's tradition.",
           effect: { netWorth: 100_000, burnout: 5, title: "Partner @ VC Fund" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "company-two",
-        label: "Start company #2 — this time with taste",
+        label: "Start company #2 — with taste",
         outcome: {
           text:
-            "The itch wins. Company #2 skips every year-one mistake: real problem, real customers, hand-picked team of killers from the last war. Your reputation raises the seed round in a week. Speed-running the whole thing feels almost unfair.",
+            "The itch wins. Company #2 skips every year-one mistake: real problem, real customers, killers from the last war. Your reputation raises the seed in a week.",
           effect: { netWorth: -80_000, burnout: 15, title: "Serial Founder" },
           next: "y13-endgame-founder",
         },
@@ -218,34 +218,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-postexit",
     headline: "The Giving Question",
     text:
-      "The exit money has been sitting in treasuries for months while you avoid the biggest question it asks: what's it FOR? Your alma mater calls weekly. A donor-advised fund brochure sits unopened. Meanwhile, the engineer who taught you recursion in high school still makes $52K a year. The money is quiet. The question isn't.",
+      "The exit money sits in treasuries while you avoid its biggest question: what's it FOR? The teacher who taught you recursion still makes $52K. The money is quiet. The question isn't.",
     choices: [
       {
         id: "give-big-now",
-        label: "Give big, give now — while it can still change lives",
+        label: "Give big, give now",
         outcome: {
           text:
-            "You fund CS teacher salaries in your home state, twelve full scholarships, and your old teacher's robotics lab — anonymously, then get outed by a grateful school board. The net worth chart dips. Nothing else in your life ever dips again.",
+            "Teacher salaries, twelve scholarships, your old teacher's robotics lab — anonymous until a grateful school board outs you. The chart dips. Nothing else does.",
           effect: { netWorth: -300_000, burnout: -20, title: "Exited Founder (Philanthropist)" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "build-foundation",
-        label: "Build the machine — a foundation with an actual thesis",
+        label: "Build a foundation with a thesis",
         outcome: {
           text:
-            "You spend a year building a small, sharp foundation with an operator's discipline: clear thesis, measurable grants, no gala dinners. It gives less this year and will give forever. Turns out you didn't retire — you just changed what compounds.",
+            "A small, sharp foundation: clear thesis, measurable grants, no galas. Less this year, forever after. You didn't retire — you just changed what compounds.",
           effect: { netWorth: -100_000, burnout: 5, title: "Founder (Of a Foundation)" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "invest-first",
-        label: "Grow it first — a bigger engine gives more later",
+        label: "Grow it first — give more later",
         outcome: {
           text:
-            "You deploy the capital into boring compounders and set a giving trigger at 2x. The logic is airtight; the recursion teacher's salary stays $52K while it compounds. Some optimizations are correct on every axis except the one that mattered. You'll revisit. You tell yourself you'll revisit.",
+            "A giving trigger at 2x, capital in boring compounders. Airtight logic; the recursion teacher still makes $52K meanwhile. You'll revisit. You tell yourself that.",
           effect: { netWorth: 120_000, burnout: 5 },
           next: "y13-lastcycle",
         },
@@ -259,34 +259,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-postexit",
     headline: "The Super-Angel Era",
     text:
-      "Word got out that you write checks, and now your inbox is a demo day: forty pitches a week, half from people you know, all 'just raising a small pre-seed.' Your exit money could seed thirty companies or concentrate into three. Every founder you pass on might be the one your memoir regrets.",
+      "Word got out that you write checks: forty pitches a week, half from people you know, all 'just raising a small pre-seed.' Every pass might be the one your memoir regrets.",
     choices: [
       {
         id: "spray-and-pray",
-        label: "Spray and pray — thirty small checks, index the ecosystem",
+        label: "Spray and pray — thirty small checks",
         outcome: {
           text:
-            "You become the region's default first check: thirty companies, thirty cap tables, one legendary spreadsheet. Most will die; two look terrifyingly alive already. The portfolio's real return arrives immediately: every interesting founder in the state now calls you first.",
+            "The region's default first check: thirty cap tables, one legendary spreadsheet. Most will die; two look terrifyingly alive. Every founder now calls you first.",
           effect: { netWorth: -200_000, burnout: 10, title: "Super Angel" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "concentrated-bets",
-        label: "Concentrate — three founders you'd bet the house on",
+        label: "Concentrate — three serious bets",
         outcome: {
           text:
-            "You write three serious checks with real ownership and board involvement, treating angel investing like the job it secretly is. Two of the three hit their milestones early. Concentration: terrifying in theory, clarifying in practice.",
+            "Three serious checks, real ownership, board involvement. Two hit milestones early. Concentration: terrifying in theory, clarifying in practice.",
           effect: { netWorth: -100_000, burnout: 10, title: "Angel (Concentrated)" },
           next: "y13-lastcycle",
         },
       },
       {
         id: "incubate-one",
-        label: "Go deepest — co-build one company as founding investor",
+        label: "Co-build one company, founding investor",
         outcome: {
           text:
-            "You pick one founder, one problem, and one desk in their office two days a week. It's company #2 with training wheels — their sweat, your scars, shared cap table. By spring it's growing fast enough to make you nervous in the good way.",
+            "One founder, one problem, one desk two days a week — their sweat, your scars. By spring it's growing fast enough to make you nervous in the good way.",
           effect: { netWorth: -80_000, burnout: 15, title: "Co-Founder (Emeritus Energy)" },
           next: "y13-endgame-founder",
         },
@@ -301,34 +301,34 @@ export const YEAR_12: Scenario[] = [
     age: 33,
     headline: "The Warpath",
     text:
-      "Post-Series-B life: triple the headcount, triple the targets, and a board that treats 'ambitious' as the minimum viable adjective. Your company is officially a Name People Know. The only direction the board acknowledges is up, and the only speed is faster.",
+      "Post-Series-B life: triple the headcount, triple the targets, a board that treats 'ambitious' as the minimum viable adjective. The only direction acknowledged is up; the only speed is faster.",
     choices: [
       {
         id: "grind-100m",
-        label: "Grind to $100M ARR — the number that changes everything",
+        label: "Grind to $100M ARR",
         outcome: {
           text:
-            "You live in dashboards, hire a CRO with a Rolodex and a god complex, and cross $100M ARR eleven months later. The milestone tweet gets 40K likes. You read it from a hotel room, alone, in a city you couldn't name if asked.",
+            "You live in dashboards, hire a CRO with a god complex, cross $100M ARR. The milestone tweet gets 40K likes. You read it alone in a city you couldn't name.",
           effect: { netWorth: 60_000, burnout: 25 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "derisk-secondary",
-        label: "Sell another secondary — de-risk while the empire builds",
+        label: "Sell another secondary — de-risk",
         outcome: {
           text:
-            "Another round, another carve-out. Your personal balance sheet is now fully divorced from the company's fate, which makes you a calmer CEO and a more dangerous negotiator. Nothing scares a board like a founder who doesn't need the money.",
+            "Another round, another carve-out. Your balance sheet divorces the company's fate. Nothing scares a board like a founder who doesn't need the money.",
           effect: { netWorth: 300_000, burnout: 10 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "emergency-bridge",
-        label: "Growth stumbles — take the emergency bridge and fight",
+        label: "Take the emergency bridge and fight",
         outcome: {
           text:
-            "Two quarters miss, a competitor raises a war chest, and suddenly the board wants 'options on the table.' You take a bridge at a haircut and personally lead the turnaround. It's the hardest year of your life. The company lives.",
+            "Two missed quarters, and the board wants 'options.' You take a bridge at a haircut and lead the turnaround. Hardest year of your life. The company lives.",
           effect: { netWorth: -50_000, burnout: 30 },
           next: "y13-endgame-founder",
         },
@@ -342,34 +342,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-warpath",
     headline: "The CFO Who's Done It",
     text:
-      "Every banker says the same sentence: 'You need a CFO who's taken a company public.' There are maybe forty such humans available, they all know their market price, and the best one just finished interviewing YOU for an hour — she asks harder questions than the board and two of them you couldn't answer.",
+      "Every banker says it: 'You need a CFO who's taken a company public.' Forty such humans exist, all priced accordingly. The best one just interviewed YOU for an hour — two questions you couldn't answer.",
     choices: [
       {
         id: "hire-the-assassin",
-        label: "Hire her — pay the terrifying package, get the terrifying competence",
+        label: "Hire her — pay the terrifying package",
         outcome: {
           text:
-            "Her package makes the comp committee sweat; her first quarter makes them evangelists. Revenue recognition tightens, the board deck grows footnotes, and bankers start using the word 'ready.' Some hires are expenses. This one's infrastructure.",
+            "Her package makes the comp committee sweat; her first quarter makes them evangelists. Some hires are expenses. This one's infrastructure.",
           effect: { netWorth: 50_000, burnout: 15 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "promote-the-controller",
-        label: "Promote your loyal controller — bet on growth over pedigree",
+        label: "Promote your loyal controller",
         outcome: {
           text:
-            "Your controller has survived every winter with you and knows the books like a memoir. She grows into the seat through sheer preparation and three brutal audit cycles. The bankers grumble about pedigree until her first flawless earnings dry-run shuts the topic down.",
+            "Your controller knows the books like a memoir and grows into the seat through three brutal audits. One flawless earnings dry-run shuts the pedigree topic down.",
           effect: { netWorth: 40_000, burnout: 20 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "delay-ipo-year",
-        label: "Delay the IPO a year — hire when you're not desperate",
+        label: "Delay the IPO a year — hire unhurried",
         outcome: {
           text:
-            "You push the window a year and run the CFO search like an acquisition: slow, thorough, leverage intact. The delay costs momentum and buys certainty. When you finally file, nothing about the finance org is improvised — a sentence worth a full turn of valuation.",
+            "You push the window a year and run the search like an acquisition. The delay costs momentum, buys certainty — 'nothing improvised' is worth a turn of valuation.",
           effect: { netWorth: 30_000, burnout: 10 },
           next: "y13-endgame-founder",
         },
@@ -383,34 +383,34 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-warpath",
     headline: "The Hit Piece",
     text:
-      "A major tech outlet publishes 3,000 words titled 'The Human Cost of [Your Company]'s Growth Machine' — five anonymous ex-employees, two damning Slack screenshots, and one quote from you, two years old, reading worse than you remember saying it. The board calls. Recruiting pauses. Your mom texts 'is everything ok??'",
+      "A major outlet publishes 'The Human Cost of [Your Company]'s Growth Machine' — five anonymous exes and two damning Slack screenshots. The board calls. Your mom texts 'is everything ok??'",
     choices: [
       {
         id: "own-and-reform",
-        label: "Own the true parts publicly — and fix them loudly",
+        label: "Own the true parts — fix them loudly",
         outcome: {
           text:
-            "Your response memo names what was true, what changed, and what you were wrong about — no lawyer-speak, no 'we can do better.' The follow-up coverage is titled 'A Rare Thing: A CEO Who Admitted It.' Three of the five anonymous sources DM you privately. Two apologize. One thanks you.",
+            "Your memo names what was true and what you got wrong — no lawyer-speak. Follow-up headline: 'A CEO Who Admitted It.' Three sources DM you; one says thanks.",
           effect: { netWorth: 20_000, burnout: 20 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "fight-the-narrative",
-        label: "Fight it — receipts, timelines, and a very public rebuttal",
+        label: "Fight it — receipts and rebuttal",
         outcome: {
           text:
-            "You publish a point-by-point rebuttal with documents, and win the argument while losing the vibe — 'defensive' becomes the adjective in every follow-up. The facts land; the story calcifies anyway. You learn the expensive lesson: media fights are scored on posture, not evidence.",
+            "You publish a point-by-point rebuttal with documents, winning the argument and losing the vibe. Media fights are scored on posture, not evidence.",
           effect: { netWorth: 40_000, burnout: 25 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "crisis-pr",
-        label: "Hire the crisis firm — let professionals run the weather",
+        label: "Hire the crisis firm",
         outcome: {
           text:
-            "The firm costs a Ferrari a month and delivers: a softer follow-up profile, a podcast appearance with pre-negotiated questions, and a news cycle that moves on schedule. Effective, expensive, and vaguely hollow — you bought your way out of a conversation you probably needed to have.",
+            "The firm costs a Ferrari a month and delivers a news cycle that moves on schedule. Effective, hollow — you bought your way out of a conversation you needed.",
           effect: { netWorth: -50_000, burnout: 15 },
           next: "y13-endgame-founder",
         },
@@ -424,14 +424,14 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-fumoney",
     headline: "The Windfall Question",
     text:
-      "A vest cliff, a bonus, and a tender all land in the same month — the largest single pile of cash you've ever held at once. The research says lump-sum investing beats dollar-cost averaging two-thirds of the time. The research has never met your amygdala at a market top.",
+      "A vest, a bonus, and a tender land the same month — your biggest-ever pile of cash. Research says lump-sum beats DCA two-thirds of the time. The research never met your amygdala at a market top.",
     choices: [
       {
         id: "dca-the-pile",
-        label: "DCA it over a year — pay the average, skip the regret",
+        label: "DCA it over a year — skip the regret",
         outcome: {
           text:
-            "You automate twelve monthly buys and stop looking. The result is mathematically mediocre and emotionally perfect — no single day can ever be The Day You Blew It. Your amygdala sends a thank-you card.",
+            "Twelve automated buys, then you stop looking. Mathematically mediocre, emotionally perfect — no day can ever be The Day You Blew It. Your amygdala sends thanks.",
           effect: { netWorth: 120_000, burnout: 5 },
           next: "y13-lastcycle",
         },
@@ -444,7 +444,7 @@ export const YEAR_12: Scenario[] = [
             chance: 0.6,
             label: "Up year — optimal entry, maximum growth",
             text:
-              "The market grinds up 20% over the year, and your day-one entry captures every point of it. The research wins again, as research does two-thirds of the time. You develop the quiet superiority of someone whose spreadsheet beat their feelings.",
+              "The market grinds up 20% and your day-one entry captures every point. Your spreadsheet beat your feelings, and you develop the quiet superiority to prove it.",
             effect: { netWorth: 220_000, burnout: 0 },
             next: "y13-lastcycle",
           },
@@ -452,7 +452,7 @@ export const YEAR_12: Scenario[] = [
             chance: 0.4,
             label: "You bought the top — the exact top",
             text:
-              "Your wire settles on what charts will later label the year's peak, followed by a 15% slide you experience in real time, daily, personally. The math still favors your move in the long run. The long run has never once comforted anyone in October.",
+              "Your wire settles on what charts later label the peak, then a 15% slide you experience daily, personally. The long run has never comforted anyone in October.",
             effect: { netWorth: -60_000, burnout: 10 },
             next: "y13-lastcycle",
           },
@@ -467,35 +467,35 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-fumoney",
     headline: "The Best Friend's Round",
     text:
-      "Your oldest friend — the garage roommate, the one who drove you to your first day of work — is raising a seed round for his startup and needs $150K to close it. The idea is decent. The founder is family. Money between friends is a bridge or a wall, and you don't get to know which until it's built.",
+      "Your oldest friend — the garage roommate — needs $150K to close his seed round. Decent idea; family founder. Money between friends is a bridge or a wall, and you find out which after it's built.",
     choices: [
       {
         id: "decline-preserve",
-        label: "Decline with love — the friendship outvalues the equity",
+        label: "Decline with love — friendship > equity",
         outcome: {
           text:
-            "You say no over a long dinner you pay for, and explain it so honestly he ends up agreeing. The round closes without you; the friendship closes ranks. Twenty years from now, neither of you will remember the startup's name. You'll remember the dinner.",
+            "You say no over a long dinner you pay for, so honestly that he agrees. In twenty years neither of you will remember the startup. You'll remember the dinner.",
           effect: { netWorth: 130_000, burnout: 5 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "write-the-check",
-        label: "Write the $150K — bet on your oldest friend",
+        label: "Write the $150K check",
         gamble: [
           {
             chance: 0.35,
-            label: "It works — money AND the friendship compound",
+            label: "It works — money and friendship compound",
             text:
-              "The startup finds its market in year two, and your check marks up alongside something rarer: a friendship that survived money and grew. He thanks you at his Series A dinner by name, voice cracking. Best position in your portfolio, by any metric that matters.",
+              "Year two, the startup finds its market. The check marks up alongside something rarer: a friendship that survived money. He thanks you by name, voice cracking.",
             effect: { netWorth: 180_000, burnout: -5 },
             next: "y13-lastcycle",
           },
           {
             chance: 0.65,
-            label: "It dies — the money goes, the friendship goes weird",
+            label: "It dies — the friendship goes weird",
             text:
-              "The startup winds down in eighteen months, and the $150K takes something with it: he apologizes too much, you reassure too carefully, and the group chat develops a polite frost. The money you'd written off. The weirdness you hadn't.",
+              "The startup dies in eighteen months. He apologizes too much; the group chat develops a polite frost. The money you'd written off. The weirdness you hadn't.",
             effect: { netWorth: -150_000, burnout: 10 },
             next: "y13-lastcycle",
           },
@@ -510,35 +510,35 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-postexit",
     headline: "The Anchor Ask",
     text:
-      "A first-time fund manager — sharp, hungry, unproven — asks you to anchor her fund: the big first check that makes every other LP comfortable. Anchors get better economics and their name whispered in every pitch. First-time funds also have the widest outcome distribution in all of finance.",
+      "A first-time manager — sharp, hungry, unproven — asks you to anchor her fund: the big check that makes other LPs comfortable. First-time funds have the widest outcome distribution in finance.",
     choices: [
       {
         id: "small-check-support",
-        label: "Write a small check — support without anchoring",
+        label: "Write a small check — support, not anchor",
         outcome: {
           text:
-            "You come in as a regular LP with a fifth of the ask, enough to signal belief without betting the pile. She closes the fund slightly smaller and remembers you kindly. Optionality preserved on all fronts, including hers.",
+            "You come in as a regular LP with a fifth of the ask — belief signaled, pile unbet. She closes slightly smaller and remembers you kindly. Optionality preserved.",
           effect: { netWorth: 100_000, burnout: 5 },
           next: "y13-lastcycle",
         },
       },
       {
         id: "anchor-the-fund",
-        label: "Anchor it — the big check, the better economics",
+        label: "Anchor it — big check, better economics",
         gamble: [
           {
             chance: 0.4,
-            label: "She's the real thing — carry plus kingmaker status",
+            label: "She's the real thing — kingmaker status",
             text:
-              "Her first fund catches a generational company in month seven, and your anchor economics turn the win into a windfall. Better: every hot first-time manager for a decade now calls you first. You didn't just back a fund. You bought a seat at the origin of things.",
+              "Her fund catches a generational company in month seven, and anchor economics turn the win into a windfall. Every hot first-time manager now calls you first.",
             effect: { netWorth: 200_000, burnout: 5 },
             next: "y13-lastcycle",
           },
           {
             chance: 0.6,
-            label: "The long J-curve — a decade of 'early days'",
+            label: "A decade of 'early days'",
             text:
-              "The fund performs like most first funds: two write-offs, five zombies, one maybe. Quarterly letters master the art of optimistic past tense. Your anchor check ages in a cellar with no vintage label — not gone, just geological.",
+              "Two write-offs, five zombies, one maybe. Quarterly letters master optimistic past tense. Your check ages in a cellar with no label — not gone, just geological.",
             effect: { netWorth: -120_000, burnout: 5 },
             next: "y13-lastcycle",
           },
@@ -553,35 +553,35 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-warpath",
     headline: "The Roll-Up Thesis",
     text:
-      "Your CFO — the one who's done this before — slides a deck across the table: two smaller competitors, both buyable, financed with debt and stock. The roll-up would make you the category's undisputed consolidator overnight. Integration, she notes on slide nine, 'is where roll-ups go to die.' Then she waits.",
+      "Your CFO slides a deck across the table: two smaller competitors, buyable, financed with debt and stock. Integration, she notes on slide nine, 'is where roll-ups go to die.' Then she waits.",
     choices: [
       {
         id: "organic-path",
-        label: "Decline the spree — one company, one culture, one P&L",
+        label: "Decline — one company, one culture",
         outcome: {
           text:
-            "You pass on empire-by-acquisition and keep compounding the machine you already understand. The two targets sell to a PE roll-up that spends three years digesting them. You spend those years growing past the whole indigestion.",
+            "You keep compounding the machine you understand. A PE roll-up buys the targets and spends three years digesting them. You grow past the whole indigestion.",
           effect: { netWorth: 50_000, burnout: 15 },
           next: "y13-endgame-founder",
         },
       },
       {
         id: "execute-rollup",
-        label: "Execute the roll-up — buy both, integrate or die",
+        label: "Execute the roll-up — integrate or die",
         gamble: [
           {
             chance: 0.45,
-            label: "Integration works — category owner, priced accordingly",
+            label: "Integration works — category owner",
             text:
-              "Eighteen brutal months of systems mergers and culture triage later, the roll-up holds: one brand, one platform, sixty percent market share. The category now has a capital city and you're its mayor. Slide nine was a warning, not a prophecy.",
+              "Eighteen brutal months of systems mergers and culture triage later: one brand, one platform, sixty percent share. Slide nine was a warning, not a prophecy.",
             effect: { netWorth: 150_000, burnout: 20, title: "CEO (The Consolidator)" },
             next: "y13-endgame-founder",
           },
           {
             chance: 0.55,
-            label: "Integration hell — three companies, zero cultures",
+            label: "Integration hell — zero cultures",
             text:
-              "Slide nine was a prophecy. Three codebases refuse to merge, two sales teams poach each other's accounts, and the debt payment arrives monthly regardless. You spend two years un-buying what you bought, at a discount to what you paid. The category consolidates around your distraction.",
+              "Slide nine was a prophecy. Three codebases refuse to merge; the debt arrives monthly regardless. You spend two years un-buying what you bought, at a discount.",
             effect: { netWorth: -80_000, burnout: 30 },
             next: "y13-endgame-founder",
           },
@@ -596,14 +596,14 @@ export const YEAR_12: Scenario[] = [
     slot: "y12-warpath",
     headline: "The Big Game Ad",
     text:
-      "Your CMO wants to spend seven million dollars on thirty seconds of the Big Game — the full send: celebrity cameo, QR code, war room. B2B software companies doing Super Bowl ads is either a category-defining flex or the single most expensive way to confuse 100 million people. The deck's last slide just says 'BRAND.'",
+      "Your CMO wants $7M for thirty seconds of the Big Game — full send. Either a category-defining flex or the priciest way to confuse 100 million people. The deck's last slide just says 'BRAND.'",
     choices: [
       {
         id: "performance-marketing",
-        label: "Keep the $7M in performance marketing — measurable, boring",
+        label: "Keep the $7M in performance marketing",
         outcome: {
           text:
-            "You feed the money into the funnel that reports its own ROI weekly, and it does what it always does: works, unglamorously. No war room, no cameo, no trophy — just pipeline, which is the only trophy the board recognizes.",
+            "You feed the funnel that reports its own ROI weekly. It works, unglamorously. No war room, no cameo — just pipeline, the only trophy the board recognizes.",
           effect: { netWorth: 55_000, burnout: 10 },
           next: "y13-endgame-founder",
         },
@@ -616,7 +616,7 @@ export const YEAR_12: Scenario[] = [
             chance: 0.3,
             label: "Cultural moment — the ad becomes THE ad",
             text:
-              "The cameo lands, the joke lands, and by halftime your brand is a meme in the best possible way. Monday's pipeline is triple the record; recruiting inbound goes vertical; enterprise buyers now recognize the logo their kids laughed at. 'BRAND,' vindicated.",
+              "The cameo lands, the joke lands, and by halftime your brand is a meme in the best way. Monday's pipeline triples the record. 'BRAND,' vindicated.",
             effect: { netWorth: 180_000, burnout: 10 },
             next: "y13-endgame-founder",
           },
@@ -624,7 +624,7 @@ export const YEAR_12: Scenario[] = [
             chance: 0.7,
             label: "$7M for a national shrug",
             text:
-              "The ad runs third in a break with a beer ad people still quote and a car ad with a dog. A hundred million people see thirty seconds of your brand and retain a QR code nobody scanned. The CMO's retro deck retitles it 'a reach investment.' The board retitles the CMO.",
+              "You run third in a break with a beer ad people still quote. A hundred million people retain a QR code nobody scanned. The board retitles the CMO.",
             effect: { netWorth: -90_000, burnout: 20 },
             next: "y13-endgame-founder",
           },

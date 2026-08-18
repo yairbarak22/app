@@ -29,7 +29,7 @@ export const YEAR_11: Scenario[] = [
         label: "Downshift to four days — buy back Fridays",
         outcome: {
           text:
-            "You negotiate 80% time and coach youth robotics on Fridays. Nobody at work notices. The kids' robot is terrible and you love it more than anything you've shipped.",
+            "You negotiate 80% time and coach youth robotics on Fridays. Nobody at work notices. The kids' robot is terrible and you love it more than anything you shipped.",
           effect: { netWorth: 90_000, burnout: -20 },
           next: "y12-fumoney",
         },
@@ -369,7 +369,7 @@ export const YEAR_11: Scenario[] = [
             chance: 0.55,
             label: "The J-curve is a lifestyle",
             text:
-              "No disasters, no breakouts — a decade-long J-curve with quarterly meetings. The money isn't gone, just aging elsewhere. Wine metaphors stop charming by year six.",
+              "No disasters, no breakouts — a decade-long J-curve with quarterly meetings. The money isn't gone, just aging elsewhere. Wine metaphors stop charming by year 6.",
             effect: { netWorth: -80_000, burnout: 5 },
             next: "y12-fumoney",
           },

@@ -492,7 +492,7 @@ export const YEAR_10: Scenario[] = [
             chance: 0.5,
             label: "Consolidation pays — the merger prints",
             text:
-              "Customers stay, engineers stay, and pricing power services the debt with room to spare. Two years later the market is yours. Leverage, used once, like a scalpel.",
+              "Customers stay, engineers stay, and pricing power services the debt with room to spare. Two years later the market is yours. Leverage, once, like a scalpel.",
             effect: { netWorth: 80_000, burnout: 15, title: "CEO (Consolidator)" },
             next: "y11-empire",
           },
