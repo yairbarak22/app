@@ -13,24 +13,24 @@ export const YEAR_08: Scenario[] = [
     age: 29,
     headline: "The Golden Cage",
     text:
-      "You're 29, comfortable, and quietly bored. The money is real now — the kind that makes a spreadsheet with a retirement tab. But every day feels like the same standup, and a voice in your head keeps asking 'is this it?' The voice sounds suspiciously like your college self.",
+      "You're 29, comfortable, and quietly bored. The money finally has a retirement tab, but every day is the same standup, and a voice that sounds like your college self asks 'is this it?'",
     choices: [
       {
         id: "push-principal",
-        label: "Push for Principal — become the person whose docs get quoted",
+        label: "Push for Principal — get quoted",
         outcome: {
           text:
-            "You pick the hairiest technical problem in the company and make it your personality for a year. It works. Your design doc gets cargo-culted across three orgs, and your comp band now has a comma where you didn't expect one.",
+            "You make the hairiest problem your personality for a year. Your design doc gets cargo-culted across three orgs; your comp band grows a comma.",
           effect: { netWorth: 120_000, burnout: 25, title: "Principal Engineer" },
           next: "y9-politics",
         },
       },
       {
         id: "coast-invest",
-        label: "Coast at work, get serious about investing",
+        label: "Coast at work, get serious investing",
         outcome: {
           text:
-            "You automate your job 30% and your savings 100%. Index funds, max 401(k), backdoor Roth — the personal-finance subreddit would weep with pride. Compound interest becomes your favorite coworker.",
+            "You automate your job 30% and your savings 100%. Compound interest becomes your favorite coworker.",
           effect: { netWorth: 85_000, burnout: -10 },
           next: "y9-politics",
         },
@@ -40,7 +40,7 @@ export const YEAR_08: Scenario[] = [
         label: "Write angel checks into friends' startups",
         outcome: {
           text:
-            "You Venmo your way onto five cap tables with checks that used to be a down payment. Four of the five founders stop replying to texts within a year. The fifth keeps sending charts that go up. You choose to believe the charts.",
+            "Five cap tables, one former down payment. Four founders stop texting within a year; the fifth sends charts that go up. You believe the charts.",
           effect: { netWorth: -40_000, burnout: 5, title: "Engineer & Angel" },
           next: "y9-politics",
         },
@@ -54,34 +54,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-goldencage",
     headline: "Return From the Void",
     text:
-      "You come back from a three-month sabbatical to discover the org rearranged itself in your absence: your project has a new owner, your desk has a new occupant, and your manager has a new manager. Nobody is hostile. Everybody has simply... moved on. The org, it turns out, heals over people like bark over a nail.",
+      "You return from a three-month sabbatical to find your project reassigned and your desk occupied. Nobody's hostile — the org just healed over you like bark over a nail.",
     choices: [
       {
         id: "reearn-the-seat",
-        label: "Re-earn the seat — six months of undeniable work",
+        label: "Re-earn the seat with undeniable work",
         outcome: {
           text:
-            "You skip the territorial whining and just ship: two quarters of quietly excellent work that makes the 'wait, who owns this now?' question answer itself. The org re-forms around you like it never forgot. It did forget. You made it remember.",
+            "Two quarters of quietly excellent shipping and the org re-forms around you like it never forgot. It forgot. You made it remember.",
           effect: { netWorth: 80_000, burnout: 15 },
           next: "y9-politics",
         },
       },
       {
         id: "fresh-eyes-leverage",
-        label: "Use the outsider eyes — propose what nobody inside can see",
+        label: "Weaponize the outsider eyes",
         outcome: {
           text:
-            "Three months of distance gave you what consultants charge millions for: the ability to see the obvious. Your 'here's what we're all pretending not to notice' doc lands like a meteor, and leadership hands you a new org to fix the mess it names.",
+            "Distance gave you what consultants charge millions for: seeing the obvious. Your doc lands like a meteor, and leadership hands you the mess it names.",
           effect: { netWorth: 95_000, burnout: 10, title: "Principal Eng (Fresh Eyes)" },
           next: "y9-politics",
         },
       },
       {
         id: "realize-want-out",
-        label: "Admit the sabbatical told you something — start planning the exit",
+        label: "Admit it — start planning the exit",
         outcome: {
           text:
-            "The org moved on without you and — here's the thing — you moved on without it. You coast gracefully while building the exit: savings rate up, side bets seeded, resume warm. The cage door is open. You're just choosing your moment.",
+            "The org moved on without you, and you moved on without it. You coast gracefully while building the exit. The cage door is open.",
           effect: { netWorth: 70_000, burnout: -10 },
           next: "y9-politics",
         },
@@ -95,34 +95,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-goldencage",
     headline: "20,000 Stars",
     text:
-      "The dev tool you built on weekends — to fix your own annoyance — hits 20K GitHub stars and a front-page launch you didn't write. Three companies use it in production. One emailed asking for an enterprise license. Your employer's IP policy, which you skimmed at onboarding six years ago, enters the chat.",
+      "Your weekend dev tool hits 20K GitHub stars and one enterprise-license inquiry. Your employer's IP policy, skimmed at onboarding six years ago, enters the chat.",
     choices: [
       {
         id: "monetize-it",
-        label: "Monetize — licenses, sponsors, the whole indie playbook",
+        label: "Monetize — the whole indie playbook",
         outcome: {
           text:
-            "You clear the IP review (barely, with a lawyer), launch paid tiers, and watch the side project out-earn your bonus. It's a second job that feels like a first love. The day-job standup starts feeling like a hobby you're too polite to quit.",
+            "You clear the IP review with a lawyer, launch paid tiers, and watch the side project out-earn your bonus. The day job starts feeling like a hobby.",
           effect: { netWorth: 60_000, burnout: 15, title: "Engineer & Maintainer (Paid)" },
           next: "y9-politics",
         },
       },
       {
         id: "donate-to-foundation",
-        label: "Donate it to a foundation — take the reputation, skip the invoices",
+        label: "Donate it — keep the reputation",
         outcome: {
           text:
-            "You hand the project to a neutral foundation, keep a maintainer seat, and convert 20K stars into the kind of industry standing money can't buy and recruiters can't ignore. Every conference now knows your name. Your weekends return home.",
+            "A foundation takes the project; you keep a maintainer seat and standing money can't buy. Your weekends return home.",
           effect: { netWorth: 85_000, burnout: -5, title: "Principal Eng (OSS Famous)" },
           next: "y9-politics",
         },
       },
       {
         id: "company-claims-ip",
-        label: "The company claims it — fight for your nights and weekends",
+        label: "Fight for your nights and weekends",
         outcome: {
           text:
-            "Legal sends a letter with the word 'derivative' in it; you send back commit timestamps, personal hardware receipts, and a quiet fury. The settlement: you keep the project, they get a shout-out. The fight costs a year of goodwill and buys a lifetime lesson about page 14 of employment agreements.",
+            "Legal says 'derivative'; you send commit timestamps and hardware receipts. You keep the project and learn what page 14 of employment agreements is for.",
           effect: { netWorth: 75_000, burnout: 20 },
           next: "y9-politics",
         },
@@ -137,34 +137,34 @@ export const YEAR_08: Scenario[] = [
     age: 29,
     headline: "Mission Aligned",
     text:
-      "A year inside the frontier lab: the work is a decade ahead of everything else, the Slack debates cite philosophy papers, and someone in the kitchen is always saying 'timelines.' Then the tender offer email lands — you can sell a chunk of your equity at a valuation with a B in it.",
+      "A year in the frontier lab: the work is a decade ahead, the Slack debates cite philosophy papers, and someone in the kitchen is always saying 'timelines.' Then the tender offer lands — with a B in it.",
     choices: [
       {
         id: "tender-sell",
-        label: "Sell in the tender. Diversification is a love language",
+        label: "Sell in the tender — diversify",
         outcome: {
           text:
-            "You sell a slice at a number your parents don't believe and your financial advisor frames. The true believers side-eye you at lunch. You buy index funds and sleep like a Victorian orphan who's been adopted by a duke.",
+            "You sell a slice at a number your parents don't believe, buy index funds, and sleep like a Victorian orphan adopted by a duke.",
           effect: { netWorth: 350_000, burnout: 10 },
           next: "y9-politics",
         },
       },
       {
         id: "hold-for-agi",
-        label: "Hold everything. If the mission works, money is irrelevant anyway",
+        label: "Hold everything — the mission or bust",
         outcome: {
           text:
-            "You decline the tender and go back to work. Your equity remains a thought experiment with a dollar sign. Your conviction is either visionary or a cautionary tale, and you won't know which for years. The uncertainty has a weight.",
+            "Your equity remains a thought experiment with a dollar sign. Visionary or cautionary tale — you won't know which for years.",
           effect: { netWorth: 60_000, burnout: 25 },
           next: "y9-politics",
         },
       },
       {
         id: "spectacular-burnout",
-        label: "Admit the pace is unsustainable — take a real break",
+        label: "Admit the pace is breaking you",
         outcome: {
           text:
-            "You hit a wall at 2 AM on a Tuesday, mid-eval-run, and finally say it out loud: 'I can't keep doing this.' The lab, to its credit, grants a sabbatical. You spend six months relearning how to be a person. It mostly works.",
+            "You hit the wall at 2 AM mid-eval-run and say it out loud. The lab grants a sabbatical; six months of relearning how to be a person mostly works.",
           effect: { netWorth: -40_000, burnout: -35, title: "MTS (On Sabbatical)" },
           next: "y9-politics",
         },
@@ -178,34 +178,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-frontierlab",
     headline: "The Launch Argument",
     text:
-      "The lab's biggest launch is a week out, and the safety team's eval report has one red cell nobody can explain away. Product says the red cell is 'measurement noise.' Safety says that's what red cells always get called. You're the engineer whose name is on the deployment script, which makes your opinion suddenly, uncomfortably load-bearing.",
+      "The big launch is a week out and the safety evals have one red cell nobody can explain. Product calls it noise. Your name is on the deployment script.",
     choices: [
       {
         id: "side-with-safety",
-        label: "Back the safety team — the red cell decides, not the deadline",
+        label: "Back safety — the red cell decides",
         outcome: {
           text:
-            "The launch slips three weeks while the red cell gets root-caused: real, rare, fixable. Product fumes, then forgets; safety remembers forever. You've made an enemy of a deadline and an ally of everyone who was quietly holding their breath.",
+            "The launch slips three weeks; the red cell was real, rare, fixable. Product fumes and forgets. Safety remembers forever.",
           effect: { netWorth: 60_000, burnout: 15, title: "MTS (Trusted by Safety)" },
           next: "y9-politics",
         },
       },
       {
         id: "side-with-shipping",
-        label: "Ship it — red cells are why there's a rollback plan",
+        label: "Ship it — that's what rollbacks are for",
         outcome: {
           text:
-            "The launch lands, the metrics soar, and the red cell never materializes in prod — this time. You get the launch bonus and a tiny permanent tenant in the back of your mind that pays rent in 3 AM what-ifs.",
+            "The metrics soar and the red cell never shows in prod — this time. The bonus arrives with a tiny tenant that pays rent in 3 AM what-ifs.",
           effect: { netWorth: 90_000, burnout: 20 },
           next: "y9-politics",
         },
       },
       {
         id: "broker-compromise",
-        label: "Broker the middle path — staged rollout with tripwires",
+        label: "Broker a staged rollout with tripwires",
         outcome: {
           text:
-            "You design the compromise: 1% rollout, automated tripwires, safety sign-off at each stage. Both teams claim victory, which is how you know it worked. The playbook becomes lab standard with your name in the doc header.",
+            "1% rollout, automated tripwires, sign-off per stage. Both teams claim victory, which is how you know it worked.",
           effect: { netWorth: 75_000, burnout: 10, title: "MTS (The Diplomat)" },
           next: "y9-politics",
         },
@@ -219,34 +219,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-frontierlab",
     headline: "The Rival Lab Calls",
     text:
-      "The other frontier lab — the one your lab's all-hands refers to only as 'them' — offers you 1.5x everything: comp, scope, and a mission statement that reads suspiciously like your current one with the adjectives rearranged. Loyalty in this industry has a market price, and yours was just quoted.",
+      "The rival lab — the one your all-hands calls only 'them' — offers 1.5x everything, plus your mission statement with the adjectives rearranged. Your loyalty just got a market quote.",
     choices: [
       {
         id: "defect-for-money",
-        label: "Take it — missions are similar, multiples aren't",
+        label: "Take it — multiples aren't similar",
         outcome: {
           text:
-            "You cross the street for 1.5x and discover the grass is the same shade of research-lab beige. New badge, new NDAs, same beautiful impossible problems. Your old lab's group chat goes quiet for exactly one news cycle.",
+            "You cross the street for 1.5x and find the same research-lab beige. New badge, new NDAs, same beautiful impossible problems.",
           effect: { netWorth: 150_000, burnout: 15, title: "Senior MTS (Defected)" },
           next: "y9-politics",
         },
       },
       {
         id: "leak-for-counter",
-        label: "Show your lab the offer — let them match it",
+        label: "Show your lab the offer, get matched",
         outcome: {
           text:
-            "The counter arrives in 48 hours: not quite 1.5x, plus an equity refresh and a scope you actually wanted. You stay, richer and slightly radioactive — everyone now knows you priced the mission. The mission, notably, did not price you first.",
+            "The counter lands in 48 hours. You stay, richer and slightly radioactive — everyone now knows you priced the mission.",
           effect: { netWorth: 120_000, burnout: 10 },
           next: "y9-politics",
         },
       },
       {
         id: "loyalty-discount",
-        label: "Decline without leverage — you're here for this lab's version",
+        label: "Decline without leverage — stay loyal",
         outcome: {
           text:
-            "You delete the email and take the loyalty discount, a real number you occasionally calculate in weak moments. What you keep: the project you started, the team you trust, and the specific version of the future you actually believe in. Expensive. Yours.",
+            "You delete the email and take the loyalty discount, a number you calculate in weak moments. You keep the future you actually believe in. Expensive. Yours.",
           effect: { netWorth: 70_000, burnout: 5 },
           next: "y9-politics",
         },
@@ -261,34 +261,34 @@ export const YEAR_08: Scenario[] = [
     age: 29,
     headline: "Corp Dev Comes Knocking",
     text:
-      "A Big Tech corp-dev team 'would love to find time' — the mating call of acquisition. Diligence begins: data rooms, retention spreadsheets, and executives practicing the word 'synergy' in the mirror. Your equity is either about to mean everything or nothing.",
+      "A Big Tech corp-dev team 'would love to find time' — the mating call of acquisition. Data rooms open, and your equity is about to mean everything or nothing.",
     choices: [
       {
         id: "champion-deal",
-        label: "Champion the deal — get this thing across the line",
+        label: "Champion the deal across the line",
         outcome: {
           text:
-            "You run diligence like a launch: crisp docs, clean answers, no surprises. The deal closes. The all-hands cries. Your options convert into actual, spendable money, and your new badge says a trillion-dollar company's name on it.",
+            "You run diligence like a launch: crisp docs, no surprises. The deal closes, the all-hands cries, and your options become spendable money.",
           effect: { netWorth: 300_000, burnout: 10, title: "Eng Lead (Post-Acquisition)" },
           next: "y9-politics",
         },
       },
       {
         id: "deal-collapses",
-        label: "Stay neutral and keep shipping — deals die all the time",
+        label: "Stay neutral and keep shipping",
         outcome: {
           text:
-            "Three weeks before signing, the acquirer's stock dips 8% and the deal dies in a phone call that lasts four minutes. The CEO announces 'we were never for sale' to a room that has read the leaked deck. Back to work.",
+            "The acquirer's stock dips 8% and the deal dies in a four-minute call. The CEO tells a room that read the leaked deck 'we were never for sale.'",
           effect: { netWorth: 30_000, burnout: 20 },
           next: "y9-zombie",
         },
       },
       {
         id: "leave-before-deal",
-        label: "Don't wait for the coin flip — jump to another rocket",
+        label: "Skip the coin flip — jump rockets",
         outcome: {
           text:
-            "You've seen enough M&A limbo to know it breaks people. You take a strong offer at a growth-stage company while your old coworkers refresh the news for updates about their own jobs. Cold? Maybe. Liquid? Yes.",
+            "M&A limbo breaks people. You take a strong offer elsewhere while old coworkers refresh the news about their own jobs. Cold? Maybe. Liquid? Yes.",
           effect: { netWorth: 55_000, burnout: 10, title: "Staff Eng @ Growth Co" },
           next: "y9-zombie",
         },
@@ -302,34 +302,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-acquisition",
     headline: "The Earnout Cage",
     text:
-      "The acquisition closed — congratulations — and the fine print introduces itself: half your payout is an 'earnout' gated on two years of retention and targets set by people who've never seen your codebase. You are now extremely well-paid and extremely not free. The cage is golden. The cage is also a cage.",
+      "The acquisition closed — congratulations — and half your payout is an earnout gated on two years of retention and targets set by people who've never seen your codebase.",
     choices: [
       {
         id: "grind-the-earnout",
-        label: "Grind the full earnout — two years, every dollar",
+        label: "Grind the full earnout — every dollar",
         outcome: {
           text:
-            "You hit every gate, survive two integrations and one 'harmonization,' and collect the last tranche to the day. The money is enormous. The two years are gone. You do the math on both and decline to publish the result.",
+            "You hit every gate and collect the last tranche to the day. The money is enormous; the two years are gone. You decline to publish the math.",
           effect: { netWorth: 120_000, burnout: 25 },
           next: "y9-politics",
         },
       },
       {
         id: "negotiate-early-release",
-        label: "Negotiate an early release — 70% now beats 100% miserable",
+        label: "Negotiate out — 70% now beats misery",
         outcome: {
           text:
-            "Six months in, you trade the remaining earnout for a discounted lump sum and your freedom. The acquirer gets certainty; you get out before the integration meetings achieve sentience. Everyone wins, especially your blood pressure.",
+            "You trade the remaining earnout for a discounted lump sum and your freedom, out before the integration meetings achieve sentience.",
           effect: { netWorth: 80_000, burnout: 5, title: "Eng Lead (Released Early)" },
           next: "y9-politics",
         },
       },
       {
         id: "coast-and-collect",
-        label: "Coast the earnout — do exactly what the targets say, nothing more",
+        label: "Coast — do exactly what the targets say",
         outcome: {
           text:
-            "You read the earnout targets like a contract lawyer and hit precisely them. Innovation: zero. Compliance: total. The acquirer gets what it measured, a lesson in incentive design they'll bill someone else to learn. You get paid in full.",
+            "You read the targets like a contract lawyer and hit precisely them. The acquirer gets what it measured. You get paid in full.",
           effect: { netWorth: 95_000, burnout: -5 },
           next: "y9-politics",
         },
@@ -343,34 +343,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-acquisition",
     headline: "The Skeleton in the Data Room",
     text:
-      "Mid-diligence, the acquirer's engineers find it: the licensing shortcut in the core module — the one YOU wrote at 2 AM in year one, flagged 'TODO: fix before anyone rich looks at this.' Someone rich is looking at it. The deal team wants answers. Your commit hash is on everything.",
+      "Mid-diligence, the acquirer finds the licensing shortcut you wrote at 2 AM in year one, flagged 'TODO: fix before anyone rich looks at this.' Someone rich is looking.",
     choices: [
       {
         id: "own-and-fix",
-        label: "Own it — full disclosure and a remediation plan by Friday",
+        label: "Own it — disclosure and a fix by Friday",
         outcome: {
           text:
-            "You present the sin and the fix in one memo, priced and scheduled. The acquirer discounts the deal 4% and doubles their opinion of you — 'the one who tells the truth under fire' goes in someone's notes. The deal survives. So does your name.",
+            "You present the sin and the fix in one priced memo. The deal discounts 4%; the acquirer doubles their opinion of you. Truth under fire travels.",
           effect: { netWorth: 60_000, burnout: 15, title: "Eng Lead (Post-Acquisition)" },
           next: "y9-politics",
         },
       },
       {
         id: "rewrite-history",
-        label: "Quietly rewrite it this weekend and hope diligence moves on",
+        label: "Quietly rewrite it this weekend",
         outcome: {
           text:
-            "Your stealth weekend rewrite is technically flawless and forensically obvious — diligence teams read git logs like detectives. The trust damage costs more than the code ever would have. The deal dies of a thousand new questions.",
+            "Your stealth rewrite is technically flawless and forensically obvious — diligence reads git logs like detectives. The deal dies of new questions.",
           effect: { netWorth: 50_000, burnout: 20 },
           next: "y9-zombie",
         },
       },
       {
         id: "blame-architecture",
-        label: "Frame it as 'known tech debt' in the architecture doc",
+        label: "Bury it in the tech-debt register",
         outcome: {
           text:
-            "You launder the skeleton through a 'technical debt register' where it sits alongside forty mundane items, hoping for camouflage. The acquirer's lawyers find it anyway — lawyers always read appendix C — and the deal limps into a 'strategic pause.'",
+            "You camouflage the skeleton among forty mundane items. The lawyers read appendix C — they always do — and the deal limps into a 'strategic pause.'",
           effect: { netWorth: 40_000, burnout: 15 },
           next: "y9-zombie",
         },
@@ -385,34 +385,34 @@ export const YEAR_08: Scenario[] = [
     age: 29,
     headline: "The Series A Roadshow",
     text:
-      "The winter survivors get the spring. Suddenly your metrics are 'a story,' your story is 'a deck,' and you're pitching Sand Hill Road twice a day for six weeks. Sixty meetings. Fifty-five passes. Three term sheets. One decision.",
+      "The winter survivors get the spring: your metrics are 'a story,' your story is 'a deck.' Sixty meetings, fifty-five passes, three term sheets, one decision.",
     choices: [
       {
         id: "tier1-brutal-terms",
-        label: "Take the Tier-1 fund with the brutal terms",
+        label: "Take the Tier-1 fund, brutal terms",
         outcome: {
           text:
-            "The brand-name fund leads at a serious valuation — with a board seat, a 2x participating preference, and a partner who texts 'thoughts?' at 6 AM. The logo on the press release opens every door. The terms close a few behind you.",
+            "A brand-name lead, a 2x participating preference, and a partner who texts 'thoughts?' at 6 AM. The logo opens doors; the terms close a few behind you.",
           effect: { netWorth: 40_000, burnout: 20, title: "CEO & Co-Founder" },
           next: "y9-scale",
         },
       },
       {
         id: "boutique-friendly",
-        label: "Take the smaller fund with founder-friendly terms",
+        label: "Take the smaller, founder-friendly fund",
         outcome: {
           text:
-            "Less money, better terms, and a partner who was a founder herself and answers emails like a human. The TechCrunch headline is smaller. Your ownership percentage is not.",
+            "Less money, better terms, and a partner who answers emails like a human. The TechCrunch headline is smaller. Your ownership is not.",
           effect: { netWorth: 25_000, burnout: 10, title: "CEO & Co-Founder" },
           next: "y9-scale",
         },
       },
       {
         id: "reject-vc",
-        label: "Tear up the term sheets — bootstrap forever",
+        label: "Tear up the term sheets — bootstrap",
         outcome: {
           text:
-            "You email three funds a polite no and take a screenshot for posterity. Revenue is the only investor now. Growth is slower, but every dollar of it is yours, and board meetings are you, a mirror, and a P&L that behaves.",
+            "You email three polite no's and screenshot them for posterity. Revenue is the only investor now, and every dollar of growth is yours.",
           effect: { netWorth: 50_000, burnout: 5, title: "Bootstrapped CEO" },
           next: "y9-scale",
         },
@@ -426,34 +426,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-seriesa",
     headline: "Hiring the Grown-Ups",
     text:
-      "The new board's first ask: 'executive bench.' You need a Head of Sales, a Head of Product, and possibly a Head of Heads. The candidates fall into two species: FAANG refugees with gorgeous resumes and startup mutts with scar tissue. Every hire reshapes the company's DNA. No pressure.",
+      "The new board wants an executive bench. The candidates: FAANG refugees with gorgeous resumes, or startup mutts with scar tissue. Every hire reshapes the company's DNA.",
     choices: [
       {
         id: "poach-faang",
         label: "Poach from FAANG — buy the playbooks",
         outcome: {
           text:
-            "The FAANG execs arrive with frameworks, planning cadences, and salary expectations that bend your budget. Half the process is overkill; the other half is why big companies are big. The company grows up fast — and grumbles about it hourly.",
+            "The execs arrive with frameworks and salary expectations that bend your budget. The company grows up fast — and grumbles about it hourly.",
           effect: { netWorth: 20_000, burnout: 15 },
           next: "y9-scale",
         },
       },
       {
         id: "promote-within",
-        label: "Promote the garage-days people — loyalty over pedigree",
+        label: "Promote the garage-days people",
         outcome: {
           text:
-            "Your employee #4 becomes Head of Product and outworks every framework, because she's been living the product since it was a whiteboard. The board frets about 'experience gaps.' The metrics don't. Some things scale better than resumes: context.",
+            "Employee #4 becomes Head of Product and outworks every framework. The board frets about 'experience gaps.' The metrics don't.",
           effect: { netWorth: 35_000, burnout: 10 },
           next: "y9-scale",
         },
       },
       {
         id: "fractional-everything",
-        label: "Go fractional — rent executives until product-market-fit-fit",
+        label: "Rent executives — go fractional",
         outcome: {
           text:
-            "A fractional CFO, a fractional CMO, and a full-time sense of flexibility. It's executive function by subscription — 60% of the wisdom at 30% of the burn, cancelable anytime. The board calls it creative. Your runway calls it genius.",
+            "A fractional CFO, a fractional CMO: 60% of the wisdom at 30% of the burn, cancelable anytime. Your runway calls it genius.",
           effect: { netWorth: 45_000, burnout: 10 },
           next: "y9-scale",
         },
@@ -467,34 +467,34 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-seriesa",
     headline: "The Pool Party Ghost Returns",
     text:
-      "The angel from the pool party — remember his 'vibe checks'? — resurfaces the week your Series A closes, claiming his SAFE came with a board seat 'per our conversation.' There was no such conversation. There is, unfortunately, one ambiguous voice memo. Your lawyer listens to it four times and says 'huh.'",
+      "The pool-party angel resurfaces the week your Series A closes, claiming his SAFE included a board seat 'per our conversation.' There's one ambiguous voice memo. Your lawyer says 'huh.'",
     choices: [
       {
         id: "buy-him-out",
-        label: "Buy him out entirely — expensive amnesia",
+        label: "Buy him out — expensive amnesia",
         outcome: {
           text:
-            "You pay a premium to convert his SAFE and part ways forever, wiring away a chunk of the fresh round for the cleanest cap table in the portfolio. The board seat question dies with the wire. Peace, it turns out, has a list price.",
+            "You pay a premium to convert his SAFE and part ways forever. The board-seat question dies with the wire. Peace has a list price.",
           effect: { netWorth: -60_000, burnout: 10 },
           next: "y9-scale",
         },
       },
       {
         id: "give-observer-seat",
-        label: "Offer a board observer seat — feed the ego, guard the votes",
+        label: "Offer an observer seat, guard the votes",
         outcome: {
           text:
-            "He gets a chair with no vote, a title for his Twitter bio, and quarterly opportunities to say 'just riffing here.' You get his network, his silence on the voice memo, and control of every decision that matters. Diplomacy: annoying, effective.",
+            "He gets a chair with no vote and quarterly chances to say 'just riffing here.' You get his silence and every decision that matters.",
           effect: { netWorth: 10_000, burnout: 20 },
           next: "y9-scale",
         },
       },
       {
         id: "lawyer-up",
-        label: "Lawyer up — the cap table is not a vibe",
+        label: "Lawyer up — the cap table isn't a vibe",
         outcome: {
           text:
-            "Your counsel dismantles the voice-memo theory in one crisp letter with exhibits. He folds before mediation, muttering about 'founder ingratitude' to anyone at the pool who'll listen. Legal fees hurt. Precedent pays: nobody ever tries you again.",
+            "One crisp letter with exhibits and he folds before mediation. Legal fees hurt. Precedent pays: nobody ever tries you again.",
           effect: { netWorth: -30_000, burnout: 15 },
           next: "y9-scale",
         },
@@ -508,27 +508,27 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-goldencage",
     headline: "The Pro-Rata Question",
     text:
-      "The one angel check that didn't die — the friend whose charts keep going up — is raising a hot Series B, and your pro-rata rights let you invest again at scale: a check ten times your original. The first check was beer money that got lucky. This one is real money that has to be right.",
+      "The one angel check that didn't die is raising a hot Series B, and your pro-rata lets you invest ten times the original. Beer money got lucky; real money has to be right.",
     choices: [
       {
         id: "decline-prorata",
-        label: "Let the pro-rata lapse — house money stays house money",
+        label: "Let it lapse — house money stays house",
         outcome: {
           text:
-            "You decline gracefully and let the original check keep compounding untouched. Whatever happens next, your lucky bet stays a lucky bet instead of becoming a thesis. Your portfolio remains boring. Boring pays the mortgage.",
+            "The original check keeps compounding untouched; the lucky bet stays a lucky bet instead of a thesis. Boring pays the mortgage.",
           effect: { netWorth: 80_000, burnout: 0 },
           next: "y9-politics",
         },
       },
       {
         id: "exercise-prorata",
-        label: "Exercise the full pro-rata — ten times the original check",
+        label: "Exercise the full pro-rata — 10x check",
         gamble: [
           {
             chance: 0.35,
-            label: "Marks up 4x within a year — thesis confirmed",
+            label: "Marks up 4x — thesis confirmed",
             text:
-              "The B becomes an oversubscribed C in eleven months, and your doubled-down position marks up 4x on paper with secondary buyers circling. The beer money that got lucky is now a position with a seat at your net-worth table.",
+              "The B becomes an oversubscribed C in eleven months, and your position marks up 4x with secondary buyers circling. Beer money grew a seat at the table.",
             effect: { netWorth: 150_000, burnout: 5 },
             next: "y9-politics",
           },
@@ -536,7 +536,7 @@ export const YEAR_08: Scenario[] = [
             chance: 0.65,
             label: "Growth stalls — big check, long wait",
             text:
-              "The up-and-to-the-right chart discovers gravity two quarters after your wire clears. Not dead — just flat, illiquid, and very large in your portfolio now. The friend still texts charts. You've muted the thread, lovingly.",
+              "The chart discovers gravity two quarters after your wire clears. Not dead — just flat, illiquid, and large. You mute the friend's thread, lovingly.",
             effect: { netWorth: -50_000, burnout: 5 },
             next: "y9-politics",
           },
@@ -551,35 +551,35 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-frontierlab",
     headline: "The Research Fork",
     text:
-      "Annual planning at the lab offers you a fork: the safe track (evals infrastructure — needed, funded, promotable) or a moonshot research direction two senior people believe in and everyone else calls 'a career detour with math.' Breakthroughs get papers and glory. Detours get a year older.",
+      "Annual planning offers a fork: evals infrastructure — needed, funded, promotable — or a moonshot two seniors love and everyone else calls 'a career detour with math.'",
     choices: [
       {
         id: "safe-evals",
-        label: "Take the evals track — needed, funded, promotable",
+        label: "Take the evals track — promotable",
         outcome: {
           text:
-            "You build the measurement infrastructure every team quietly depends on. No headlines, maximum leverage: your dashboards decide what ships. The moonshot team cites your evals in their paper. Everyone cites your evals.",
+            "You build the measurement layer every team quietly depends on. No headlines, maximum leverage: your dashboards decide what ships.",
           effect: { netWorth: 80_000, burnout: 10 },
           next: "y9-politics",
         },
       },
       {
         id: "join-moonshot",
-        label: "Join the moonshot — a year on the risky direction",
+        label: "Join the moonshot for a year",
         gamble: [
           {
             chance: 0.4,
-            label: "Breakthrough — your name on the paper of the year",
+            label: "Breakthrough — paper of the year",
             text:
-              "The risky direction cracks open in month nine, and the resulting paper rearranges half the field's roadmaps. Your name sits on it, third author, permanently. Conference hallways now pronounce your surname correctly. The detour was the highway.",
+              "The direction cracks open in month nine and the paper rearranges half the field's roadmaps. Conference hallways now pronounce your surname correctly.",
             effect: { netWorth: 140_000, burnout: 20, title: "MTS (Breakthrough Author)" },
             next: "y9-politics",
           },
           {
             chance: 0.6,
-            label: "Negative result — a year of beautiful dead ends",
+            label: "Negative result — beautiful dead ends",
             text:
-              "The direction doesn't crack; it politely declines to exist. You publish a negative result — scientifically noble, career-wise invisible — and return to the main track a year behind your cohort with a much better intuition for what won't work. Expensive intuition. Real, though.",
+              "The direction politely declines to exist. You publish a negative result and return a year behind your cohort with expensive, real intuition.",
             effect: { netWorth: 50_000, burnout: 20 },
             next: "y9-politics",
           },
@@ -594,36 +594,36 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-acquisition",
     headline: "Mid-Deal Leverage",
     text:
-      "Halfway through the acquisition's diligence, a truth crystallizes: the deal needs you more than you need the deal. Your name is in the retention schedule the acquirer keeps asking about. Threatening to leave mid-deal could double your package — or hand the deal team a reason to de-risk you out of the story entirely.",
+      "Halfway through diligence, it crystallizes: the deal needs you more than you need the deal. Threatening to leave could double your package — or get you de-risked out of the story.",
     choices: [
       {
         id: "ride-quietly",
-        label: "Ride the deal quietly — leverage unspent is still leverage",
+        label: "Ride quietly — unspent leverage keeps",
         outcome: {
           text:
-            "You keep your seat, your silence, and your standard package. The deal closes on schedule, and your restraint gets remembered by exactly the people who decide what you run next. The quiet play compounds.",
+            "You keep your seat, your silence, and your standard package. Your restraint is remembered by exactly the people who decide what you run next.",
           effect: { netWorth: 90_000, burnout: 10 },
           next: "y9-politics",
         },
       },
       {
         id: "threaten-mid-deal",
-        label: "Spend the leverage — renegotiate or walk, mid-deal",
+        label: "Spend the leverage — renegotiate or walk",
         gamble: [
           {
             chance: 0.6,
             label: "They can't lose you — package doubles",
             text:
-              "The deal team does the math on 'key person risk' and the math says pay. Your retention package doubles, with an acceleration clause added like an apology. Leverage, spent at the exact moment it peaked. The MBA case study writes itself.",
+              "The deal team does the 'key person risk' math and the math says pay. Your package doubles, with an acceleration clause added like an apology.",
             effect: { netWorth: 180_000, burnout: 10 },
             achievement: "big-bonus",
             next: "y9-politics",
           },
           {
             chance: 0.4,
-            label: "De-risked — 'we've accepted your resignation'",
+            label: "De-risked — resignation accepted",
             text:
-              "The acquirer's playbook has a page for this: your threat becomes 'attrition risk,' your systems get emergency-documented, and your resignation is graciously accepted before you finished making it. The deal closes without you. Leverage has an expiry time, and it was Tuesday.",
+              "Your systems get emergency-documented and your resignation is graciously accepted before you finish making it. Leverage expires; it was Tuesday.",
             effect: { netWorth: 30_000, burnout: 20, title: "Eng Lead (Out-Leveraged)" },
             next: "y9-zombie",
           },
@@ -638,35 +638,35 @@ export const YEAR_08: Scenario[] = [
     slot: "y8-seriesa",
     headline: "The Phantom Term Sheet",
     text:
-      "Your Series A negotiation stalls at a valuation you hate. The oldest trick in fundraising sits on the table: imply another term sheet exists. VCs run on FOMO the way engines run on fuel — but partners talk to each other at dinners specifically designed for catching this exact bluff.",
+      "Your Series A stalls at a valuation you hate. The oldest trick in fundraising beckons: imply another term sheet exists. Partners hold dinners specifically to catch this bluff.",
     choices: [
       {
         id: "negotiate-straight",
-        label: "Play it straight — negotiate on traction, not phantoms",
+        label: "Play it straight — traction talks",
         outcome: {
           text:
-            "You push the valuation up 10% the honest way: cohort charts and a pipeline review. The partner respects the no-games posture and says so at the board level for years. Slower money, cleaner reputation.",
+            "You push the valuation up 10% the honest way: cohort charts and pipeline. The partner cites your no-games posture at board level for years.",
           effect: { netWorth: 30_000, burnout: 10 },
           next: "y9-scale",
         },
       },
       {
         id: "bluff-the-sheet",
-        label: "Imply the phantom term sheet — let FOMO negotiate",
+        label: "Imply the phantom sheet — let FOMO work",
         gamble: [
           {
             chance: 0.55,
-            label: "FOMO wins — terms improve 20% overnight",
+            label: "FOMO wins — terms improve 20%",
             text:
-              "'We're moving quickly with another party' does in one email what three weeks of cohort charts couldn't: the valuation jumps 20% and the exploding deadline un-explodes. FOMO remains the market's strongest currency. You feel slightly gross and significantly richer.",
+              "'We're moving quickly with another party' does in one email what three weeks of charts couldn't. You feel slightly gross and significantly richer.",
             effect: { netWorth: 50_000, burnout: 10 },
             next: "y9-scale",
           },
           {
             chance: 0.45,
-            label: "Caught — partners compared notes at dinner",
+            label: "Caught — partners compared notes",
             text:
-              "The partner mentions your 'other term sheet' to the only other fund you pitched — at a dinner, over branzino. The bluff dies loudly. The round still closes, at a spite discount, with a reputation ding that follows you into the next raise. Branzino remembers.",
+              "The partner mentions your 'other sheet' to the only other fund you pitched — over branzino. The round closes at a spite discount. Branzino remembers.",
             effect: { netWorth: 5_000, burnout: 20 },
             next: "y9-scale",
           },

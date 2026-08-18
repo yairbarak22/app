@@ -13,24 +13,24 @@ export const YEAR_04: Scenario[] = [
     age: 25,
     headline: "Golden Handcuffs",
     text:
-      "Your RSU refresher lands and the four-year math is suddenly very real. Meanwhile a recruiter from the hottest pre-IPO company in the Valley slides into your DMs with the phrase 'rocket ship' and zero sense of irony.",
+      "Your RSU refresher lands and the four-year math gets real. Then a pre-IPO recruiter slides into your DMs saying 'rocket ship' with zero irony.",
     choices: [
       {
         id: "sign-refresher",
         label: "Sign the refresher. Vest in peace",
         outcome: {
           text:
-            "You lock in another four years of golden handcuffs and set a calendar reminder for every vest date. The work is fine. The money is not fine — it's excellent. You catch yourself defending the company in group chats.",
+            "Four more years of handcuffs, a reminder for every vest date. You catch yourself defending the company in group chats.",
           effect: { netWorth: 95_000, burnout: 10 },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "join-rocketship",
-        label: "Jump to the pre-IPO rocket ship — equity or die",
+        label: "Jump to the pre-IPO rocket ship",
         outcome: {
           text:
-            "You trade liquid RSUs for paper options and a badge at the company everyone's tweeting about. The office has a climbing wall nobody uses and a Slack that never, ever sleeps.",
+            "You trade liquid RSUs for paper options, an unused climbing wall, and a Slack that never sleeps.",
           effect: { netWorth: 45_000, burnout: 15, title: "Senior Eng @ Rocket Ship" },
           next: "y5-rocketship",
         },
@@ -40,7 +40,7 @@ export const YEAR_04: Scenario[] = [
         label: "Coast. Rest and vest. You've earned this",
         outcome: {
           text:
-            "You do exactly your job, no more, and log off at 5:01 PM. You take up bouldering. Your therapist says you're 'making real progress.' Your promo packet does not exist, and you're at peace with that. Mostly.",
+            "You log off at 5:01 and take up bouldering. Your promo packet does not exist, and you're at peace with that — mostly.",
           effect: { netWorth: 65_000, burnout: -10 },
           next: "y5-bigtech-staffpacket",
         },
@@ -54,14 +54,14 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-bigtech-handcuffs",
     headline: "The Internal Gold Rush",
     text:
-      "The company spins up an elite internal AI team, and the transfer posting reads like a velvet rope: 'top performers only.' Half your org applies within the hour. Your current team, meanwhile, still needs you to ship the roadmap you promised.",
+      "The company spins up an elite internal AI team — 'top performers only.' Half your org applies within the hour; your team still needs the roadmap you promised.",
     choices: [
       {
         id: "fight-for-seat",
         label: "Fight for a seat on the AI team",
         outcome: {
           text:
-            "Two internal interviews and one strategic coffee later, you're in. The work is bleeding-edge, the scrutiny is constant, and your old team's goodbye card has a passive-aggressive haiku in it. Worth it.",
+            "Two interviews and one strategic coffee later, you're in — your old team's goodbye card contains a passive-aggressive haiku. Worth it.",
           effect: { netWorth: 70_000, burnout: 20, title: "SWE, AI Platform" },
           next: "y5-bigtech-staffpacket",
         },
@@ -71,7 +71,7 @@ export const YEAR_04: Scenario[] = [
         label: "Stay and ship what you promised",
         outcome: {
           text:
-            "You finish the roadmap while the transfer window closes. Your director notices — the one person who didn't chase the shiny thing. That reputation compounds quietly, like a bond ladder made of trust.",
+            "You ship while the transfer window closes. Your director notices the one person who didn't chase the shiny thing — that trust compounds.",
           effect: { netWorth: 65_000, burnout: 5 },
           next: "y5-bigtech-staffpacket",
         },
@@ -81,7 +81,7 @@ export const YEAR_04: Scenario[] = [
         label: "Do both — day job plus 20% on the AI team",
         outcome: {
           text:
-            "The '20% project' is 40% and everyone knows it. You're visible in two orgs and asleep in neither. Your calendar looks like a merge conflict. Both teams would fight to keep you, which is the plan.",
+            "The '20% project' is 40% and everyone knows it. You're visible in two orgs and asleep in neither.",
           effect: { netWorth: 80_000, burnout: 30 },
           next: "y5-bigtech-staffpacket",
         },
@@ -95,34 +95,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-bigtech-handcuffs",
     headline: "The Empty Manager Chair",
     text:
-      "Your manager leaves for a startup and the director offers you the chair 'on an interim basis' — the corporate phrase for 'prove it for free.' The team is watching. The other candidate is the guy who schedules meetings about meetings.",
+      "Your manager quits and the director offers you the chair 'on an interim basis' — corporate for 'prove it for free.' The other candidate schedules meetings about meetings.",
     choices: [
       {
         id: "take-em-role",
-        label: "Take the chair — someone has to protect this team",
+        label: "Take the chair — protect the team",
         outcome: {
           text:
-            "'Interim' lasts four months, then the title sticks. You spend your days shielding the team from the org and your evenings missing the compiler. Management: the art of being tired in a different way.",
+            "'Interim' lasts four months, then the title sticks. Management: the art of being tired in a different way.",
           effect: { netWorth: 70_000, burnout: 15, title: "Engineering Manager" },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "recruit-own-boss",
-        label: "Decline — then hand-pick your next boss yourself",
+        label: "Decline — hand-pick your next boss",
         outcome: {
           text:
-            "You interview every EM candidate 'informally' and steer the offer to the one who asks about the team's health before its velocity. Best hire you never made officially. The meeting-scheduler guy remains at large.",
+            "You 'informally' vet every EM candidate and steer the offer to the one who asks about team health. Best hire you never officially made.",
           effect: { netWorth: 62_000, burnout: 0 },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "interim-then-back",
-        label: "Try it interim — with a written escape hatch back to IC",
+        label: "Try it interim — with an IC escape hatch",
         outcome: {
           text:
-            "Four months of calendar Tetris confirm the hypothesis: you love building things and merely tolerate humans in aggregate. You exercise the escape clause with zero shame and a priceless new empathy for every manager you'll ever have.",
+            "Four months of calendar Tetris confirm it: you love building and merely tolerate humans in aggregate. You take the escape hatch with zero shame.",
           effect: { netWorth: 66_000, burnout: 10, title: "Senior SWE (Returned IC)" },
           next: "y5-bigtech-staffpacket",
         },
@@ -137,34 +137,34 @@ export const YEAR_04: Scenario[] = [
     age: 25,
     headline: "The 400-Application Gauntlet",
     text:
-      "Turns out the job market read the same macro news as your old CEO. Every posting has 3,000 applicants, half the recruiters are also laid off, and 'we went with another candidate' is the new good morning. Your severance is evaporating.",
+      "The job market read the same macro news as your old CEO. Every posting has 3,000 applicants, 'we went with another candidate' is the new good morning, and your severance is evaporating.",
     choices: [
       {
         id: "downlevel",
-        label: "Take the down-level offer at a boring, stable company",
+        label: "Take the down-level at a boring company",
         outcome: {
           text:
-            "Insurance-adjacent enterprise software. The tech stack is old enough to vote, but the paycheck clears and nobody Slacks you on weekends. Your ego files a complaint. Your cortisol writes a thank-you note.",
+            "Insurance-adjacent software on a stack old enough to vote — but the paycheck clears and nobody Slacks you on weekends. Your cortisol sends thanks.",
           effect: { netWorth: 35_000, burnout: 10, title: "SWE II (Again)" },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "crypto-contract",
-        label: "Contract for a chaotic well-funded crypto startup",
+        label: "Contract for a chaotic crypto startup",
         outcome: {
           text:
-            "The pay is absurd, the codebase is a crime scene, and the founder communicates exclusively in voice memos at 2 AM. You stack cash fast and keep your resume open in another tab at all times.",
+            "The pay is absurd, the codebase is a crime scene, and the founder communicates in 2 AM voice memos. You stack cash with your resume open in another tab.",
           effect: { netWorth: 70_000, burnout: 20, title: "Contract Eng (Web3, Regrettably)" },
           next: "y5-rocketship",
         },
       },
       {
         id: "found-from-ashes",
-        label: "Screw it — build the thing you always talked about",
+        label: "Screw it — finally build the thing",
         outcome: {
           text:
-            "Getting laid off was the push you needed. You incorporate a company from your kitchen table, and the fear of dying unemployed becomes a feature roadmap. Nothing motivates like spite.",
+            "You incorporate from your kitchen table, and the fear of dying unemployed becomes a feature roadmap. Nothing motivates like spite.",
           effect: { netWorth: -15_000, burnout: 10, title: "Founder (Post-Layoff)" },
           next: "y5-founder-pmf",
         },
@@ -178,34 +178,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-open-market",
     headline: "Ghosting Season",
     text:
-      "You've done nine final rounds this quarter. Two companies ghosted after the 'team fit dinner.' One sent a rejection addressed to a different candidate's name. Your therapist now starts sessions with 'any word from the fintech one?'",
+      "Nine final rounds this quarter, two ghostings after the 'team fit dinner,' one rejection addressed to someone else. Your therapist opens with 'any word from the fintech one?'",
     choices: [
       {
         id: "spreadsheet-warfare",
-        label: "Go full spreadsheet warfare — treat the search like a sales pipeline",
+        label: "Go spreadsheet warfare on the search",
         outcome: {
           text:
-            "Forty leads, staged follow-ups, conversion metrics. Dehumanizing the process weirdly rehumanizes you — rejections become churn, not verdicts. Week six, the pipeline converts: a solid Senior offer from a company that answered emails.",
+            "Forty leads, staged follow-ups — rejections become churn, not verdicts. Week six, the pipeline converts into a solid Senior offer.",
           effect: { netWorth: 40_000, burnout: 10, title: "Senior SWE (Rehired)" },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "contract-bridge",
-        label: "Take contract work and stop chasing full-time for a while",
+        label: "Take contract work, skip full-time",
         outcome: {
           text:
-            "Three-month contracts at rates that make salaried friends do arithmetic at parties. No promo cycles, no performance reviews, no pretending to care about Q3 OKRs. One client is a rocket-ship startup that keeps hinting at conversion.",
+            "Contract rates that make salaried friends do arithmetic at parties. One client — a rocket-ship startup — keeps hinting at conversion.",
           effect: { netWorth: 55_000, burnout: 10, title: "Contract Engineer" },
           next: "y5-rocketship",
         },
       },
       {
         id: "niche-down",
-        label: "Niche down hard — become 'the payments infrastructure person'",
+        label: "Niche down — become the payments person",
         outcome: {
           text:
-            "You stop being one of 3,000 generalists and become one of twelve people who deeply understand card-network reconciliation. Suddenly recruiters use your first name. Specialization: the cheat code nobody wants to hear about.",
+            "You become one of twelve humans who truly grok card-network reconciliation, and recruiters learn your first name. Specialization: the cheat code.",
           effect: { netWorth: 48_000, burnout: 15, title: "Senior SWE (Payments)" },
           next: "y5-bigtech-staffpacket",
         },
@@ -219,24 +219,24 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-open-market",
     headline: "The Teaching Arc",
     text:
-      "A coding bootcamp offers you a teaching gig while you hunt: decent pay, grateful students, and the strange healing power of explaining closures to someone who actually wants to know. Meanwhile your LeetCode streak guilt-trips you nightly.",
+      "A bootcamp offers a teaching gig while you hunt: decent pay, grateful students, the healing power of explaining closures. Your LeetCode streak guilt-trips you nightly.",
     choices: [
       {
         id: "teach-and-heal",
-        label: "Teach for a while — remember why you liked this",
+        label: "Teach — remember why you liked this",
         outcome: {
           text:
-            "Turns out you love this. Your students ship janky, glorious projects and one cries at graduation. You return to interviewing with your soul re-inflated — and an answer to 'tell me about leadership' that's actually true.",
+            "Your students ship janky, glorious projects and one cries at graduation. You return to interviewing with your soul re-inflated.",
           effect: { netWorth: 25_000, burnout: -15, title: "Instructor & Engineer" },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "leetcode-monk",
-        label: "Decline. Enter LeetCode monk mode — 90 days, 300 problems",
+        label: "Enter LeetCode monk mode — 300 problems",
         outcome: {
           text:
-            "You live in the grind house: two problems before breakfast, mock interviews at lunch, system design before bed. It's joyless and it works — you re-enter Big Tech through the front door with a level bump.",
+            "Two problems before breakfast, mocks at lunch, system design before bed. Joyless, and it works — Big Tech, front door, level bump.",
           effect: { netWorth: 42_000, burnout: 20, title: "Senior SWE @ Big Tech" },
           next: "y5-bigtech-staffpacket",
         },
@@ -246,7 +246,7 @@ export const YEAR_04: Scenario[] = [
         label: "Build your side project in public instead",
         outcome: {
           text:
-            "Daily changelogs, honest metrics, a tiny devoted audience. By month four it makes actual revenue — small, but yours. The job hunt quietly becomes optional, which changes its taste entirely.",
+            "Daily changelogs, honest metrics, a tiny devoted audience — by month four, real revenue. The job hunt quietly becomes optional.",
           effect: { netWorth: 18_000, burnout: 5, title: "Indie Hacker" },
           next: "y5-founder-pmf",
         },
@@ -261,34 +261,34 @@ export const YEAR_04: Scenario[] = [
     age: 25,
     headline: "Default Alive?",
     text:
-      "Month four of founding. You've pivoted twice, your landing page has 11 signups (6 are you), and your savings graph looks like a ski slope. Time to pick a survival strategy.",
+      "Month four of founding: two pivots, 11 signups (6 are you), and a savings graph shaped like a ski slope. Pick a survival strategy.",
     choices: [
       {
         id: "apply-yc",
-        label: "Apply to YC with maximum confidence and minimum traction",
+        label: "Apply to YC on vibes and zero traction",
         outcome: {
           text:
-            "Against all odds — you're in. The interview was 9 minutes and one partner just stared. You move to a shared house with four other founders and learn to say 'we're crushing it' with a straight face.",
+            "Against all odds, you're in — the interview was 9 minutes and one partner just stared. You learn to say 'we're crushing it' with a straight face.",
           effect: { netWorth: 5_000, burnout: 15, title: "YC Founder" },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "bootstrap-boring",
-        label: "Bootstrap something boring — B2B SaaS for dentists",
+        label: "Bootstrap boring — B2B SaaS for dentists",
         outcome: {
           text:
-            "No TechCrunch headline will ever mention you, but dentists pay invoices on time. $4K MRR and climbing. Your VC friends call it a 'lifestyle business' the way people call a house a 'starter home.'",
+            "No TechCrunch headline, but dentists pay invoices on time — $4K MRR and climbing. Your VC friends call it a 'lifestyle business.'",
           effect: { netWorth: 20_000, burnout: 10, title: "Bootstrapped Founder" },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "crawl-back",
-        label: "Crawl back to Big Tech before the gap year becomes a gap decade",
+        label: "Crawl back to Big Tech",
         outcome: {
           text:
-            "You tell the interviewer the startup 'taught you ownership.' They nod knowingly. The re-badge photo captures a person who has Seen Things. Your first paycheck feels like a warm bath.",
+            "You tell the interviewer the startup 'taught you ownership,' and they nod knowingly. Your first paycheck feels like a warm bath.",
           effect: { netWorth: 55_000, burnout: 5, title: "Senior SWE @ Big Tech" },
           achievement: "boomerang",
           next: "y5-bigtech-staffpacket",
@@ -303,34 +303,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-founder-garage",
     headline: "Cofounder Dating",
     text:
-      "Everyone says 'don't found alone,' so you've been cofounder dating: a sales guy who says 'rocket ship' unironically, your best friend from college, and a stranger from a matching site whose calendar is suspiciously empty. Choosing wrong costs years. So does choosing nothing.",
+      "Cofounder dating: a sales guy who says 'rocket ship' unironically, your college best friend, and a stranger with a suspiciously empty calendar. Choosing wrong costs years. So does choosing nothing.",
     choices: [
       {
         id: "solo-anyway",
         label: "Found alone. You've met your options",
         outcome: {
           text:
-            "You do everything: code, sales, and arguing with yourself in the mirror for board practice. It's slower and lonelier — but every equity point is yours, and there's nobody to fight with except the compiler.",
+            "You do everything: code, sales, board practice against the mirror. Slower and lonelier — but every equity point is yours.",
           effect: { netWorth: 10_000, burnout: 20, title: "Solo Founder" },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "take-sales-guy",
-        label: "Take the sales guy — you can't sell and he can't code. Perfect",
+        label: "Take the sales guy — he sells, you code",
         outcome: {
           text:
-            "He closes your first three customers off a demo held together with tape, and you grudgingly admit the 'rocket ship' guy is the reason there's revenue. You still veto his tweet drafts, chief product decision of the year.",
+            "He closes three customers off a demo held together with tape — the 'rocket ship' guy is why revenue exists. You still veto his tweet drafts.",
           effect: { netWorth: 18_000, burnout: 10, title: "Cofounder & CTO" },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "best-friend-5050",
-        label: "50/50 with your best friend, handshake and all",
+        label: "Go 50/50 with your best friend",
         outcome: {
           text:
-            "Working with your best friend is the best thing that's ever happened to the company and a slow-motion gamble with the friendship. You write the awkward 'what if this goes bad' doc anyway. Adults now. Technically.",
+            "Best thing to ever happen to the company; slow-motion gamble with the friendship. You write the 'what if this goes bad' doc anyway.",
           effect: { netWorth: 8_000, burnout: 10, title: "Cofounder & CTO" },
           next: "y5-founder-pmf",
         },
@@ -344,34 +344,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-founder-garage",
     headline: "The First Check",
     text:
-      "An angel offers your first real check — $200K on a SAFE with a cap so low your lawyer friend does a spit-take. He also wants 'weekly involvement' and once described himself as a 'micro-VC macro-thinker.' The bank balance says listen.",
+      "An angel offers $200K on a SAFE with a cap that makes your lawyer friend spit-take. He wants 'weekly involvement' and calls himself a 'micro-VC macro-thinker.' The bank balance says listen.",
     choices: [
       {
         id: "take-the-check",
         label: "Take it. Oxygen now, dilution later",
         outcome: {
           text:
-            "The wire hits and payroll exists now. So do the Monday 'jam sessions' where he shares screenshots of competitors and asks 'thoughts?' You mute strategically. Runway: extended. Cap table: scarred but alive.",
+            "The wire hits and payroll exists — so do Monday 'jam sessions' of competitor screenshots. Runway: extended. Cap table: scarred but alive.",
           effect: { netWorth: 25_000, burnout: 15 },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "revenue-instead",
-        label: "Pass — grind to revenue and keep the cap table clean",
+        label: "Pass — grind to revenue instead",
         outcome: {
           text:
-            "You close three customers on discounted annual prepays instead — worse money, infinitely better bosses. The cap table stays pristine, a fact future-you will toast at every subsequent negotiation.",
+            "You close three discounted annual prepays instead — worse money, infinitely better bosses. The pristine cap table pays for itself later.",
           effect: { netWorth: 15_000, burnout: 15, title: "Bootstrapped Founder" },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "accelerator-abroad",
-        label: "Join a foreign accelerator with a stipend and a stage",
+        label: "Join a foreign accelerator instead",
         outcome: {
           text:
-            "Three months in a European program: modest stipend, brutal mentor feedback, and a demo day in a converted cathedral. You come home with an international customer and opinions about espresso.",
+            "Three months in Europe: modest stipend, brutal mentors, demo day in a converted cathedral. You come home with a customer and opinions about espresso.",
           effect: { netWorth: 8_000, burnout: 10 },
           next: "y5-founder-pmf",
         },
@@ -386,34 +386,34 @@ export const YEAR_04: Scenario[] = [
     age: 25,
     headline: "Scaling Pains",
     text:
-      "Series A money hits the account and the founder's first move is renting an office with a neon sign that says 'Do Epic Sh*t.' Headcount triples in a quarter. Half your job is now interviews, and the other half is apologizing for the codebase you wrote in year one.",
+      "Series A hits and the founder rents an office with a neon 'Do Epic Sh*t' sign. Half your job is now interviews; the other half is apologizing for the codebase you wrote in year one.",
     choices: [
       {
         id: "hire-fast",
-        label: "Hire fast and become a real VP with real reports",
+        label: "Hire fast — become a real VP",
         outcome: {
           text:
-            "Fifteen direct reports, three of whom are 'senior to you in years but not in title,' which goes great. You stop writing code entirely and start writing Notion docs about writing code. Management: it's meetings all the way down.",
+            "Fifteen reports, three of them 'senior to you in years but not in title.' You stop writing code and start writing Notion docs about writing code.",
           effect: { netWorth: 30_000, burnout: 25 },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "stay-hands-on",
-        label: "Stay hands-on and let them hire a VP above you",
+        label: "Stay hands-on — let them hire a VP",
         outcome: {
           text:
-            "The new VP arrives from a company 100x your size and immediately schedules a meeting called 'Process.' You keep shipping while he builds his 'org philosophy' deck. The code respects you. That's what matters. Right?",
+            "The new VP's first act is a meeting called 'Process.' You keep shipping — the code respects you, and that's what matters. Right?",
           effect: { netWorth: 25_000, burnout: 10, title: "Principal Eng (De Facto)" },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "parlay-title",
-        label: "Parlay the startup title into a rocket-ship gig",
+        label: "Parlay the title into a rocket-ship gig",
         outcome: {
           text:
-            "Turns out 'VP of Engineering' on a resume opens doors even when the team was five people. The hottest pre-IPO company in the Valley hires you to lead a team, and your equity packet has a number that makes you close the laptop slowly.",
+            "'VP of Engineering' opens doors even when the team was five people. The rocket ship's equity packet makes you close the laptop slowly.",
           effect: { netWorth: 60_000, burnout: 10, title: "Eng Lead @ Rocket Ship" },
           next: "y5-rocketship",
         },
@@ -427,34 +427,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-startup-scale",
     headline: "The 409A Awakening",
     text:
-      "Post-Series-A paperwork reveals what your options are 'worth,' and the spreadsheet requires several assumptions, two of which are load-bearing fantasies. The founder offers a comp conversation. You've been reading about how this works. He knows you've been reading.",
+      "The 409A reveals what your options are 'worth' — a spreadsheet with two load-bearing fantasies. The founder offers a comp conversation, and he knows you've been reading.",
     choices: [
       {
         id: "negotiate-hard",
-        label: "Negotiate hard — comps, benchmarks, the whole memo",
+        label: "Negotiate hard — bring the whole memo",
         outcome: {
           text:
-            "You arrive with market data and leave with a raise, a refresh, and the founder's grudging respect. 'You've been talking to someone.' Yes: the internet, where the salaries are public now. Welcome to the new meta.",
+            "You arrive with market data and leave with a raise and a refresh. 'You've been talking to someone' — yes, the internet, where salaries are public now.",
           effect: { netWorth: 45_000, burnout: 10 },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "accept-graciously",
-        label: "Accept the standard refresh and keep the peace",
+        label: "Accept the refresh, keep the peace",
         outcome: {
           text:
-            "You take the offer as given and stay the founder's easiest conversation. It buys goodwill you can't put in a bank — and leaves money there instead. Both facts will matter later, in opposite directions.",
+            "You stay the founder's easiest conversation, buying goodwill you can't bank — and leaving money there instead. Both facts will matter later.",
           effect: { netWorth: 25_000, burnout: 5 },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "salary-for-equity",
-        label: "Trade salary for more equity — you're here for the upside",
+        label: "Trade salary for more equity",
         outcome: {
           text:
-            "You take a pay cut for a bigger slice, a bet your landlord does not co-sign. If this works, it's the best trade of your life. If it doesn't, it's a very expensive lesson in the phrase 'preferred stock.'",
+            "A pay cut for a bigger slice — a bet your landlord does not co-sign. If it fails, it's an expensive lesson in the phrase 'preferred stock.'",
           effect: { netWorth: 5_000, burnout: 10 },
           next: "y5-startup-seriesb",
         },
@@ -468,34 +468,34 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-startup-scale",
     headline: "The Monolith You Built",
     text:
-      "The codebase you heroically wrote in year one is now the thing every new hire complains about in their first week. The deploy takes 40 minutes, the tests are 'aspirational,' and someone just used the word 'legacy' about code you wrote at 23.",
+      "The codebase you heroically wrote in year one is now every new hire's first complaint. The deploy takes 40 minutes, and someone just called code you wrote at 23 'legacy.'",
     choices: [
       {
         id: "lead-the-rewrite",
-        label: "Lead the great rewrite yourself — your mess, your mop",
+        label: "Lead the rewrite — your mess, your mop",
         outcome: {
           text:
-            "Nine months of strangler-fig migration while the feature roadmap breathes down your neck. You emerge with a system that new hires compliment — not knowing they're complimenting your apology. Deeply satisfying either way.",
+            "Nine months of strangler-fig migration later, new hires compliment a system that is secretly your apology. Deeply satisfying either way.",
           effect: { netWorth: 30_000, burnout: 25, title: "Principal Eng (Redemption Arc)" },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "duct-tape-velocity",
-        label: "Defend the monolith — duct tape and ship features",
+        label: "Defend the monolith — duct tape and ship",
         outcome: {
           text:
-            "'It's not legacy, it's proven,' you say, patching around the cracks while sales keeps selling. The company grows faster than the code rots — barely. Somewhere a future engineer curses your name. They'll understand someday.",
+            "'It's not legacy, it's proven,' you say, patching cracks while sales keeps selling. Somewhere a future engineer curses your name.",
           effect: { netWorth: 35_000, burnout: 15 },
           next: "y5-startup-seriesb",
         },
       },
       {
         id: "hire-consultants",
-        label: "Bring in the fancy consultants to 'assess the architecture'",
+        label: "Hire fancy consultants to 'assess'",
         outcome: {
           text:
-            "Six weeks and a shocking invoice later, their deck recommends... exactly what you'd been saying, but in Helvetica. The founder finally listens because it costs money now. You cite this event in every future argument.",
+            "Six weeks and a shocking invoice later, their deck recommends exactly what you'd been saying — but in Helvetica, so the founder finally listens.",
           effect: { netWorth: 20_000, burnout: 10 },
           next: "y5-startup-seriesb",
         },
@@ -509,36 +509,36 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-bigtech-handcuffs",
     headline: "The Phantom Offer",
     text:
-      "Refresher season, and the grapevine says the comp committee only opens the big budget for flight risks. You don't have a competing offer. You could imply one — carefully, deniably, over coffee with your manager. Comp poker with cards you don't hold. What could possibly go wrong.",
+      "Rumor says the comp committee only opens the big budget for flight risks. You have no competing offer — but you could imply one, deniably, over coffee. Comp poker with cards you don't hold.",
     choices: [
       {
         id: "sign-standard",
-        label: "Sign the standard refresher — bluffing is for poker night",
+        label: "Sign standard — bluffing is for poker",
         outcome: {
           text:
-            "You take the standard grant and keep your integrity un-audited. The money is genuinely good; the what-if is genuinely small. Some pots aren't worth the tell.",
+            "You take the standard grant and keep your integrity un-audited. Some pots aren't worth the tell.",
           effect: { netWorth: 90_000, burnout: 10 },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "imply-the-offer",
-        label: "Imply a competing offer — 'exploring options' over coffee",
+        label: "Imply a competing offer over coffee",
         gamble: [
           {
             chance: 0.55,
-            label: "Comp committee blinks — massive retention refresh",
+            label: "Committee blinks — massive refresh",
             text:
-              "The phrase 'exploring options' travels from coffee to comp committee in 72 hours, returning as a refresh 40% over standard 'to reflect your market position.' Your market position was a latte and good posture. Poker: won.",
+              "'Exploring options' reaches the comp committee in 72 hours and returns as a refresh 40% over standard. Your market position was a latte and good posture.",
             effect: { netWorth: 120_000, burnout: 10 },
             achievement: "big-bonus",
             next: "y5-bigtech-staffpacket",
           },
           {
             chance: 0.45,
-            label: "'We wish you the best' — now you actually have to leave",
+            label: "'We wish you the best' — bluff called",
             text:
-              "Your manager, unexpectedly zen: 'If you've got something better, take it — we'll backfill.' The bluff has no cards behind it, so you scramble to make one real. The rocket ship's recruiter, thankfully, still answers. Dignity: singed. Trajectory: rerouted.",
+              "Your manager, unexpectedly zen: 'If you've got something better, take it.' You scramble to make the bluff real — thankfully the rocket ship still answers.",
             effect: { netWorth: 45_000, burnout: 20, title: "Senior Eng @ Rocket Ship" },
             next: "y5-rocketship",
           },
@@ -553,27 +553,27 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-open-market",
     headline: "Two Doors, One Résumé",
     text:
-      "The gauntlet finally produces two offers on the same Friday: a boring insurer with a pension and a seed startup as employee #4 with equity that's either a future down payment or future wallpaper. Your severance runs out in three weeks. The doors are open. Pick.",
+      "Two offers on one Friday: a boring insurer with a pension, or seed-startup employee #4 with equity that's either a down payment or wallpaper. Severance runs out in three weeks.",
     choices: [
       {
         id: "insurer-door",
-        label: "Take the insurer — pensions are punk rock now",
+        label: "Take the insurer — pensions are punk rock",
         outcome: {
           text:
-            "You choose the company whose product is literally managing risk, which feels thematically correct after this year. The work is calm, the checks clear, and 'boring' turns out to be a luxury good.",
+            "You pick the company whose literal product is managing risk, which feels thematically correct. 'Boring' turns out to be a luxury good.",
           effect: { netWorth: 35_000, burnout: 5, title: "Senior SWE (Insured)" },
           next: "y5-bigtech-staffpacket",
         },
       },
       {
         id: "startup-door",
-        label: "Take the seed startup — employee #4, equity heavy",
+        label: "Take the seed startup — employee #4",
         gamble: [
           {
             chance: 0.25,
             label: "It's a rocket — early seat on a real one",
             text:
-              "Eight months in, the startup's growth chart goes vertical and a Tier-1 fund preempts the A. Employee #4 at a breakout company — the seat everyone claims they'd have taken. You actually took it, mid-layoff, on your last three weeks of severance. Legend behavior.",
+              "Eight months in, growth goes vertical and a Tier-1 fund preempts the A. You took the seat everyone claims they would have — mid-layoff. Legend behavior.",
             effect: { netWorth: 55_000, burnout: 10, title: "Founding Eng (Early & Right)" },
             next: "y5-rocketship",
           },
@@ -581,7 +581,7 @@ export const YEAR_04: Scenario[] = [
             chance: 0.75,
             label: "It dies in 8 months — back to the market",
             text:
-              "The seed round was the last round. The startup winds down politely before its first birthday, and you're back in the gauntlet — with a better story and thinner savings. The equity wallpaper isn't even printed.",
+              "The seed round was the last round. You're back in the gauntlet with a better story, thinner savings, and equity wallpaper that never got printed.",
             effect: { netWorth: 10_000, burnout: 20 },
             next: "y5-bigtech-staffpacket",
           },
@@ -596,35 +596,35 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-founder-garage",
     headline: "Five Months of Runway",
     text:
-      "The current idea has polite users and impolite growth. A customer interview accidentally revealed a much bigger adjacent problem — but chasing it means throwing away eight months of code and restarting the clock with five months of runway. The sunk cost fallacy has never felt less like a fallacy.",
+      "Your idea has polite users and impolite growth, and a customer interview just exposed a much bigger adjacent problem. Chasing it means torching eight months of code on five months of runway.",
     choices: [
       {
         id: "persist-current",
-        label: "Persist — eight months of learning has to compound",
+        label: "Persist — the learning has to compound",
         outcome: {
           text:
-            "You keep grinding the original idea, and the polite users slowly become paying users. It's not a rocket; it's a staircase. Staircases, notably, also go up.",
+            "The polite users slowly become paying users. It's not a rocket, it's a staircase — and staircases also go up.",
           effect: { netWorth: 15_000, burnout: 15 },
           next: "y5-founder-pmf",
         },
       },
       {
         id: "hard-pivot",
-        label: "Hard pivot — bet the runway on the bigger problem",
+        label: "Hard pivot — bet on the bigger problem",
         gamble: [
           {
             chance: 0.45,
             label: "The new idea catches instantly",
             text:
-              "The pivot lands like it was always the plan: three design partners in a month, inbound from a market that actually pulls. Eight months of dead code becomes tuition. The graveyard of your repos has one more stone and zero regrets.",
+              "The pivot lands like it was always the plan: three design partners in a month and a market that pulls. Eight months of dead code becomes tuition.",
             effect: { netWorth: 30_000, burnout: 10 },
             next: "y5-founder-pmf",
           },
           {
             chance: 0.55,
-            label: "Three months lost — worse off than before",
+            label: "Three months lost — worse off now",
             text:
-              "The bigger problem turns out to have bigger incumbents, and the pivot burns three of your five months learning why. You limp back toward the original idea humbled and lighter. The sunk cost fallacy sends its regards.",
+              "The bigger problem has bigger incumbents, and you burn three of five months learning why. The sunk cost fallacy sends its regards.",
             effect: { netWorth: -20_000, burnout: 20 },
             next: "y5-founder-pmf",
           },
@@ -639,14 +639,14 @@ export const YEAR_04: Scenario[] = [
     slot: "y4-startup-scale",
     headline: "The 10x Candidate",
     text:
-      "Into your hiring pipeline walks a legitimate legend: shipped systems you've studied, references that say 'genius' — and two that say 'genius, but.' The 'but' has stories. He'd cost both your open headcounts and reshape the team either into a rocket or a crater. The safe alternative: two solid mid-levels who will definitely, boringly, deliver.",
+      "A legend enters your pipeline: systems you've studied, references that say 'genius' — and two that say 'genius, but.' He costs both open headcounts; the safe pick is two solid mid-levels.",
     choices: [
       {
         id: "two-solids",
-        label: "Hire the two solid mid-levels — teams beat heroes",
+        label: "Hire two solid mids — teams beat heroes",
         outcome: {
           text:
-            "The two arrive, gel, and grind the backlog down like weather eroding a mountain. Nothing about it makes a good story, which is the highest compliment infrastructure hiring can earn.",
+            "They arrive, gel, and grind the backlog down like weather eroding a mountain. Nothing about it makes a good story — the highest compliment in hiring.",
           effect: { netWorth: 28_000, burnout: 10 },
           next: "y5-startup-seriesb",
         },
@@ -657,17 +657,17 @@ export const YEAR_04: Scenario[] = [
         gamble: [
           {
             chance: 0.5,
-            label: "He carries the roadmap — the 'but' stays dormant",
+            label: "The 'but' stays dormant — he ships",
             text:
-              "The legend ships the entire Q3 roadmap by mid-August and rewrites your worst subsystem as a warm-up. The 'but' surfaces only as strong opinions about tabs. Your bet becomes the hire other founders ask you about at dinners.",
+              "He ships the entire Q3 roadmap by mid-August; the 'but' surfaces only as strong opinions about tabs. Other founders ask about this hire at dinners.",
             effect: { netWorth: 45_000, burnout: 5 },
             next: "y5-startup-seriesb",
           },
           {
             chance: 0.5,
-            label: "The 'but' arrives — two good engineers quit",
+            label: "The 'but' arrives — two engineers quit",
             text:
-              "The genius is real and so are the stories: steamrolled design reviews, midnight rewrites of teammates' merged code, and two resignation letters that both cite 'team dynamics.' You exit him by Q4, slower and wiser. References that say 'but' mean but.",
+              "Steamrolled reviews, midnight rewrites of merged code, two resignations citing 'team dynamics.' References that say 'but' mean but.",
             effect: { netWorth: 10_000, burnout: 25 },
             next: "y5-startup-seriesb",
           },
