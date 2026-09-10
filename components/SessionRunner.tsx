@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo, useRef } from "react";
-import { useRouter } from "next/navigation";
 import type { Exercise, Grade, SessionState } from "@/lib/types";
 import { CONTENT } from "@/content";
 import { ProgressBar, Button, Card, Pill } from "./ui";
@@ -15,21 +14,31 @@ function exKey(e: Exercise, blockIndex: number, done: number): string {
 }
 
 export function SessionRunner({ session }: { session: SessionState }) {
-  const router = useRouter();
   const block = session.blocks[session.blockIndex];
   const isTest = block?.kind === "weeklyTest";
 
-  // track active time
+  // Track active time: tick often, pause when the tab is hidden, and flush what is
+  // left when the component unmounts so short sessions are not logged as zero.
   const lastTick = useRef(Date.now());
   useEffect(() => {
-    lastTick.current = Date.now();
-    const id = setInterval(() => {
+    const flush = () => {
       const now = Date.now();
       const delta = now - lastTick.current;
       lastTick.current = now;
-      if (!document.hidden && delta < 120000) A.addElapsed(delta);
-    }, 15000);
-    return () => clearInterval(id);
+      if (!document.hidden && delta > 0 && delta < 120000) A.addElapsed(delta);
+    };
+    lastTick.current = Date.now();
+    const id = setInterval(flush, 5000);
+    const onVisibility = () => {
+      if (document.hidden) flush();
+      else lastTick.current = Date.now();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisibility);
+      flush();
+    };
   }, []);
 
   const totals = useMemo(() => {
@@ -37,10 +46,6 @@ export function SessionRunner({ session }: { session: SessionState }) {
     const done = session.blocks.reduce((a, b) => a + b.done, 0);
     return { all, done };
   }, [session]);
-
-  useEffect(() => {
-    if (session.finished) router.replace("/?done=1");
-  }, [session.finished, router]);
 
   if (!block || session.finished) return null;
   const ex = block.queue[block.done];
@@ -302,7 +307,6 @@ export function SessionRunner({ session }: { session: SessionState }) {
           type="button"
           onClick={() => {
             A.finishSession();
-            router.replace("/?done=1");
           }}
           className="text-sm text-muted hover:underline"
         >
@@ -310,15 +314,5 @@ export function SessionRunner({ session }: { session: SessionState }) {
         </button>
       </div>
     </div>
-  );
-}
-
-export function NoSession() {
-  return (
-    <Card className="flex flex-col gap-4 text-center">
-      <h1 className="text-xl font-bold">אין סשן פעיל</h1>
-      <p className="text-muted">חזור למסך היום כדי להתחיל את התרגול היומי.</p>
-      <Button onClick={() => (window.location.href = "/")}>למסך היום</Button>
-    </Card>
   );
 }

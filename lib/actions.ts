@@ -108,7 +108,7 @@ export function finishSession() {
 
 // ---------- vocabulary ----------
 
-export function reviewVocab(wordId: string, grade: Grade, exercise?: Exercise) {
+export function reviewVocab(wordId: string, grade: Grade) {
   update((s) => {
     const ses = s.session;
     const day = ses?.day ?? today();
@@ -117,9 +117,6 @@ export function reviewVocab(wordId: string, grade: Grade, exercise?: Exercise) {
     if (ses) {
       ses.stats.reviews += 1;
       if (grade >= 2) ses.stats.reviewsCorrect += 1;
-    }
-    if (exercise && exercise.kind === "vocabSpeak") {
-      // nothing else
     }
   });
 }
