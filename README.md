@@ -26,6 +26,23 @@ npm test             # מנוע + ולידציה של התוכן
 npm run typecheck
 ```
 
+## פרסום ב-GitHub Pages
+
+האתר מתפרסם לענף `gh-pages`, וצריך לכוון את Pages אליו **פעם אחת**:
+
+**Settings → Pages → Source: Deploy from a branch → Branch: `gh-pages` → `/ (root)` → Save**
+
+אחרי זה האתר חי בכתובת `https://<שם-המשתמש>.github.io/app/`.
+בלי ההגדרה הזאת GitHub מציג את קובץ ה-README כאתר, כי אין לו שום דבר אחר להגיש.
+
+לעדכון האתר אחרי שינוי בקוד:
+
+```bash
+npm run deploy       # בונה ודוחף את התוצאה ל-gh-pages
+```
+
+האתר מוגש מתוך תת-נתיב (`/app/`), ולכן הבנייה מקבלת `NEXT_PUBLIC_BASE_PATH`. בפיתוח מקומי המשתנה ריק והכול רץ מהשורש.
+
 ## מה יש בפנים
 
 | רכיב | כמות |
