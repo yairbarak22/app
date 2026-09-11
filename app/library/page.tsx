@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAppState, useHydrated } from "@/lib/store";
 import { CONTENT } from "@/content";
 import { Card, Pill, En, Hint, Button } from "@/components/ui";
+import { Speak, SpeakLine } from "@/components/Speak";
 import * as A from "@/lib/actions";
 import { dayIndex } from "@/engine/days";
 
@@ -71,8 +72,9 @@ export default function LibraryPage() {
           const isOpen = open === w.id;
           return (
             <div key={w.id} className="bg-card border border-line rounded-2xl overflow-hidden">
-              <button type="button" onClick={() => setOpen(isOpen ? null : w.id)} className="w-full flex items-center gap-3 px-4 py-3 text-start hover:bg-paper">
+              <button type="button" onClick={() => setOpen(isOpen ? null : w.id)} className="w-full flex items-center gap-2 px-4 py-3 text-start hover:bg-paper">
                 <En className="text-base font-semibold flex-1">{w.word}</En>
+                <Speak text={w.word} size="sm" />
                 <span className="text-sm text-muted flex-1 text-end">{w.he}</span>
                 {known.has(w.id) ? (
                   <Pill tone="neutral">מוכרת</Pill>
@@ -87,7 +89,7 @@ export default function LibraryPage() {
                   <En className="text-base text-muted">{w.def}</En>
                   <div className="flex flex-col gap-1">
                     {w.examples.map((e, i) => (
-                      <En key={i} className="text-base">{e}</En>
+                      <SpeakLine key={i} text={e} className="text-base" />
                     ))}
                   </div>
                   {w.collocations?.length ? (

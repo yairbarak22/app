@@ -4,6 +4,8 @@ import type { GrammarItem, GrammarTopic, InterferenceTrap } from "@/lib/types";
 import { Button, Card, En, Feedback, Hint, Options, Pill, TextAnswer, useEnter, useNumberKeys } from "./ui";
 import { grade as gradeAnswer, gradeOrder } from "@/engine/grader";
 import { rng, shuffle } from "@/engine/rng";
+import { SpeakLine, useAutoSpeak } from "./Speak";
+import { sentenceFromGapPrompt } from "@/lib/speech";
 
 export function GrammarLesson({ topic, onDone }: { topic: GrammarTopic; onDone: () => void }) {
   useEnter(onDone);
@@ -26,7 +28,7 @@ export function GrammarLesson({ topic, onDone }: { topic: GrammarTopic; onDone: 
           {l.form.map((f, i) => (
             <div key={i} className={`flex gap-3 px-3 py-2 text-sm ${i % 2 ? "bg-paper" : "bg-card"}`}>
               <div className="w-40 shrink-0 font-semibold text-muted">{f.label}</div>
-              <En className="text-base flex-1">{f.example}</En>
+              <SpeakLine text={f.example} className="flex-1" slow={false} />
             </div>
           ))}
         </div>
@@ -37,7 +39,7 @@ export function GrammarLesson({ topic, onDone }: { topic: GrammarTopic; onDone: 
         <ul className="flex flex-col gap-2">
           {l.examples.map((e, i) => (
             <li key={i} className="rounded-xl bg-paper border border-line px-3 py-2">
-              <En className="text-base font-medium">{e.en}</En>
+              <SpeakLine text={e.en} className="text-base font-medium" />
               <div className="text-sm text-muted">{e.he}</div>
             </li>
           ))}
@@ -61,7 +63,7 @@ export function GrammarLesson({ topic, onDone }: { topic: GrammarTopic; onDone: 
           {l.commonErrors.map((e, i) => (
             <li key={i} className="rounded-xl border border-line p-3">
               <En className="text-base text-bad line-through decoration-bad/50">{e.wrong}</En>
-              <En className="text-base text-ok font-semibold">{e.right}</En>
+              <SpeakLine text={e.right} className="text-base text-ok font-semibold" />
               <div className="text-sm text-muted mt-1">{e.whyHe}</div>
             </li>
           ))}
@@ -123,6 +125,14 @@ export function GrammarItemEx({
     item.type === "mcq" ? item.options[item.answerIndex].text : item.type === "order" ? item.answer : item.answer;
   const explain = item.type === "mcq" && chosen !== null && chosen !== item.answerIndex && item.options[chosen].whyHe ? item.options[chosen].whyHe! : item.explainHe;
 
+  // What the learner should hear: the whole sentence, not the bare answer word.
+  const fullSentence =
+    item.type === "gap"
+      ? sentenceFromGapPrompt(item.prompt, item.answer)
+      : item.type === "mcq"
+        ? sentenceFromGapPrompt(item.prompt, item.options[item.answerIndex].text)
+        : correctText;
+  useAutoSpeak(fullSentence, !!result);
   useEnter(result ? () => onDone(result.ok) : null);
 
   return (
@@ -215,7 +225,7 @@ export function GrammarItemEx({
         <>
           <Feedback ok={result.ok} typo={result.typo}>
             <div className="flex flex-col gap-2">
-              <En className="text-base font-bold">{correctText}</En>
+              <SpeakLine text={fullSentence} className="text-base font-bold" />
               <div>{explain}</div>
             </div>
           </Feedback>

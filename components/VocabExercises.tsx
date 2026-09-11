@@ -3,6 +3,8 @@ import { useState } from "react";
 import type { VocabItem, ChunkItem, Grade } from "@/lib/types";
 import { Button, Card, En, Feedback, Hint, Options, Pill, TextAnswer, useCountdown, useEnter, TimerRing } from "./ui";
 import { grade as gradeAnswer } from "@/engine/grader";
+import { Speak, SpeakLine, useAutoSpeak } from "./Speak";
+import { fillBlank } from "@/lib/speech";
 
 function TrapNote({ text }: { text?: string }) {
   if (!text) return null;
@@ -17,15 +19,19 @@ function TrapNote({ text }: { text?: string }) {
 export function WordCard({ word }: { word: VocabItem }) {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-baseline gap-3 flex-wrap">
+      <div className="flex items-baseline gap-2 flex-wrap">
         <En big className="font-bold">{word.word}</En>
+        <Speak text={word.word} label="השמע את המילה" />
+        <Speak text={word.word} slow size="sm" />
         <Pill>{{ n: "שם עצם", v: "פועל", adj: "תואר", adv: "תואר פועל", phr: "ביטוי", prep: "מילת יחס", conj: "מילת קישור", other: "" }[word.pos]}</Pill>
       </div>
       <div className="text-xl font-semibold">{word.he}</div>
       <En className="text-muted text-base">{word.def}</En>
       <ul className="flex flex-col gap-1.5 border-r-2 border-line pr-3">
         {word.examples.map((e, i) => (
-          <En key={i} className="text-base">{e}</En>
+          <li key={i}>
+            <SpeakLine text={e} className="text-base" />
+          </li>
         ))}
       </ul>
       {word.collocations?.length ? (
@@ -40,6 +46,7 @@ export function WordCard({ word }: { word: VocabItem }) {
 }
 
 export function VocabMeet({ word, onDone }: { word: VocabItem; onDone: () => void }) {
+  useAutoSpeak(word.word);
   useEnter(onDone);
   return (
     <Card className="anim-rise flex flex-col gap-4">
@@ -59,12 +66,16 @@ export function VocabMcqEx({ word, options, answerIndex, onDone }: { word: Vocab
   return (
     <Card className="anim-rise flex flex-col gap-4">
       <div className="text-sm text-muted">מה הפירוש של המילה?</div>
-      <En big className="font-bold">{word.word}</En>
+      <div className="flex items-center gap-2">
+        <En big className="font-bold">{word.word}</En>
+        <Speak text={word.word} />
+        <Speak text={word.word} slow size="sm" />
+      </div>
       <Options options={options} chosen={chosen} answerIndex={answerIndex} onChoose={setChosen} ltr={false} />
       {done && (
         <>
           <Feedback ok={chosen === answerIndex}>
-            <En className="text-base">{word.examples[0]}</En>
+            <SpeakLine text={word.examples[0]} className="text-base" />
           </Feedback>
           <Button onClick={() => onDone(chosen === answerIndex ? 2 : 0)} autoFocus>
             הבא
@@ -82,6 +93,8 @@ export function VocabClozeEx({ word, onDone, isTest }: { word: VocabItem; onDone
   const [hint, setHint] = useState(false);
   const submit = () => setResult(gradeAnswer(value, answer, word.accept, { mode: "grammar" }));
   useEnter(result ? () => onDone(result.ok ? (result.typo ? 1 : 2) : 0) : null);
+  const full = fillBlank(word.cloze, answer);
+  useAutoSpeak(full, !!result);
   const parts = word.cloze.split("___");
   return (
     <Card className="anim-rise flex flex-col gap-4">
@@ -104,7 +117,7 @@ export function VocabClozeEx({ word, onDone, isTest }: { word: VocabItem; onDone
         <>
           <Feedback ok={result.ok} typo={result.typo}>
             <div className="flex flex-col gap-2">
-              <En className="text-base font-semibold">{word.cloze.replace("___", answer)}</En>
+              <SpeakLine text={full} className="text-base font-semibold" />
               <div>{word.he} — <span className="en inline-block">{word.def}</span></div>
               {word.trap && <div className="text-sm">{word.trap}</div>}
             </div>
@@ -122,6 +135,7 @@ export function VocabProduceEx({ word, onDone }: { word: VocabItem; onDone: (g: 
   const [value, setValue] = useState("");
   const [result, setResult] = useState<{ ok: boolean; typo: boolean } | null>(null);
   const submit = () => setResult(gradeAnswer(value, word.word, word.accept, { mode: "vocab" }));
+  useAutoSpeak(word.word, !!result);
   useEnter(result ? () => onDone(result.ok ? (result.typo ? 1 : 2) : 0) : null);
   return (
     <Card className="anim-rise flex flex-col gap-4">
@@ -133,8 +147,8 @@ export function VocabProduceEx({ word, onDone }: { word: VocabItem; onDone: (g: 
         <>
           <Feedback ok={result.ok} typo={result.typo}>
             <div className="flex flex-col gap-2">
-              <En className="text-lg font-bold">{word.word}</En>
-              <En className="text-base">{word.examples[0]}</En>
+              <SpeakLine text={word.word} className="text-lg font-bold" />
+              <SpeakLine text={word.examples[0]} className="text-base" />
             </div>
           </Feedback>
           <Button onClick={() => onDone(result.ok ? (result.typo ? 1 : 2) : 0)} autoFocus>
@@ -151,6 +165,8 @@ export function VocabCollocEx({ word, onDone }: { word: VocabItem; onDone: (g: G
   const [chosen, setChosen] = useState<number | null>(null);
   const answerIndex = c.options.indexOf(c.answer);
   const done = chosen !== null;
+  const full = fillBlank(c.frame, c.answer);
+  useAutoSpeak(full, done);
   useEnter(done ? () => onDone(chosen === answerIndex ? 2 : 0) : null);
   const parts = c.frame.split("___");
   return (
@@ -164,7 +180,12 @@ export function VocabCollocEx({ word, onDone }: { word: VocabItem; onDone: (g: G
       <Options options={c.options} chosen={chosen} answerIndex={answerIndex} onChoose={setChosen} />
       {done && (
         <>
-          <Feedback ok={chosen === answerIndex}>{c.whyHe ?? word.trap ?? `הצירוף הנכון: ${c.frame.replace("___", c.answer)}`}</Feedback>
+          <Feedback ok={chosen === answerIndex}>
+            <div className="flex flex-col gap-2">
+              <SpeakLine text={full} className="text-base font-semibold" />
+              <div>{c.whyHe ?? word.trap ?? ""}</div>
+            </div>
+          </Feedback>
           <Button onClick={() => onDone(chosen === answerIndex ? 2 : 0)} autoFocus>
             הבא
           </Button>
@@ -181,8 +202,9 @@ export function VocabSpeakEx({ word, onDone }: { word: VocabItem; onDone: (g: Gr
     <Card className="anim-rise flex flex-col gap-4">
       <Pill tone="brand">דיבור</Pill>
       <div className="text-sm text-muted">אמור בקול משפט משלך עם המילה:</div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <En big className="font-bold flex-1">{word.word}</En>
+        <Speak text={word.word} />
         {phase === "speak" && <TimerRing left={left} total={25} />}
       </div>
       <div className="text-lg">{word.he}</div>
@@ -194,8 +216,8 @@ export function VocabSpeakEx({ word, onDone }: { word: VocabItem; onDone: (g: Gr
         <>
           <div className="rounded-xl bg-paper border border-line p-4 flex flex-col gap-2">
             <div className="text-sm text-muted">משפטים לדוגמה:</div>
-            <En className="text-base">{word.examples[0]}</En>
-            <En className="text-base">{word.examples[1]}</En>
+            <SpeakLine text={word.examples[0]} className="text-base" />
+            <SpeakLine text={word.examples[1]} className="text-base" />
           </div>
           <Hint>האם המשפט שאמרת היה נכון וטבעי?</Hint>
           <div className="grid grid-cols-3 gap-2">
@@ -214,15 +236,20 @@ export function VocabSpeakEx({ word, onDone }: { word: VocabItem; onDone: (g: Gr
 }
 
 export function ChunkMeetEx({ chunk, onDone }: { chunk: ChunkItem; onDone: () => void }) {
+  useAutoSpeak(chunk.text);
   useEnter(onDone);
   return (
     <Card className="anim-rise flex flex-col gap-4">
       <Pill tone="brand">ביטוי חדש לדיבור</Pill>
-      <En big className="font-bold">{chunk.text}</En>
+      <div className="flex items-center gap-2">
+        <En big className="font-bold flex-1">{chunk.text}</En>
+        <Speak text={chunk.text} />
+        <Speak text={chunk.text} slow size="sm" />
+      </div>
       <div className="text-xl font-semibold">{chunk.he}</div>
       <Hint>{chunk.useHe}</Hint>
       <div className="rounded-xl bg-paper border border-line p-3">
-        <En className="text-base">{chunk.example}</En>
+        <SpeakLine text={chunk.example} className="text-base" />
       </div>
       <Hint>אמור את הביטוי בקול 3 פעמים, ואז משפט משלך איתו.</Hint>
       <Button onClick={onDone} autoFocus>
@@ -236,6 +263,7 @@ export function ChunkProduceEx({ chunk, onDone }: { chunk: ChunkItem; onDone: (g
   const [value, setValue] = useState("");
   const [result, setResult] = useState<{ ok: boolean; typo: boolean } | null>(null);
   const submit = () => setResult(gradeAnswer(value, chunk.text, [], { mode: "vocab" }));
+  useAutoSpeak(chunk.text, !!result);
   useEnter(result ? () => onDone(result.ok ? (result.typo ? 1 : 2) : 0) : null);
   return (
     <Card className="anim-rise flex flex-col gap-4">
@@ -247,8 +275,8 @@ export function ChunkProduceEx({ chunk, onDone }: { chunk: ChunkItem; onDone: (g
         <>
           <Feedback ok={result.ok} typo={result.typo}>
             <div className="flex flex-col gap-2">
-              <En className="text-lg font-bold">{chunk.text}</En>
-              <En className="text-base">{chunk.example}</En>
+              <SpeakLine text={chunk.text} className="text-lg font-bold" />
+              <SpeakLine text={chunk.example} className="text-base" />
             </div>
           </Feedback>
           <Button onClick={() => onDone(result.ok ? (result.typo ? 1 : 2) : 0)} autoFocus>

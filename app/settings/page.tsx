@@ -4,6 +4,7 @@ import { useAppState, useHydrated, getState } from "@/lib/store";
 import { Card, Button, Hint } from "@/components/ui";
 import * as A from "@/lib/actions";
 import { CONTENT } from "@/content";
+import { SpeechSettings } from "@/components/SpeechSettings";
 
 export default function SettingsPage() {
   const state = useAppState();
@@ -60,6 +61,8 @@ export default function SettingsPage() {
           </Hint>
         </label>
       </Card>
+
+      <SpeechSettings />
 
       <Card className="flex flex-col gap-3">
         <h2 className="font-bold">גיבוי הנתונים</h2>

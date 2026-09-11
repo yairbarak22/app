@@ -296,6 +296,12 @@ export function setSettings(patch: Partial<AppState["settings"]>) {
   });
 }
 
+export function setSpeech(patch: Partial<AppState["settings"]["speech"]>) {
+  update((s) => {
+    s.settings = { ...s.settings, speech: { ...s.settings.speech, ...patch } };
+  });
+}
+
 export function exportJson(s: AppState): string {
   return JSON.stringify(s, null, 2);
 }

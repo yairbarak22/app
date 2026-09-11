@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import type { OralTranslation, SpeakingPrompt, QASet, RetellStory, ReadAloudScript, ChunkItem, InterferenceTrap } from "@/lib/types";
 import { Button, Card, En, Hint, Pill, Scale, TimerRing, useCountdown, useEnter } from "./ui";
 import { scanText, type ScanResult } from "@/engine/errorScan";
+import { Speak, SpeakLine, useAutoSpeak } from "./Speak";
 
 type Rating = { fluency: number; accuracy: number; coverage: number };
 
@@ -27,6 +28,7 @@ function SelfRating({ onDone, coverageLabel = "השתמשתי במילים וב�
 export function OralTranslateEx({ item, onDone }: { item: OralTranslation; onDone: (mark: 0 | 1 | 2) => void }) {
   const [revealed, setRevealed] = useState(false);
   const left = useCountdown(5, !revealed, () => setRevealed(true));
+  useAutoSpeak(item.en, revealed);
   return (
     <Card className="anim-rise flex flex-col gap-4">
       <div className="flex items-center justify-between">
@@ -41,9 +43,9 @@ export function OralTranslateEx({ item, onDone }: { item: OralTranslation; onDon
       ) : (
         <>
           <div className="rounded-xl bg-ok-soft border border-ok/25 p-4 flex flex-col gap-1">
-            <En className="text-lg font-bold">{item.en}</En>
+            <SpeakLine text={item.en} className="text-lg font-bold" />
             {item.alt?.map((a, i) => (
-              <En key={i} className="text-base text-muted">{a}</En>
+              <SpeakLine key={i} text={a} className="text-base text-muted" />
             ))}
           </div>
           <div className="grid grid-cols-3 gap-2">
@@ -93,7 +95,10 @@ export function MonologueEx({ prompt, chunks, onDone }: { prompt: SpeakingPrompt
               <div className="text-sm text-muted mb-1">מילים לשלב בדיבור:</div>
               <div className="flex flex-wrap gap-2">
                 {prompt.keywords.map((k) => (
-                  <span key={k} className="en rounded-lg bg-card border border-line px-2 py-1 text-sm">{k}</span>
+                  <span key={k} className="inline-flex items-center gap-1 rounded-lg bg-card border border-line px-2 py-1 text-sm">
+                    <span className="en inline-block">{k}</span>
+                    <Speak text={k} size="sm" />
+                  </span>
                 ))}
               </div>
             </div>
@@ -103,9 +108,10 @@ export function MonologueEx({ prompt, chunks, onDone }: { prompt: SpeakingPrompt
                 {chunkTexts.map((c) => {
                   const info = chunks.find((x) => x.text === c);
                   return (
-                    <span key={c} className="rounded-lg bg-brand-soft border border-brand/20 px-2 py-1 text-sm">
+                    <span key={c} className="inline-flex items-center gap-1 rounded-lg bg-brand-soft border border-brand/20 px-2 py-1 text-sm">
                       <span className="en inline-block font-semibold">{c}</span>
                       {info && <span className="text-muted"> — {info.he}</span>}
+                      <Speak text={c} size="sm" />
                     </span>
                   );
                 })}
@@ -150,7 +156,13 @@ export function MonologueEx({ prompt, chunks, onDone }: { prompt: SpeakingPrompt
       {phase === "model" && (
         <>
           <div className="rounded-xl bg-paper border border-line p-4">
-            <div className="text-sm text-muted mb-2">תשובה לדוגמה — קרא אותה בקול פעם אחת:</div>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="text-sm text-muted">תשובה לדוגמה — האזן לה ואז קרא אותה בקול:</div>
+              <span className="flex shrink-0">
+                <Speak text={prompt.model} label="השמע את התשובה לדוגמה" />
+                <Speak text={prompt.model} slow size="sm" />
+              </span>
+            </div>
             <En className="text-base leading-relaxed">{prompt.model}</En>
           </div>
           <Button onClick={() => setPhase("rate")}>קראתי — לדירוג</Button>
@@ -168,6 +180,7 @@ export function QuickfireEx({ set, onDone }: { set: QASet; onDone: (r: Rating) =
   const [phase, setPhase] = useState<"q" | "rate">("q");
   const q = set.questions[i];
   const left = useCountdown(8, phase === "q" && !revealed, () => setRevealed(true));
+  useAutoSpeak(q.model, revealed && phase === "q");
   const next = () => {
     if (i + 1 >= set.questions.length) setPhase("rate");
     else {
@@ -192,8 +205,9 @@ export function QuickfireEx({ set, onDone }: { set: QASet; onDone: (r: Rating) =
           {i + 1} / {set.questions.length}
         </span>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <En big className="flex-1">{q.q}</En>
+        <Speak text={q.q} label="השמע את השאלה" />
         {!revealed && <TimerRing left={left} total={8} />}
       </div>
       <Hint>ענה בקול במשפט שלם, מיד.</Hint>
@@ -205,7 +219,7 @@ export function QuickfireEx({ set, onDone }: { set: QASet; onDone: (r: Rating) =
         <>
           <div className="rounded-xl bg-ok-soft border border-ok/25 p-4">
             <div className="text-sm text-muted mb-1">תשובה טבעית לדוגמה:</div>
-            <En className="text-base">{q.model}</En>
+            <SpeakLine text={q.model} className="text-base" />
           </div>
           <Button onClick={next} autoFocus>
             {i + 1 >= set.questions.length ? "לדירוג" : "השאלה הבאה"}
@@ -231,8 +245,12 @@ export function RetellEx({ story, onDone }: { story: RetellStory; onDone: (r: Ra
       {phase === "read" && (
         <>
           <div className="flex justify-between items-start gap-4">
-            <Hint>קרא את הסיפור פעם אחת בקול, בקצב נורמלי. אחר כך הוא ייעלם.</Hint>
-            <TimerRing left={readLeft} total={60} />
+            <Hint>קרא את הסיפור פעם אחת בקול, בקצב נורמלי. אפשר גם להאזין לו קודם. אחר כך הוא ייעלם.</Hint>
+            <div className="flex items-center gap-1 shrink-0">
+              <Speak text={story.text} label="השמע את הסיפור" />
+              <Speak text={story.text} slow size="sm" />
+              <TimerRing left={readLeft} total={60} />
+            </div>
           </div>
           <En className="text-base leading-relaxed">{story.text}</En>
           <Button onClick={() => setPhase("speak")}>קראתי — הסתר וספר מחדש</Button>
@@ -247,7 +265,10 @@ export function RetellEx({ story, onDone }: { story: RetellStory; onDone: (r: Ra
           </div>
           <div className="flex flex-wrap gap-2">
             {story.keywords.map((k) => (
-              <span key={k} className="en rounded-lg bg-brand-soft border border-brand/20 px-3 py-1.5 font-semibold">{k}</span>
+              <span key={k} className="inline-flex items-center gap-1 rounded-lg bg-brand-soft border border-brand/20 px-3 py-1.5 font-semibold">
+                <span className="en inline-block">{k}</span>
+                <Speak text={k} size="sm" />
+              </span>
             ))}
           </div>
           <Button variant="secondary" onClick={() => setPhase("check")}>
@@ -270,13 +291,15 @@ export function RetellEx({ story, onDone }: { story: RetellStory; onDone: (r: Ra
                 <span className={`mt-0.5 w-5 h-5 shrink-0 rounded-md border grid place-items-center text-xs ${checked[i] ? "bg-ok border-ok text-white" : "border-line"}`}>
                   {checked[i] ? "✓" : ""}
                 </span>
-                <En className="text-base flex-1">{p}</En>
+                <span className="en flex-1 text-base">{p}</span>
               </button>
             ))}
           </div>
           <details className="rounded-xl border border-line p-3">
             <summary className="cursor-pointer text-sm font-semibold">הצג את הסיפור המקורי</summary>
-            <En className="text-base leading-relaxed mt-2">{story.text}</En>
+            <div className="mt-2">
+              <SpeakLine text={story.text} className="text-base leading-relaxed" />
+            </div>
           </details>
           <Button onClick={() => setPhase("rate")}>המשך לדירוג</Button>
         </>
@@ -325,6 +348,11 @@ export function ReadAloudEx({ script, onDone }: { script: ReadAloudScript; onDon
             עצור קצרות בכל <span className="text-line font-bold">|</span> והדגש את המילים <strong className="text-brand">המודגשות</strong>. יעד: כ־{target} שניות
             ({script.words} מילים, כ־140 מילים לדקה).
           </Hint>
+          <div className="flex items-center gap-2 rounded-xl bg-brand-soft border border-brand/20 px-3 py-2">
+            <span className="text-sm font-semibold flex-1">האזן קודם, ואז חקה את הקצב וההטעמה</span>
+            <Speak text={script.text} label="השמע את הקטע" />
+            <Speak text={script.text} slow size="sm" />
+          </div>
           <div className="rounded-xl bg-paper border border-line p-4">
             <ScriptText text={script.text} />
           </div>
@@ -440,9 +468,10 @@ export function SpeakWriteEx({
                   <En className="text-base my-1">…{iss.match}…</En>
                   <div className="text-sm">{iss.explainHe}</div>
                   {iss.right && (
-                    <div className="text-sm mt-1">
+                    <div className="text-sm mt-1 flex items-center gap-1 flex-wrap">
                       <span className="text-muted">כך אומרים: </span>
                       <span className="en inline-block font-semibold">{iss.right}</span>
+                      <Speak text={iss.right} size="sm" />
                     </div>
                   )}
                 </div>
@@ -468,7 +497,9 @@ export function SpeakWriteEx({
 
           <details className="rounded-xl border border-line p-3">
             <summary className="cursor-pointer text-sm font-semibold">השווה לתשובה לדוגמה</summary>
-            <En className="text-base leading-relaxed mt-2">{prompt.model}</En>
+            <div className="mt-2">
+              <SpeakLine text={prompt.model} className="text-base leading-relaxed" />
+            </div>
           </details>
 
           {phase === "feedback" ? (

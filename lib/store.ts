@@ -8,7 +8,7 @@ export function defaultState(): AppState {
   return {
     version: 1,
     createdAt: new Date().toISOString(),
-    settings: { minutes: 60, newWordsPerDay: 15 },
+    settings: { minutes: 60, newWordsPerDay: 15, speech: { enabled: true, rate: 0.95, slowRate: 0.7, autoplay: true } },
     placementDone: false,
     band: 1,
     vocab: {},
@@ -43,7 +43,11 @@ function load(): AppState {
 
 export function migrate(parsed: Partial<AppState>): AppState {
   const base = defaultState();
-  const s: AppState = { ...base, ...parsed, settings: { ...base.settings, ...(parsed.settings ?? {}) } };
+  const s: AppState = {
+    ...base,
+    ...parsed,
+    settings: { ...base.settings, ...(parsed.settings ?? {}), speech: { ...base.settings.speech, ...(parsed.settings?.speech ?? {}) } },
+  };
   s.version = 1;
   return s;
 }

@@ -239,9 +239,23 @@ export interface DayLog {
   completed: boolean;
 }
 
+export interface SpeechSettings {
+  /** Master switch for the speaker buttons. */
+  enabled: boolean;
+  /** Playback speed, 0.5-1.2. Learners usually want a little under natural pace. */
+  rate: number;
+  /** Speed of the second, slower button next to each sentence. */
+  slowRate: number;
+  /** Chosen system voice; falls back to the best English voice on the device. */
+  voiceURI?: string;
+  /** Speak model answers automatically when they are revealed. */
+  autoplay: boolean;
+}
+
 export interface Settings {
   minutes: number; // daily target (default 60)
   newWordsPerDay: number; // default 15
+  speech: SpeechSettings;
   name?: string;
 }
 
