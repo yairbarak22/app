@@ -1,10 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { CONTENT } from "@/content";
-import { buildSession, sessionMinutes, currentTopic, unlockedTopics } from "./planner";
+import { buildUnitSession, buildReviewSession, sessionMinutes, sessionTotals } from "./planner";
+import { buildCurriculum, chaptersOf, exerciseKey, unitStatus, nextUnit, type Unit } from "./curriculum";
 import { defaultState } from "@/lib/store";
 import type { AppState } from "@/lib/types";
 import { newCard, graduate } from "./srs";
 import { newTopic, updateTopic } from "./mastery";
+
+const UNITS = buildCurriculum(CONTENT);
 
 function fresh(): AppState {
   const s = defaultState();
@@ -15,7 +18,7 @@ function fresh(): AppState {
 
 describe("content integrity", () => {
   it("has the full syllabus", () => {
-    expect(CONTENT.vocab.length).toBeGreaterThan(700);
+    expect(CONTENT.vocab.length).toBeGreaterThan(800);
     expect(CONTENT.topics.length).toBeGreaterThanOrEqual(44);
     expect(CONTENT.oral.length).toBeGreaterThanOrEqual(250);
     expect(CONTENT.chunks.length).toBeGreaterThanOrEqual(90);
@@ -34,100 +37,199 @@ describe("content integrity", () => {
     const ids = new Set(CONTENT.topics.map((t) => t.id));
     for (const t of CONTENT.topics) for (const p of t.prereqs) expect(ids.has(p)).toBe(true);
   });
-  it("at least one topic is unlocked on day one", () => {
-    expect(unlockedTopics(fresh(), CONTENT).length).toBeGreaterThan(0);
+});
+
+describe("curriculum", () => {
+  it("covers every grammar topic exactly once, in teaching order", () => {
+    const taught = UNITS.filter((u) => u.kind === "teach").map((u) => u.topicId);
+    expect(taught).toEqual(CONTENT.topics.map((t) => t.id));
+  });
+  it("mixes in a review unit at a regular rhythm", () => {
+    const reviews = UNITS.filter((u) => u.kind === "review");
+    expect(reviews.length).toBeGreaterThanOrEqual(8);
+    for (const u of reviews) {
+      expect(u.topicId).toBeNull();
+      expect(u.sections.some((s) => s.kind === "lesson")).toBe(false);
+    }
+  });
+  it("teaches every word once and only once", () => {
+    const all = UNITS.flatMap((u) => u.wordIds);
+    expect(new Set(all).size).toBe(all.length);
+    expect(all.length).toBe(CONTENT.vocab.length);
+  });
+  it("introduces easy words before hard ones", () => {
+    const band = (id: string) => CONTENT.vocabById.get(id)!.band;
+    const firstUnitAvg = UNITS[0].wordIds.reduce((a, id) => a + band(id), 0) / UNITS[0].wordIds.length;
+    const lastUnit = UNITS[UNITS.length - 1];
+    const lastAvg = lastUnit.wordIds.reduce((a, id) => a + band(id), 0) / lastUnit.wordIds.length;
+    expect(firstUnitAvg).toBeLessThan(lastAvg);
+  });
+  it("gives every unit a lesson or a review drill, words, speaking and a wrap-up", () => {
+    for (const u of UNITS) {
+      const kinds = u.sections.map((s) => s.kind);
+      expect(kinds).toContain("words");
+      expect(kinds).toContain("drill");
+      expect(kinds).toContain("wrap");
+      expect(u.total).toBeGreaterThan(20);
+      expect(u.minutes).toBeGreaterThan(10);
+      expect(u.minutes).toBeLessThan(90);
+    }
+  });
+  it("targets the oral sentences at the unit's own grammar", () => {
+    const unit = UNITS.find((u) => u.topicId === "g-past-simple")!;
+    const oral = unit.sections.find((s) => s.kind === "oral")!;
+    for (const e of oral.exercises) {
+      const item = CONTENT.oral.find((o) => o.id === (e as { id: string }).id)!;
+      expect(item.topic).toBe("g-past-simple");
+    }
+  });
+  it("is deterministic", () => {
+    expect(JSON.stringify(buildCurriculum(CONTENT))).toBe(JSON.stringify(UNITS));
+  });
+  it("groups units into chapters that keep the unit order", () => {
+    const chapters = chaptersOf(UNITS);
+    expect(chapters.length).toBeGreaterThan(5);
+    expect(chapters.flatMap((c) => c.units.map((u) => u.number))).toEqual(UNITS.map((u) => u.number));
+    for (const c of chapters) expect(c.titleHe.length).toBeGreaterThan(1);
+  });
+  it("uses stable exercise keys", () => {
+    const keys = UNITS[0].sections.flatMap((s) => s.exercises.map(exerciseKey));
+    expect(new Set(keys).size).toBe(keys.length);
+    expect(keys.some((k) => k.startsWith("vocabMeet:"))).toBe(true);
   });
 });
 
-describe("planner", () => {
-  it("builds a first session that fills about the requested time", () => {
-    const s = buildSession(fresh(), CONTENT, 20000, 60);
-    expect(s.blocks.length).toBeGreaterThanOrEqual(4);
-    expect(sessionMinutes(s)).toBeGreaterThanOrEqual(45);
-    expect(sessionMinutes(s)).toBeLessThanOrEqual(75);
+describe("unit progress", () => {
+  const unit: Unit = UNITS[0];
+  const keys = unit.sections.flatMap((s) => s.exercises.map(exerciseKey));
+
+  it("counts nothing for an untouched unit", () => {
+    const st = unitStatus(unit, undefined);
+    expect(st).toMatchObject({ done: 0, percent: 0, state: "new" });
+  });
+  it("counts part of a unit in progress", () => {
+    const st = unitStatus(unit, keys.slice(0, Math.floor(keys.length / 2)));
+    expect(st.state).toBe("started");
+    expect(st.percent).toBeGreaterThan(40);
+    expect(st.percent).toBeLessThan(60);
+  });
+  it("marks a unit done when every exercise is done", () => {
+    expect(unitStatus(unit, keys).state).toBe("done");
+  });
+  it("ignores keys that belong to other units", () => {
+    expect(unitStatus(unit, ["item:does-not-exist", "oral:nope"]).done).toBe(0);
+  });
+  it("offers the first unfinished unit, preferring one already started", () => {
+    const progress: Record<string, { done: string[] }> = {};
+    expect(nextUnit(UNITS, progress).id).toBe(UNITS[0].id);
+    progress[UNITS[0].id] = { done: keys };
+    expect(nextUnit(UNITS, progress).id).toBe(UNITS[1].id);
+    const u3keys = UNITS[2].sections.flatMap((s) => s.exercises.map(exerciseKey));
+    progress[UNITS[2].id] = { done: u3keys.slice(0, 3) };
+    expect(nextUnit(UNITS, progress).id).toBe(UNITS[2].id);
+  });
+});
+
+describe("unit session", () => {
+  it("runs the unit in order and fits a sensible sitting", () => {
+    const s = buildUnitSession(fresh(), CONTENT, UNITS[0], 20000);
+    expect(s.unitId).toBe(UNITS[0].id);
+    expect(s.blocks[0].queue[0].kind).toBe("grammarLesson");
+    expect(sessionMinutes(s)).toBeGreaterThan(15);
+    expect(sessionMinutes(s)).toBeLessThan(80);
     expect(s.blocks.every((b) => b.queue.length > 0)).toBe(true);
   });
-  it("introduces new words with meet -> recognize -> cloze", () => {
-    const s = buildSession(fresh(), CONTENT, 20000, 60);
-    const nw = s.blocks.find((b) => b.kind === "newWords")!;
-    expect(nw.queue.filter((e) => e.kind === "vocabMeet").length).toBeGreaterThan(0);
-    expect(nw.queue.filter((e) => e.kind === "vocabMcq").length).toBeGreaterThan(0);
-    expect(nw.queue.filter((e) => e.kind === "vocabCloze").length).toBeGreaterThan(0);
+  it("skips what the learner already finished in that unit", () => {
+    const state = fresh();
+    const unit = UNITS[0];
+    const keys = unit.sections.flatMap((s) => s.exercises.map(exerciseKey));
+    state.units[unit.id] = { done: keys.slice(0, 30) };
+    const s = buildUnitSession(state, CONTENT, unit, 20000);
+    expect(sessionTotals(s).all).toBe(unit.total - 30);
   });
-  it("starts with a lesson for the first topic, then drills it", () => {
-    const s = buildSession(fresh(), CONTENT, 20000, 60);
-    const g = s.blocks.find((b) => b.kind === "grammarMain")!;
-    expect(g.queue[0].kind).toBe("grammarLesson");
-    expect(g.queue.filter((e) => e.kind === "grammarItem").length).toBeGreaterThan(3);
+  it("can restart a finished unit from the beginning", () => {
+    const state = fresh();
+    const unit = UNITS[0];
+    state.units[unit.id] = { done: unit.sections.flatMap((s) => s.exercises.map(exerciseKey)) };
+    expect(sessionTotals(buildUnitSession(state, CONTENT, unit, 20000)).all).toBe(0);
+    expect(sessionTotals(buildUnitSession(state, CONTENT, unit, 20000, { restart: true })).all).toBe(unit.total);
   });
-  it("is deterministic for the same day and different across days", () => {
-    const a = buildSession(fresh(), CONTENT, 20000, 60);
-    const b = buildSession(fresh(), CONTENT, 20000, 60);
-    const c = buildSession(fresh(), CONTENT, 20001, 60);
-    expect(JSON.stringify(a.blocks)).toBe(JSON.stringify(b.blocks));
-    expect(JSON.stringify(a.blocks)).not.toBe(JSON.stringify(c.blocks));
-  });
-  it("shrinks gracefully when the learner has less time", () => {
-    const full = buildSession(fresh(), CONTENT, 20000, 60);
-    const short = buildSession(fresh(), CONTENT, 20000, 15);
-    expect(sessionMinutes(short)).toBeLessThan(sessionMinutes(full));
-    expect(short.blocks.length).toBeGreaterThan(0);
-    // reviews and grammar survive the cut
-    expect(short.blocks.some((b) => b.kind === "grammarMain")).toBe(true);
-  });
-  it("schedules the weekly test on Saturday", () => {
-    const s = fresh();
-    const day = 20000; // a Saturday if (day+4)%7===6
-    const sat = day + ((6 - ((day + 4) % 7) + 7) % 7);
-    s.topics["g-past-simple"] = updateTopic(newTopic(), true, false, sat - 1, "g-past-simple-01");
-    const session = buildSession(s, CONTENT, sat, 60);
-    expect(session.blocks.some((b) => b.kind === "weeklyTest")).toBe(true);
-    expect(session.blocks.some((b) => b.kind === "newWords")).toBe(false);
-  });
-  it("puts due reviews in the warm-up", () => {
-    const s = fresh();
+  it("puts due reviews in front of the new material without counting them in the unit", () => {
+    const state = fresh();
     const w = CONTENT.vocab[0];
-    s.vocab[w.id] = graduate(newCard(19990), true, 19990);
-    const session = buildSession(s, CONTENT, 20000, 60);
-    const warm = session.blocks.find((b) => b.kind === "warmup")!;
-    expect(warm.queue.some((e) => "wordId" in e && e.wordId === w.id)).toBe(true);
+    state.vocab[w.id] = graduate(newCard(19990), true, 19990);
+    const s = buildUnitSession(state, CONTENT, UNITS[1], 20000);
+    expect(s.blocks[0].kind).toBe("warmup");
+    expect(s.blocks[0].queue.some((e) => "wordId" in e && e.wordId === w.id)).toBe(true);
   });
-  it("drills the traps found in the learner's own writing", () => {
-    const s = fresh();
+  it("is deterministic for a given unit and day", () => {
+    const a = buildUnitSession(fresh(), CONTENT, UNITS[3], 20000);
+    const b = buildUnitSession(fresh(), CONTENT, UNITS[3], 20000);
+    expect(JSON.stringify(a.blocks)).toBe(JSON.stringify(b.blocks));
+  });
+});
+
+describe("review session", () => {
+  it("has something to do even on a fresh account", () => {
+    const s = buildReviewSession(fresh(), CONTENT, 20000);
+    expect(s.unitId).toBeNull();
+    expect(s.blocks.length).toBeGreaterThan(0);
+  });
+  it("reviews due cards and weak topics", () => {
+    const state = fresh();
+    const w = CONTENT.vocab[5];
+    state.vocab[w.id] = graduate(newCard(19990), true, 19990);
+    state.topics["g-past-simple"] = { ...updateTopic(newTopic(), false, false, 19990, "x"), due: 0 };
+    const s = buildReviewSession(state, CONTENT, 19998); // a Wednesday, not the test day
+    expect(s.blocks.some((b) => b.kind === "warmup")).toBe(true);
+    expect(s.blocks.some((b) => b.kind === "grammarReview")).toBe(true);
+  });
+  it("drills the traps caught in the learner's own writing", () => {
+    const state = fresh();
     if (!CONTENT.traps.length) return;
-    s.trapHits[CONTENT.traps[0].id] = 2;
-    const session = buildSession(s, CONTENT, 20000, 60);
-    const review = session.blocks.find((b) => b.kind === "grammarReview")!;
-    expect(review.queue.some((e) => e.kind === "trapItem")).toBe(true);
+    state.trapHits[CONTENT.traps[0].id] = 2;
+    state.topics["g-past-simple"] = { ...updateTopic(newTopic(), false, false, 19990, "x"), due: 0 };
+    const s = buildReviewSession(state, CONTENT, 19998);
+    expect(s.blocks.some((b) => b.queue.some((e) => e.kind === "trapItem"))).toBe(true);
   });
-  it("advances through topics as they are learned", () => {
-    const s = fresh();
-    const first = currentTopic(s, CONTENT)!;
-    for (let i = 0; i < 12; i++) s.topics[first.id] = updateTopic(s.topics[first.id] ?? newTopic(), true, false, 1, `x${i}`);
-    const next = currentTopic(s, CONTENT)!;
-    expect(next.id).not.toBe(first.id);
+  it("becomes a mixed test on Saturday", () => {
+    const state = fresh();
+    state.topics["g-past-simple"] = updateTopic(newTopic(), true, false, 19990, "x");
+    const sat = 20000 + ((6 - ((20000 + 4) % 7) + 7) % 7);
+    const s = buildReviewSession(state, CONTENT, sat);
+    expect(s.blocks.some((b) => b.kind === "weeklyTest")).toBe(true);
   });
 });
 
 describe("session termination", () => {
   it("re-queues a missed exercise once, so a session always ends", () => {
-    const s = fresh();
-    const session = buildSession(s, CONTENT, 20000, 60);
-    const b = session.blocks[1];
+    const s = buildUnitSession(fresh(), CONTENT, UNITS[0], 20000);
+    const b = s.blocks[0];
     const before = b.queue.length;
     const ex = b.queue[0];
     const key = JSON.stringify(ex);
-    // simulate the requeue rule from lib/actions.advance
-    const requeue = (block: typeof b, e: typeof ex) => {
-      block.done += 1;
+    const requeue = (blk: typeof b, e: typeof ex) => {
+      blk.done += 1;
       const k = JSON.stringify(e);
-      if (!block.retried.includes(k)) {
-        block.retried.push(k);
-        block.queue.splice(Math.min(block.queue.length, block.done + 6), 0, e);
+      if (!blk.retried.includes(k)) {
+        blk.retried.push(k);
+        blk.queue.splice(Math.min(blk.queue.length, blk.done + 6), 0, e);
       }
     };
     for (let i = 0; i < 50; i++) requeue(b, ex);
     expect(b.retried).toEqual([key]);
     expect(b.queue.length).toBe(before + 1);
+  });
+});
+
+describe("unit sizing", () => {
+  it("keeps every unit roughly the same size", () => {
+    const sizes = UNITS.map((u) => u.wordIds.length);
+    expect(Math.max(...sizes) - Math.min(...sizes)).toBeLessThanOrEqual(1);
+    const totals = UNITS.map((u) => u.total);
+    expect(Math.max(...totals)).toBeLessThan(Math.min(...totals) * 1.6);
+  });
+  it("still teaches the whole word bank", () => {
+    expect(UNITS.flatMap((u) => u.wordIds).length).toBe(CONTENT.vocab.length);
   });
 });

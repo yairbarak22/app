@@ -16,7 +16,7 @@ export default function SessionPage() {
     if (!state.placementDone) router.replace("/placement/");
     // A session ends inside the runner (last exercise, or "finish now"); the summary
     // lives on the Today screen, so leave the session screen as soon as it is done.
-    else if (noSession) router.replace(session?.finished ? "/?done=1" : "/");
+    else if (noSession) router.replace(session?.finished ? `/?done=1${session.unitId ? `&unit=${session.unitId}` : ""}` : "/");
   }, [hydrated, state.placementDone, noSession, session?.finished, router]);
 
   if (!hydrated) return <div className="text-muted">טוען…</div>;

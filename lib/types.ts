@@ -259,6 +259,13 @@ export interface Settings {
   name?: string;
 }
 
+export interface UnitProgress {
+  /** Stable keys of the exercises already completed in this unit. */
+  done: string[];
+  startedAt?: string;
+  completedAt?: string;
+}
+
 export interface AppState {
   version: 1;
   createdAt: string;
@@ -271,6 +278,8 @@ export interface AppState {
   known: string[]; // vocab ids marked "already known"
   /** interference traps detected in the learner's own writing: trapId -> pending drill count */
   trapHits: Record<string, number>;
+  /** per-unit progress, keyed by unit id */
+  units: Record<string, UnitProgress>;
   /** fluency content usage: content id -> last day used */
   used: Record<string, number>;
   history: DayLog[];
@@ -320,6 +329,8 @@ export interface Block {
 }
 
 export interface SessionState {
+  /** The unit being studied, or null for a pure review session. */
+  unitId: string | null;
   day: number;
   date: string;
   seed: number;

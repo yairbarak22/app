@@ -16,6 +16,7 @@ export function defaultState(): AppState {
     topics: {},
     known: [],
     trapHits: {},
+    units: {},
     used: {},
     history: [],
     session: null,

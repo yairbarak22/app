@@ -8,14 +8,20 @@ import { GrammarLesson, GrammarItemEx, TrapItemEx, isGuessable } from "./Grammar
 import { OralTranslateEx, MonologueEx, QuickfireEx, RetellEx, ReadAloudEx, SpeakWriteEx, DailyRatingEx } from "./FluencyExercises";
 import * as A from "@/lib/actions";
 import { hashString } from "@/engine/rng";
+import { unitById } from "@/lib/curriculum";
+import { unitStatus } from "@/engine/curriculum";
+import { useAppState } from "@/lib/store";
 
 function exKey(e: Exercise, blockIndex: number, done: number): string {
   return `${blockIndex}:${done}:${JSON.stringify(e)}`;
 }
 
 export function SessionRunner({ session }: { session: SessionState }) {
+  const state = useAppState();
   const block = session.blocks[session.blockIndex];
   const isTest = block?.kind === "weeklyTest";
+  const unit = unitById(session.unitId);
+  const unitProgress = unit ? unitStatus(unit, state.units[unit.id]?.done) : null;
 
   // Track active time: tick often, pause when the tab is hidden, and flush what is
   // left when the component unmounts so short sessions are not logged as zero.
@@ -283,6 +289,16 @@ export function SessionRunner({ session }: { session: SessionState }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
+        {unit && unitProgress && (
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div className="font-bold">
+              יחידה {unit.number} · {unit.titleHe}
+            </div>
+            <span className="text-sm text-muted tabular-nums">
+              {unitProgress.done}/{unitProgress.total} ביחידה
+            </span>
+          </div>
+        )}
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <div className="flex items-center gap-2">
             <Pill tone="brand">{block.titleHe}</Pill>

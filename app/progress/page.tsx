@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useAppState, useHydrated } from "@/lib/store";
 import { Card, Pill, ProgressBar, Hint, En } from "@/components/ui";
 import { CONTENT } from "@/content";
+import Link from "next/link";
+import { CURRICULUM, CHAPTERS } from "@/lib/curriculum";
+import { unitStatus } from "@/engine/curriculum";
 import { dayIndex } from "@/engine/days";
 import { isMastered, isLearned, recentAccuracy } from "@/engine/mastery";
 import { isDue, isLeech } from "@/engine/srs";
@@ -55,8 +58,51 @@ export default function ProgressPage() {
   const totalMinutes = state.history.reduce((a, h) => a + h.minutes, 0);
   const masteredCount = CONTENT.topics.filter((t) => state.topics[t.id] && isMastered(state.topics[t.id])).length;
 
+  const unitStatuses = CURRICULUM.map((u) => unitStatus(u, state.units[u.id]?.done));
+  const unitsDone = unitStatuses.filter((s) => s.state === "done").length;
+  const unitsStarted = unitStatuses.filter((s) => s.state === "started").length;
+  const exDone = unitStatuses.reduce((a, s) => a + s.done, 0);
+  const exTotal = unitStatuses.reduce((a, s) => a + s.total, 0);
+
   return (
     <div className="flex flex-col gap-5">
+      <Card className="flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-bold">התקדמות בקורס</h2>
+          <Link href="/units/" className="text-sm text-brand font-semibold hover:underline">
+            תוכן העניינים ←
+          </Link>
+        </div>
+        <ProgressBar value={exDone} max={exTotal} />
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="rounded-xl bg-paper p-3">
+            <div className="text-2xl font-bold tabular-nums">{unitsDone}</div>
+            <div className="text-xs text-muted">יחידות הושלמו</div>
+          </div>
+          <div className="rounded-xl bg-paper p-3">
+            <div className="text-2xl font-bold tabular-nums">{unitsStarted}</div>
+            <div className="text-xs text-muted">באמצע</div>
+          </div>
+          <div className="rounded-xl bg-paper p-3">
+            <div className="text-2xl font-bold tabular-nums">{CURRICULUM.length - unitsDone - unitsStarted}</div>
+            <div className="text-xs text-muted">לפניך</div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-1.5">
+          {CHAPTERS.map((c, i) => {
+            const d = c.units.reduce((a, u) => a + unitStatus(u, state.units[u.id]?.done).done, 0);
+            const t = c.units.reduce((a, u) => a + u.total, 0);
+            return (
+              <div key={`${c.strand}-${i}`} className="flex items-center gap-3">
+                <span className="w-32 shrink-0 text-sm truncate">{c.titleHe}</span>
+                <ProgressBar value={d} max={t} className="flex-1" />
+                <span className="w-10 text-end text-xs tabular-nums text-muted">{Math.round((d / t) * 100)}%</span>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+
       <Card className="flex flex-col gap-3">
         <h1 className="text-xl font-bold">סיכום כללי</h1>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">

@@ -2,7 +2,9 @@
 import { update, replaceState, defaultState } from "./store";
 import type { AppState, Grade, PlacementItem, Band, Exercise, Block } from "./types";
 import { CONTENT } from "@/content";
-import { buildSession } from "@/engine/planner";
+import { buildUnitSession, buildReviewSession } from "@/engine/planner";
+import { CURRICULUM, unitById } from "@/lib/curriculum";
+import { exerciseKey, unitStatus } from "@/engine/curriculum";
 import { newCard, review, graduate, MAX_CHUNK_STAGE } from "@/engine/srs";
 import { newTopic, updateTopic, scheduleTopic } from "@/engine/mastery";
 import { maybeAdvanceBand } from "@/engine/level";
@@ -20,11 +22,22 @@ function currentBlock(s: AppState): Block | null {
 
 // ---------- session lifecycle ----------
 
-export function startSession(minutes?: number) {
+/** Start (or resume) a unit. Exercises already completed in it are skipped. */
+export function startUnit(unitId: string, opts: { restart?: boolean } = {}) {
   update((s) => {
-    const day = today();
-    const mins = minutes ?? s.settings.minutes;
-    s.session = buildSession(s, CONTENT, day, mins);
+    const unit = unitById(unitId);
+    if (!unit) return;
+    if (opts.restart) s.units[unitId] = { ...(s.units[unitId] ?? { done: [] }), done: [], completedAt: undefined };
+    const p = s.units[unitId] ?? { done: [] };
+    s.units[unitId] = { ...p, startedAt: p.startedAt ?? new Date().toISOString() };
+    s.session = buildUnitSession(s, CONTENT, unit, today(), { restart: opts.restart });
+  });
+}
+
+/** Start a review-only sitting: due cards, weak topics, and the Saturday test. */
+export function startReview(minutes?: number) {
+  update((s) => {
+    s.session = buildReviewSession(s, CONTENT, today(), minutes ?? Math.min(30, s.settings.minutes));
   });
 }
 
@@ -40,7 +53,25 @@ export function advance(requeue?: Exercise, offset = 6) {
     const ses = s.session;
     const b = currentBlock(s);
     if (!ses || !b) return;
+    const finished = b.queue[b.done];
     b.done += 1;
+    // Credit the unit only for its own exercises, never for the review warm-up.
+    if (ses.unitId && finished && b.kind !== "warmup") {
+      const unit = unitById(ses.unitId);
+      const key = exerciseKey(finished);
+      if (unit && unit.sections.some((sec) => sec.exercises.some((e) => exerciseKey(e) === key))) {
+        const p = s.units[ses.unitId] ?? { done: [] };
+        if (!p.done.includes(key)) {
+          const done = [...p.done, key];
+          const status = unitStatus(unit, done);
+          s.units[ses.unitId] = {
+            ...p,
+            done,
+            completedAt: status.state === "done" ? (p.completedAt ?? new Date().toISOString()) : p.completedAt,
+          };
+        }
+      }
+    }
     if (requeue) {
       // a missed exercise comes back once, later in the same block, and only once
       const key = JSON.stringify(requeue);
